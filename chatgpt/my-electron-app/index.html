@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ping Command</title>
+</head>
+<body>
+  <h1>Ping 8.8.8.8</h1>
+  <button id="pingButton">Run Ping</button>
+  <pre id="pingOutput"></pre>
+
+  <h1>Ping All</h1>
+  <button id="pingAllButton"></button>
+  <button id="pingAllOutput"></button>
+  
+  <script>
+    const pingButton = document.getElementById('pingButton');
+    const pingOutput = document.getElementById('pingOutput');
+
+    const pingAllButton = document.getElementById('pingAllButton');
+    const pingAllOutput = document.getElementById('pingAllOutput');
+
+    function ping() {
+      
+    }
+
+    pingButton.addEventListener('click', async () => {
+      try {
+        const result = await window.electronAPI.pingCommand();
+        pingOutput.textContent = result;
+      } catch (err) {
+        pingOutput.textContent = 'Error: ' + err;
+      }
+    });
+  </script>
+</body>
+</html>
