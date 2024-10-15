@@ -7,32 +7,24 @@
 </head>
 <body>
   <h1>Ping 8.8.8.8</h1>
-  <button id="pingButton">Run Ping</button>
+  <button onclick="ping()">Run Ping</button>
   <pre id="pingOutput"></pre>
 
-  <h1>Ping All</h1>
-  <button id="pingAllButton"></button>
-  <button id="pingAllOutput"></button>
+  <p id="para"></p>
   
   <script>
-    const pingButton = document.getElementById('pingButton');
     const pingOutput = document.getElementById('pingOutput');
 
-    const pingAllButton = document.getElementById('pingAllButton');
-    const pingAllOutput = document.getElementById('pingAllOutput');
-
-    function ping() {
-      
-    }
-
-    pingButton.addEventListener('click', async () => {
+    async function ping() {
       try {
         const result = await window.electronAPI.pingCommand();
         pingOutput.textContent = result;
       } catch (err) {
         pingOutput.textContent = 'Error: ' + err;
       }
-    });
+    }
   </script>
+
+  <script src="test.js"></script>
 </body>
 </html>
