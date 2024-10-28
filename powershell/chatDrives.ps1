@@ -45,4 +45,5 @@ function Get-Drives {
 	}
 }
 
-# Get-Drives -Mode "specific" -Index 0 -Property "HealthStatus"
+# Get-Drives -Mode "all"
+Get-Drives -Mode "specific" -Index 0 -Property "HealthStatus"

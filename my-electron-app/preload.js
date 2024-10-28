@@ -5,5 +5,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  pingCommand: () => ipcRenderer.invoke('ping-command')
+  pingCommand: () => ipcRenderer.invoke('ping-command'),
+  getDrives: (mode, index, property) => ipcRenderer.invoke('get-drives', mode, index, property)
 });
+

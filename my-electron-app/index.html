@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ping Command</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ping Command</title>
 </head>
 <body>
-  <h1>Ping 8.8.8.8</h1>
-  <button onclick="ping()">Run Ping</button>
-  <pre id="pingOutput"></pre>
+	<h1>Ping 8.8.8.8</h1>
+	<button onclick="ping()">Run Ping</button>
+	<pre id="pingOutput"></pre>
 
-  <p id="para"></p>
+	<p id="para"></p>
+
+  <h1>Your Drives</h1>
+  <button onclick="getMyDrives()">Get Drive Information</button>
+  <p id="drive0"></p>
+  <p id="drive1"></p>
+  <p id="drive2"></p>
+  <p id="drive3"></p>
   
+  <script src="renderer.js"></script>
   <script>
-    const pingOutput = document.getElementById('pingOutput');
-
-    async function ping() {
+    async function getMyDrives() {
+      console.log("Getting Drive Information...");
+  
       try {
-        const result = await window.electronAPI.pingCommand();
-        pingOutput.textContent = result;
-      } catch (err) {
-        pingOutput.textContent = 'Error: ' + err;
+        // Fetch drive information from the PowerShell function
+        const drives = await window.electronAPI.getDrives('all', -1, '');
+        
+        // Parse the response into lines
+        const driveLines = drives.trim().split('\n');
+  
+        // Update each <p> element based on the drive information received
+        driveLines.forEach((driveInfo, index) => {
+          const driveElement = document.getElementById(`drive${index}`);
+          if (driveElement) {
+            driveElement.innerText = driveInfo;
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching drive information:", error);
+        document.getElementById('drive0').innerText = "Error fetching drive information.";
       }
     }
   </script>

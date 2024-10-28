@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
-
 const { exec } = require('child_process');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -66,6 +65,36 @@ ipcMain.handle('ping-command', async (event) => {
         reject(stderr);
       } else {
         resolve(stdout);
+      }
+    });
+  });
+});
+
+
+ipcMain.handle('get-drives', async (event, mode, index, property) => {
+  console.log(`Mode: ${mode}, Index: ${index}, Property: ${property}`); 
+  
+  let psCommand;
+  if (mode === "all") {
+    // Format the output to match "(C:) - Local Disk"
+    psCommand = `Get-Volume | Where-Object { $_.FileSystemLabel -ne 'System Reserved' } | ForEach-Object { if ($_.FileSystemLabel -eq '') { $_.FileSystemLabel = 'Local Disk' } '($($_.DriveLetter):\\) - $($_.FileSystemLabel)' }`;
+  } else if (index >= 0) {
+    // Get a specific drive property, you can modify this if you want to format it too
+    psCommand = `Get-Volume | Select-Object -Index ${index} | ForEach-Object { if ($_.FileSystemLabel -eq '') { $_.FileSystemLabel = 'Local Disk' } '($($_.DriveLetter):\\) - $($_.FileSystemLabel)' }`;
+  } else {
+    return "Invalid parameters.";
+  }
+
+  console.log(`Running command: ${psCommand}`); // Log the command
+
+  return new Promise((resolve, reject) => {
+    exec(`powershell.exe -ExecutionPolicy Bypass -Command "${psCommand}"`, (error, stdout, stderr) => {
+      if (error) {
+        reject(stderr);
+      } else {
+        const output = stdout.trim() || "No Drive Found"; // Ensure output is trimmed
+        console.log("PowerShell Output:", output); // Log the output
+        resolve(output);
       }
     });
   });
