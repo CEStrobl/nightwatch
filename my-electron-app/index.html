@@ -3,12 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
 	<title>Ping Command</title>
 </head>
 <body>
 	<h1>Ping 8.8.8.8</h1>
 	<button onclick="ping()">Run Ping</button>
 	<pre id="pingOutput"></pre>
+
+  <h1>Ping 10.0.0.53</h1>
+	<button onclick="pingNew()">Run Ping</button>
+	<pre id="pingOutputNew"></pre>
 
 	<p id="para"></p>
 
@@ -21,28 +26,6 @@
   
   <script src="renderer.js"></script>
   <script>
-    async function getMyDrives() {
-      console.log("Getting Drive Information...");
-  
-      try {
-        // Fetch drive information from the PowerShell function
-        const drives = await window.electronAPI.getDrives('all', -1, '');
-        
-        // Parse the response into lines
-        const driveLines = drives.trim().split('\n');
-  
-        // Update each <p> element based on the drive information received
-        driveLines.forEach((driveInfo, index) => {
-          const driveElement = document.getElementById(`drive${index}`);
-          if (driveElement) {
-            driveElement.innerText = driveInfo;
-          }
-        });
-      } catch (error) {
-        console.error("Error fetching drive information:", error);
-        document.getElementById('drive0').innerText = "Error fetching drive information.";
-      }
-    }
   </script>
 </body>
 </html>

@@ -9,30 +9,14 @@ async function ping() {
     }
 }
 
-async function getDrives() {
+const pingOutputNew = document.getElementById('pingOutputNew');
+
+async function pingNew() {
     try {
-        // Fetch drive information from the PowerShell function
-        const drives = await window.electronAPI.getDrives('all', -1, 'DriveLetter');
-
-        // Parse the response into lines (assuming drives are separated by line breaks)
-        const driveLines = drives.trim().split('\n');
-
-        // Clear previous drive information
-        for (let i = 0; i < 4; i++) {
-            const driveElement = document.getElementById(`drive${i}`);
-            if (driveElement) {
-                driveElement.innerText = '';  // Clear previous text
-            }
-        }
-
-        // Update each <p> element based on the drive information received
-        driveLines.forEach((driveInfo, index) => {
-            const driveElement = document.getElementById(`drive${index}`);
-            if (driveElement) {
-                driveElement.innerText = driveInfo;
-            }
-        });
-    } catch (error) {
-        console.error("Error fetching drive information:", error);
+        const result = await window.electronAPI.pingNew();
+        pingOutputNew.textContent = result;
+    } catch (err) {
+        pingOutputNew.textContent = 'Error: ' + err;
     }
 }
+
