@@ -1,0 +1,15 @@
+.side-nav{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding: 20px;
+}
+
+.side-nav a{
+	text-decoration: none;
+	color: unset;
+
+	margin: 15px 5px;
+}
+

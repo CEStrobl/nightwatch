@@ -1,0 +1,14 @@
+.card{
+	padding: 10px;
+}
+
+.row-details{
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.row-details div, .row-details h1{
+	padding: 10px;
+	margin: 5px;
+}

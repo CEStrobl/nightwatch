@@ -6,3 +6,17 @@ body{
 
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+.row{
+	display: flex;
+	flex-direction: row;
+}
+
+.column{
+	display:flex;
+	flex-direction: column;
+}
+
+.content{
+	margin: 20px;
+}
