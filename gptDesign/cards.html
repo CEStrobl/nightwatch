@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Information Cards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1b1b1b;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #262626;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            width: 300px;
+        }
+
+        .card h3 {
+            color: #6CFF7C;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .label-highlight .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #3a3a3a;
+        }
+
+        .infographic {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .infographic-icon {
+            font-size: 1.5rem;
+            color: #6CFF7C;
+            margin-right: 10px;
+        }
+
+        .infographic-bar {
+            flex-grow: 1;
+            height: 5px;
+            background-color: #3a3a3a;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+
+        .infographic-bar span {
+            display: block;
+            height: 100%;
+            background-color: #6CFF7C;
+        }
+
+        .simple-card {
+            text-align: center;
+        }
+
+        .simple-card p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        .horizontal-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .horizontal-bar div {
+            text-align: center;
+        }
+
+        .horizontal-bar i {
+            display: block;
+            font-size: 1.5rem;
+            color: #6CFF7C;
+        }
+    </style>
+</head>
+<body>
+    <!-- Card 1: Label Highlight -->
+    <div class="card label-highlight">
+        <h3>Label Highlight</h3>
+        <div class="item"><span>Hostname</span><span>TRIFORCE</span></div>
+        <div class="item"><span>OS</span><span>Windows 10</span></div>
+        <div class="item"><span>Local IP</span><span>10.0.0.53</span></div>
+        <div class="item"><span>Vendor</span><span>Dell</span></div>
+    </div>
+
+    <!-- Card 2: Infographic Style 1 -->
+    <div class="card infographic-style">
+        <h3>Infographic Style</h3>
+        <div class="infographic">
+            <i class="infographic-icon">🖥️</i>
+            <span>Hostname: TRIFORCE</span>
+        </div>
+        <div class="infographic">
+            <i class="infographic-icon">⚙️</i>
+            <span>OS: Windows 10</span>
+        </div>
+        <div class="infographic">
+            <i class="infographic-icon">🌐</i>
+            <span>Local IP: 10.0.0.53</span>
+        </div>
+        <div class="infographic">
+            <i class="infographic-icon">🏭</i>
+            <span>Vendor: Dell</span>
+        </div>
+    </div>
+
+    <!-- Card 3: Infographic Bar -->
+    <div class="card infographic-bar-style">
+        <h3>Infographic with Bars</h3>
+        <div class="infographic">
+            <i class="infographic-icon">🖥️</i>
+            <span>Hostname</span>
+            <div class="infographic-bar"><span style="width: 75%;"></span></div>
+        </div>
+        <div class="infographic">
+            <i class="infographic-icon">⚙️</i>
+            <span>OS</span>
+            <div class="infographic-bar"><span style="width: 85%;"></span></div>
+        </div>
+        <div class="infographic">
+            <i class="infographic-icon">🌐</i>
+            <span>Local IP</span>
+            <div class="infographic-bar"><span style="width: 50%;"></span></div>
+        </div>
+        <div class="infographic">
+            <i class="infographic-icon">🏭</i>
+            <span>Vendor</span>
+            <div class="infographic-bar"><span style="width: 65%;"></span></div>
+        </div>
+    </div>
+
+    <!-- Card 4: Simple Card -->
+    <div class="card simple-card">
+        <h3>Simple Card</h3>
+        <p>🖥️ Hostname: TRIFORCE</p>
+        <p>⚙️ OS: Windows 10</p>
+        <p>🌐 Local IP: 10.0.0.53</p>
+        <p>🏭 Vendor: Dell</p>
+    </div>
+
+    <!-- Card 5: Horizontal Bar -->
+    <div class="card horizontal-bar-style">
+        <h3>Horizontal Icon Bar</h3>
+        <div class="horizontal-bar">
+            <div><i>🖥️</i><span>TRIFORCE</span></div>
+            <div><i>⚙️</i><span>Windows 10</span></div>
+            <div><i>🌐</i><span>10.0.0.53</span></div>
+            <div><i>🏭</i><span>Dell</span></div>
+        </div>
+    </div>
+</body>
+</html>
