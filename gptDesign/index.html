@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Network Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="logo">Dashboard</div>
+        <ul>
+            <li class="active"><i class="fas fa-home"></i> <span>Overview</span></li>
+            <li><i class="fas fa-server"></i> <span>Devices</span></li>
+            <li><i class="fas fa-cogs"></i> <span>Tools</span></li>
+            <li><i class="fas fa-file-export"></i> <span>Reports</span></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header>
+            <h1>Network Overview</h1>
+        </header>
+
+        <!-- Top Metrics Section -->
+        <section class="metrics">
+            <div class="metric-card">
+                <h3>System Info</h3>
+                <p>Windows 10 Pro</p>
+            </div>
+            <div class="metric-card">
+                <h3>IP Address</h3>
+                <p>192.168.1.5</p>
+            </div>
+            <div class="metric-card">
+                <h3>Device Count</h3>
+                <p>15 Devices</p>
+            </div>
+        </section>
+
+        <!-- Panels -->
+        <section class="panel-container">
+            <!-- System Information -->
+            <div class="panel">
+                <h3>System Information</h3>
+                <ul>
+                    <li><span>OS:</span> Windows 10 Pro</li>
+                    <li><span>Hostname:</span> MY-PC</li>
+                    <li><span>IP Address:</span> 192.168.1.5</li>
+                    <li><span>Disk:</span> 256GB (120GB Free)</li>
+                    <li><span>Adapter:</span> Enabled</li>
+                </ul>
+            </div>
+
+            <!-- Device Identification -->
+            <div class="panel">
+                <h3>Device Identification</h3>
+                <ul>
+                    <li><span>IP Address:</span> 192.168.1.10</li>
+                    <li><span>Hostname:</span> Printer01</li>
+                    <li><span>Device Type:</span> Network Printer</li>
+                    <li><span>MAC Address:</span> 00:1A:2B:3C:4D</li>
+                    <li><span>Vendor:</span> HP</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="tools">
+            <button>Port Scan</button>
+            <button>Ping Sweep</button>
+            <button>Resolve Hostname</button>
+            <button>Device Scan</button>
+            <button>Export Data</button>
+        </section>
+
+        <!-- Device List Table -->
+        <section class="device-list">
+            <h3>Device List</h3>
+            <table class="device-table">
+                <thead>
+                    <tr>
+                        <th>IP Address</th>
+                        <th>Hostname</th>
+                        <th>Device Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>192.168.1.2</td>
+                        <td>Router01</td>
+                        <td>Router</td>
+                    </tr>
+                    <tr>
+                        <td>192.168.1.10</td>
+                        <td>Printer01</td>
+                        <td>Network Printer</td>
+                    </tr>
+                    <tr>
+                        <td>192.168.1.15</td>
+                        <td>IoT-Light</td>
+                        <td>Smart Light</td>
+                    </tr>
+                    <tr>
+                        <td>192.168.1.20</td>
+                        <td>MY-PC</td>
+                        <td>Personal Computer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
