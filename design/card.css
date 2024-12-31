@@ -1,5 +1,11 @@
 .card{
 	padding: 10px;
+    border: 2px white solid;
+    border-radius: 15px;
+}
+
+.card h1, .card h2, .card h3{
+    margin: 0px;
 }
 
 .row-details{
@@ -8,7 +14,18 @@
     align-items: center;
 }
 
-.row-details div, .row-details h1{
-	padding: 10px;
-	margin: 5px;
+
+.card .circle {
+    border: 5px solid green;
+    border-radius: 50%; 
+	width: 60px; 
+    height: 60px;
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    position: relative; 
+	font-size: 24px; 
+    font-weight: bold; 
 }
+
+
