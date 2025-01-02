@@ -6,23 +6,27 @@
 	<link rel="stylesheet" href="index.css">
 	<title>Ping Command</title>
 </head>
+<style>
+	*{
+		max-width: 200px;
+	}
+	#text{
+		width: 200px;
+		text-wrap-mode:wrap;
+	}
+</style>
 <body>
+
+	<h1>Custom Exec</h1>
+	<button onclick="runcom('Get-Volume')">Run Command</button>
+	<pre id="comout"></pre>
+	<p id="comout2">...</p>
+
 	<h1>Ping 8.8.8.8</h1>
 	<button onclick="ping()">Run Ping</button>
 	<pre id="pingOutput"></pre>
 
-	<h1>Ping 10.0.0.53</h1>
-	<button onclick="pingNew()">Run Ping</button>
-	<pre id="pingOutputNew"></pre>
-
 	<p id="para"></p>
-
-	<h1>Your Drives</h1>
-	<button onclick="getMyDrives()">Get Drive Information</button>
-	<p id="drive0"></p>
-	<p id="drive1"></p>
-	<p id="drive2"></p>
-	<p id="drive3"></p>
 	
 	<script src="renderer.js"></script>
 </body>

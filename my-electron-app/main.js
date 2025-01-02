@@ -6,15 +6,24 @@ if (require('electron-squirrel-startup')) {
 	app.quit();
 }
 
+
+
 const createWindow = () => {
+
 	// Create the browser window.
 	const mainWindow = new BrowserWindow({
 		width: 454,
-		height: 1000,
+		height: 800,
+
 		webPreferences: {
-			preload: path.join(app.getAppPath(), 'preload.js'), // Use preload script to expose only what’s needed
-		nodeIntegration: false, // Disable Node.js in the renderer
-		contextIsolation: true	// Isolate the context to prevent malicious code execution
+			// Use preload script to expose only what’s needed
+			preload: path.join(app.getAppPath(), 'preload.js'),
+			
+			// Disable Node.js in the renderer
+			nodeIntegration: false,
+			
+			// Isolate the context to prevent malicious code execution
+			contextIsolation: true
 		},
 	});
 
@@ -23,18 +32,41 @@ const createWindow = () => {
 };
 app.whenReady().then(() => {
 	createWindow();
-	app.on('activate', () => {
-		if (BrowserWindow.getAllWindows().length === 0) {
-			createWindow();
-		}
+	app.on('activate', () => {if (BrowserWindow.getAllWindows().length === 0) {	createWindow();	}	});
+});
+app.on('window-all-closed', () => {	
+	if (process.platform !== 'darwin') {app.quit();}
+});
+
+// Import the fs module
+const fs = require('fs');
+
+// Read the file asynchronously
+fs.readFile('command.txt', 'utf-8', (err, data) => {
+    if (err) {
+        console.error('Error reading file:', err);
+        return;
+    }
+    console.log(data);
+});
+
+
+
+ipcMain.handle('run-command', async (event) => {
+	return new Promise((resolve, reject) => {
+
+		// console.log("Handling user command: ", userCommand)
+
+		exec("Write Host HelloWorld", (error, stdout, stderr) => {
+			if (error) {
+				reject(stderr);
+			} else {
+				resolve(stdout);
+			}
+		});
 	});
 });
 
-app.on('window-all-closed', () => {
-	if (process.platform !== 'darwin') {
-		app.quit();
-	}
-});
 
 ipcMain.handle('ping-command', async (event) => {
 	return new Promise((resolve, reject) => {
@@ -48,15 +80,3 @@ ipcMain.handle('ping-command', async (event) => {
 	});
 });
 
-ipcMain.handle('ping-new', async () => {
-	return new Promise((resolve, reject) => {
-		exec('powershell.exe -File .\\powershell\\ping.ps1', 
-			(error, stdout, stderr) => {
-			if (error) {
-	reject(stderr);
-			} else {
-				resolve(stdout);
-			}
-		});
-	});
-});
