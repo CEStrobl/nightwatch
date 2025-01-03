@@ -38,33 +38,21 @@ app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {app.quit();}
 });
 
-// Import the fs module
-const fs = require('fs');
+ipcMain.handle('run-command', async (event, command) => {
 
-// Read the file asynchronously
-fs.readFile('command.txt', 'utf-8', (err, data) => {
-    if (err) {
-        console.error('Error reading file:', err);
-        return;
-    }
-    console.log(data);
-});
+	const powershellCommand = `powershell.exe -Command "${command}"`;
 
-
-
-ipcMain.handle('run-command', async (event) => {
-	return new Promise((resolve, reject) => {
-
-		// console.log("Handling user command: ", userCommand)
-
-		exec("Write Host HelloWorld", (error, stdout, stderr) => {
-			if (error) {
-				reject(stderr);
-			} else {
-				resolve(stdout);
-			}
-		});
-	});
+    return new Promise((resolve, reject) => {
+        exec(powershellCommand, (error, stdout, stderr) => {
+            // Reject the promise if an error occurs
+            if (error) {
+                reject(stderr);
+            } else {
+                // Resolve the promise with the command output
+                resolve(stdout);
+            }
+        });
+    });
 });
 
 

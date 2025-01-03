@@ -1,26 +1,20 @@
-const pingOutput = document.getElementById('pingOutput');
-const comout = document.getElementById('comout');
-const comout2 = document.getElementById('comout2');
-
 async function runcom(command) {
-	
-	const fs = require('fs');
-
-	// Write data to a file synchronously
-	fs.writeFileSync('command.txt', command, 'utf-8');
-	console.log('File written successfully!');
-
-	try {
-		// Run Command
-		const result = await window.electronAPI.runCommand();
-
-		// Print Results
-		comout.textContent = result;
-
-	} catch (err) {
-		comout.textContent = 'Error: ' + err;
-	}
+    // Try to send the command to the backend and get the result
+    try {
+        const result = await window.electronAPI.runCommand(command);
+        // Log the result
+        console.log('Command Output:', result);
+        return result;
+    } catch (err) {
+        // Log the error if execution fails
+        console.error('Error executing command:', err);
+        throw err;
+    }
 }
+
+// Attach the `runcom` function to the global `window` object for direct access
+window.runcom = runcom;
+
 
 
 async function ping() {
