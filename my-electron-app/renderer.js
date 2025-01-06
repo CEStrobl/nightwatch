@@ -3,7 +3,7 @@ async function runcom(command) {
     try {
         const result = await window.electronAPI.runCommand(command);
         // Log the result
-        console.log('Command Output:', result);
+        // console.log('Command Output:', result);
         return result;
     } catch (err) {
         // Log the error if execution fails

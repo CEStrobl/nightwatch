@@ -29,3 +29,17 @@
 }
 
 
+.card th {
+    font-weight: unset;
+    text-align: left;
+    width: 80px;
+}
+
+.card td {
+    text-align: right;
+    width: 70px;
+}
+
+.card tr {
+    border-bottom: 2px solid white;
+}
