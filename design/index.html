@@ -7,8 +7,10 @@
 	<link rel="stylesheet" href="side-nav.css">
 	<link rel="stylesheet" href="card.css">
 	<link rel="stylesheet" href="infographics.css">
+
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	
-	<title>Document</title>
+	<title>Dashboard</title>
 </head>
 <body>
 	<div style="display:none">
@@ -20,7 +22,7 @@
 		<div class="side-nav">
 			<h1>SHELLZERO</h1>
 	
-			<a href="">Home</a>
+			<a href="">Dashboard</a>
 			<a href="">Port Scanning</a>
 			<a href="">Network Discovery</a>
 		</div>
@@ -28,16 +30,20 @@
 			<h1 class="header">/ Dashboard /</h1>
 
 			<div class="card">
-				<h1>C - Local Disk</h1>
+				<h1>(C:) Local Disk</h1>
 				
 				<div class="row-details">
-					<div class="column">
-						[]
-					</div>
+					<span class="material-symbols-outlined">
+						hard_drive
+					</span>
 					<div class="column">
 						<table>
+							<tr style="border-bottom: 2px solid white;">
+								<th>Drive Type</th>
+								<td>Fixed</td>
+							</tr>
 							<tr>
-								<th>Type</th>
+								<th>File System</th>
 								<td>FTPS</td>
 							</tr>
 							<tr>
@@ -45,8 +51,8 @@
 								<td>Healthy</td>
 							</tr>
 							<tr>
-								<th>Remaining</th>
-								<td>39 GB</td>
+								<th>Operational</th>
+								<td>OK</td>
 							</tr>
 					
 						</table>
@@ -54,8 +60,11 @@
 					</div>
 				</div>
 				<div class="progress-container">
-					<div class="progress-bar" style="width: 95%;">95%</div>
-				  </div>
+					<div class="progress-bar" style="width: 75%;">75%</div>
+				</div>
+				<p>
+					123 GB free of 475 GB
+				</p>
 			</div>
 	
 		</div>

@@ -1,14 +1,15 @@
 .progress-container {
-	width: 300px;
+	width: 95%;
 	overflow: hidden;
 
-	background-color: #f3f3f33b;
+	margin: 10px;
+
+	background-color: #52525282;
 }
   
 .progress-bar {
 	height: 20px;
 	width: 0;
-	transition: width 0.5s;
 
 	background-color: #2a802d;
 
