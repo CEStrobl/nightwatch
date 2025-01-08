@@ -1,0 +1,29 @@
+.side-nav{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	padding: 10px 20px;
+}
+
+.side-nav a{
+	text-decoration: none;
+	color: unset;
+
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+
+	margin: 5px;
+	padding: 10px;
+	width: 100%;
+
+	border-radius: 5px;
+
+	transition: 0.2s ease-in-out;
+}
+
+.side-nav a:hover{
+	background-color: rgba(240, 248, 255, 0.403);
+}
+

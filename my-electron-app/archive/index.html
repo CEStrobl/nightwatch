@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="index.css">
+	<title>Ping Command</title>
+</head>
+<style>
+	*{
+		max-width: 200px;
+	}
+	#text{
+		width: 200px;
+		text-wrap-mode:wrap;
+	}
+</style>
+<body>
+
+	<h1>Custom Exec</h1>
+	<button onclick="runcom('Get-Volume')">Run Command</button>
+	<pre id="comout"></pre>
+	<p id="comout2">...</p>
+
+	<h1>Ping 8.8.8.8</h1>
+	<button onclick="ping()">Run Ping</button>
+	<pre id="pingOutput"></pre>
+
+	<p id="para"></p>
+	
+	<script src="renderer.js"></script>
+	<script src="storage.js"></script>
+</body>
+</html>

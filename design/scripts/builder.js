@@ -1,6 +1,6 @@
 function createDiskCard(x) {
 
-	const parent = document.getElementById("mainDiv")
+	const parent = document.getElementById("diskContainer")
 	const tempid = "drive1"
 
 	// Card

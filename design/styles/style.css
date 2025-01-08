@@ -27,3 +27,16 @@ body{
 	font-size: 14px;
 	margin-top: 20px;
 }
+
+#mainDiv {
+	width: 100%;
+}
+
+
+#diskContainer {
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+
+	width: 100%;
+}

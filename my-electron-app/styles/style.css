@@ -1,0 +1,42 @@
+body{
+	margin:0px;
+
+	background-color: rgb(27, 27, 27);
+	color:white;
+
+	font-family:system-ui;
+}
+
+.row{
+	display: flex;
+	flex-direction: row;
+}
+
+.column{
+	display:flex;
+	flex-direction: column;
+}
+
+.content{
+	margin: 20px;
+}
+
+.header {
+	color: gray;
+	font-weight: 200;
+	font-size: 14px;
+	margin-top: 20px;
+}
+
+#mainDiv {
+	width: 100%;
+}
+
+
+#diskContainer {
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+
+	width: 100%;
+}

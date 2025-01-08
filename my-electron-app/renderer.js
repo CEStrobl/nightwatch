@@ -15,8 +15,6 @@ async function runcom(command) {
 // Attach the `runcom` function to the global `window` object for direct access
 window.runcom = runcom;
 
-
-
 async function ping() {
 	try {
 		const result = await window.electronAPI.pingCommand();
