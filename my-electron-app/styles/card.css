@@ -1,13 +1,22 @@
 .card{
 	padding: 20px;
     margin: 10px;
-    border: 2px white solid;
     border-radius: 15px;
     width: 350px;
+    /* border: 2px white solid; */
+
+    background-color: rgba(0, 0, 0, 0.414);
+    
 }
 
 .card h1, .card h2, .card h3{
     margin: 0px;
+    font-weight: unset;
+}
+
+.card h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
 }
 
 .row-details{
@@ -19,58 +28,45 @@
     width: 100%;
 }
 
-
-.card .circle {
-    border: 5px solid green;
-    border-radius: 50%; 
-	width: 60px; 
-    height: 60px;
-    display: flex; 
-    justify-content: center;
-    align-items: center; 
-    position: relative; 
-	font-size: 24px; 
-    font-weight: bold; 
-}
-
 .card .column {
     width: 100%;
+    margin: 10px;
 }
 
-
 .card table {
-    width: 100%;
+    width: 60%;
 }
 
 .card th {
     font-weight: unset;
     text-align: left;
-    width: 100px;
 }
 
 .card td {
     text-align: right;
-    width: 80px;
+}
+
+.card tr {
+    display:flex;
+    justify-content: space-between;
+    border-bottom: 1px solid white !important;
+    margin-bottom: 6px;
 }
 
 .card td, .card th, .card tr {
-    padding: 2px;
     font-size: 14px;
-    border-bottom: 2px solid white !important;
 }
 
-.card .column {
-    margin: 10px;
-}
-
-.card .material-symbols-outlined {
+/* Icon */
+.card .material-symbols-rounded {
     width: 100px;
     height: 100px;
     font-size: 100px;
-    padding: 5px;
+    padding: 10px;
 }
 
 
 p{
     margin: 10px;
+    text-align: center;
 }
