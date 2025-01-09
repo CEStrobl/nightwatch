@@ -3,10 +3,17 @@
     margin: 10px;
     border-radius: 15px;
     width: 350px;
+    min-height: 180px;
     /* border: 2px white solid; */
 
     background-color: rgba(0, 0, 0, 0.414);
+
+    transition: 0.8s ease-in-out !important;
     
+}
+
+.card * {
+    transition: 0.8s ease-in-out !important;
 }
 
 .card h1, .card h2, .card h3{

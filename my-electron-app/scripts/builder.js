@@ -11,7 +11,7 @@ function createDiskCard(x) {
 
 	// Title
 	let h1 = document.createElement("h1")
-	h1.innerText = "("+x.letter+":) " + x.friendlyName
+	h1.innerText = "("+x.letter[0]+":) " + x.friendlyName
 	card.appendChild(h1)
 
 	// Row
@@ -21,7 +21,7 @@ function createDiskCard(x) {
 
 	// Icon
 	let icon = document.createElement("span")
-	icon.className = "material-symbols-outlined"
+	icon.className = "material-symbols-rounded"
 	icon.innerText = "hard_drive"
 	row.appendChild(icon)
 
@@ -68,5 +68,3 @@ function createTable(x, table){
 		tr.appendChild(td)
 	}
 }
-
-createDiskCard(localdisk)
