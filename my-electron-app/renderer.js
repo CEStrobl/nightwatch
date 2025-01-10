@@ -1,3 +1,6 @@
+let cl = console.log
+
+
 async function ping() {
 	try {
 		const result = await window.electronAPI.pingCommand();
@@ -6,6 +9,7 @@ async function ping() {
 		return  'Error: ' + err;
 	}
 }
+
 
 async function runcom(command) {
 	try {
@@ -271,6 +275,7 @@ async function buildAndRetrieveDrive() {
 async function buildAndRetrieveDrive2() {
 	const parent = document.getElementById("diskContainer");
 
+	logTime("Start")
 	// Get drive count
 	let driveCount = 0;
 	try {
@@ -279,7 +284,6 @@ async function buildAndRetrieveDrive2() {
 		console.error("[DRIVE COUNT]", err);
 		return; // Exit early if drive count can't be retrieved
 	}
-
 	// Loop through drives
 	for (let i = 0; i < driveCount; i++) {
 		// Fetch all properties for the current drive in parallel
@@ -294,7 +298,6 @@ async function buildAndRetrieveDrive2() {
 			execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].SizeRemaining / 1GB, 2)`),
 			execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].Size / 1GB, 2)`),
 		]);
-
 		// Parse the results
 		const [
 			letter,
@@ -345,9 +348,9 @@ async function buildAndRetrieveDrive2() {
 
 		createTable(drive, card.querySelector("table"));
 		myDrives.push(drive);
+
+		logTime("Finish")
 	}
 }
 
 buildAndRetrieveDrive2()
-
-
