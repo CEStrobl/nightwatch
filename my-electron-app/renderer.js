@@ -269,83 +269,83 @@ async function buildAndRetrieveDrive() {
 // buildAndRetrieveDrive()
 
 async function buildAndRetrieveDrive2() {
-    const parent = document.getElementById("diskContainer");
+	const parent = document.getElementById("diskContainer");
 
-    // Get drive count
-    let driveCount = 0;
-    try {
-        driveCount = await execute('(Get-Volume | Sort-Object DriveLetter).Count');
-    } catch (err) {
-        console.error("[DRIVE COUNT]", err);
-        return; // Exit early if drive count can't be retrieved
-    }
+	// Get drive count
+	let driveCount = 0;
+	try {
+		driveCount = await execute('(Get-Volume | Sort-Object DriveLetter).Count');
+	} catch (err) {
+		console.error("[DRIVE COUNT]", err);
+		return; // Exit early if drive count can't be retrieved
+	}
 
-    // Loop through drives
-    for (let i = 0; i < driveCount; i++) {
-        // Fetch all properties for the current drive in parallel
-        const properties = await Promise.allSettled([
-            execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveLetter`),
-            execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveType`),
-            execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FileSystemType`),
-            execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FileSystemLabel`),
-            execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FriendlyName`),
-            execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].HealthStatus`),
-            execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].OperationalStatus`),
-            execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].SizeRemaining / 1GB, 2)`),
-            execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].Size / 1GB, 2)`),
-        ]);
+	// Loop through drives
+	for (let i = 0; i < driveCount; i++) {
+		// Fetch all properties for the current drive in parallel
+		const properties = await Promise.allSettled([
+			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveLetter`),
+			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveType`),
+			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FileSystemType`),
+			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FileSystemLabel`),
+			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FriendlyName`),
+			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].HealthStatus`),
+			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].OperationalStatus`),
+			execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].SizeRemaining / 1GB, 2)`),
+			execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].Size / 1GB, 2)`),
+		]);
 
-        // Parse the results
-        const [
-            letter,
-            driveType,
-            fileSysType,
-            fileSystemLabel,
-            friendlyName,
-            healthStatus,
-            operationalStatus,
-            remainingSpace,
-            totalSpace,
-        ] = properties.map((p) => (p.status === 'fulfilled' ? p.value : null));
+		// Parse the results
+		const [
+			letter,
+			driveType,
+			fileSysType,
+			fileSystemLabel,
+			friendlyName,
+			healthStatus,
+			operationalStatus,
+			remainingSpace,
+			totalSpace,
+		] = properties.map((p) => (p.status === 'fulfilled' ? p.value : null));
 
-        if (!letter) continue; // Skip invalid drives
+		if (!letter) continue; // Skip invalid drives
 
-        // Create and append card
-        const card = document.createElement("div");
-        card.className = "card";
-        parent.appendChild(card);
+		// Create and append card
+		const card = document.createElement("div");
+		card.className = "card";
+		parent.appendChild(card);
 
-        // Initialize and populate drive object
-        const drive = {
-            letter,
-            driveType,
-            fileSysType,
-            friendlyName: findDriveName(friendlyName, fileSystemLabel, fileSysType),
-            health: healthStatus,
-            operational: operationalStatus,
-            remaining: Math.round(remainingSpace),
-            total: Math.round(totalSpace),
-            percent: Math.round((remainingSpace / totalSpace) * 100),
-            remUnit: "GB",
-            totalUnit: "GB",
-        };
+		// Initialize and populate drive object
+		const drive = {
+			letter,
+			driveType,
+			fileSysType,
+			friendlyName: findDriveName(friendlyName, fileSystemLabel, fileSysType),
+			health: healthStatus,
+			operational: operationalStatus,
+			remaining: Math.round(remainingSpace),
+			total: Math.round(totalSpace),
+			percent: Math.round((remainingSpace / totalSpace) * 100),
+			remUnit: "GB",
+			totalUnit: "GB",
+		};
 
-        // Populate card UI
-        card.innerHTML = `
-            <h1>(${drive.letter[0]}:) ${drive.friendlyName}</h1>
-            <div class="row-details">
-                <span class="material-symbols-rounded">hard_drive</span>
-                <table></table>
-            </div>
-            <div class="progress-container">
-                <div class="progress-bar" style="width: ${drive.percent}%">${drive.percent}%</div>
-            </div>
-            <p>${drive.remaining} ${drive.remUnit} free of ${drive.total} ${drive.totalUnit}</p>
-        `;
+		// Populate card UI
+		card.innerHTML = `
+			<h1>(${drive.letter[0]}:) ${drive.friendlyName}</h1>
+			<div class="row-details">
+				<span class="material-symbols-rounded">hard_drive</span>
+				<table></table>
+			</div>
+			<div class="progress-container">
+				<div class="progress-bar" style="width: ${drive.percent}%">${drive.percent}%</div>
+			</div>
+			<p>${drive.remaining} ${drive.remUnit} free of ${drive.total} ${drive.totalUnit}</p>
+		`;
 
-        createTable(drive, card.querySelector("table"));
-        myDrives.push(drive);
-    }
+		createTable(drive, card.querySelector("table"));
+		myDrives.push(drive);
+	}
 }
 
 buildAndRetrieveDrive2()
