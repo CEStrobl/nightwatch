@@ -146,6 +146,38 @@ function findDriveName(friendly, label, fstype) {
 	return x
 }
 
+function findDriveImg(fstype) {
+	let x = "img/"
+	switch (fstype) {
+		case "NTFS":
+			x += "drive1.png"
+			break;
+		case "FAT32":
+			x += "sdcard.png"
+			break;
+		case "exFAT":
+			x += "usb.png"
+			break;
+		case "ReFS":
+			x += "Enterprise Storage"
+			break;
+		case "UDF":
+			x += "cdrom.png"
+			break;
+		case "CDFS":
+			x += "cdrom.png"
+			break;
+		case "RAW":
+			x += "drive1.png"
+			break;
+		default:
+			x += "drive1.png"
+			break;
+	}
+	
+	return x
+}
+
 async function buildAndRetrieveDrive() {
 	
 	const parent = document.getElementById("diskContainer")
@@ -331,13 +363,14 @@ async function buildAndRetrieveDrive2() {
 			percent: Math.round((remainingSpace / totalSpace) * 100),
 			remUnit: "GB",
 			totalUnit: "GB",
+			icon: findDriveImg(fileSysType)
 		};
 
 		// Populate card UI
 		card.innerHTML = `
 			<h1>(${drive.letter[0]}:) ${drive.friendlyName}</h1>
 			<div class="row-details">
-				<span class="material-symbols-rounded">hard_drive</span>
+				<img src="${drive.icon}" class="material-symbols-rounded"></img>
 				<table></table>
 			</div>
 			<div class="progress-container">
