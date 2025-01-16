@@ -107,6 +107,38 @@ async function populateDriveInfo() {
 }
 // populateDriveInfo()
 
+function findDriveNameFS(fstype){
+	let x = "Unknown Drive"
+	
+	switch (fstype.trim()) {
+		case "NTFS":
+			x = "Hard Drive"
+			break;
+		case "FAT32":
+			x = "Removable Storage"
+			break;
+		case "exFAT":
+			x = "Flash Drive"
+			break;
+		case "ReFS":
+			x = "Enterprise Storage"
+			break;
+		case "UDF":
+			x = "DVD"
+			break;
+		case "CDFS":
+			x = "CD-ROM"
+			break;
+		case "RAW":
+			x = "Unformatted Drive"
+			break;
+		default:
+			break;
+	}
+	return x;
+
+}
+
 function findDriveName(friendly, label, fstype) {
 	let x = "Unknown Device";
 	if (friendly !== "") {
@@ -159,7 +191,7 @@ function findDriveImg(fstype) {
 			x += "usb.png"
 			break;
 		case "ReFS":
-			x += "Enterprise Storage"
+			x += "drive1.png"
 			break;
 		case "UDF":
 			x += "cdrom.png"
@@ -179,132 +211,6 @@ function findDriveImg(fstype) {
 }
 
 async function buildAndRetrieveDrive() {
-	
-	const parent = document.getElementById("diskContainer")
-
-	// Get drive count
-	let driveCount = 0;
-
-	try {
-		driveCount = await execute('(Get-Volume | Sort-Object DriveLetter).Count');
-	} catch (err) {console.error("[DRIVE COUNT]", err);}
-
-
-
-	// Loop thru drives based on count
-	for (let i = 0; i < driveCount; i++) {
-
-		// Validate Drive
-		const letter = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].DriveLetter');
-		if(letter) {
-			
-			const tempid = "drive"+i
-	
-			// Card
-			let card = document.createElement("div")
-			card.id = tempid
-			card.className = "card"
-			parent.appendChild(card)
-	
-			// Init object
-			let drive = driveTemplate;
-			
-			// Letter
-			drive.letter = letter
-
-			// Drive Type
-			try {
-				drive.driveType = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].DriveType');
-			} catch (err) {console.error("[DRIVE"+i+" TYPE]", err);}
-		
-			// File System Type
-			try {
-				drive.fileSysType = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].FileSystemType');
-			} catch (err) {console.error("[DRIVE"+i+" FST]", err);}
-			
-			// Name
-			let FSLabel, friendlyName;
-			try {
-				FSLabel = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].FileSystemLabel');
-				friendlyName = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].FriendlyName');
-				
-			} catch (err) {console.error("[DRIVE"+i+" NAME]", err);}
-			
-			drive.friendlyName = findDriveName(friendlyName, FSLabel, drive.fileSysType)
-		
-			// Title
-			let h1 = document.createElement("h1")
-			h1.innerText = "("+drive.letter[0]+":) " + drive.friendlyName
-			card.appendChild(h1)
-	
-			// Row
-			let row = document.createElement("div")
-			row.className = "row-details"
-			card.appendChild(row)
-	
-			// Health Status
-			try {
-				drive.health = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].HealthStatus');
-			} catch (err) {console.error("[DRIVE"+i+" HEALTH]", err);}
-	
-			// Operational Status
-			try {
-				drive.operational = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].OperationalStatus');
-			} catch (err) {console.error("[DRIVE"+i+" OPERATIONAL]", err);}
-	
-			// Icon
-			let icon = document.createElement("span")
-			icon.className = "material-symbols-rounded"
-			icon.innerText = "hard_drive"
-			row.appendChild(icon)
-	
-			// Table
-			let table = document.createElement("table")
-			row.appendChild(table)
-	
-			createTable(drive, table)
-	
-			// Remaining space
-			try {
-				drive.remaining = await execute('[Math]::Round((Get-Volume | Sort-Object DriveLetter)['+i+'].SizeRemaining / 1GB, 2)');
-				drive.remaining = Math.round(drive.remaining)
-				drive.remUnit = "GB"
-			} catch (err) {console.error("[DRIVE"+i+" REMAINING]", err);}
-	
-			// Total Space
-			try {
-				drive.total = await execute('[Math]::Round((Get-Volume | Sort-Object DriveLetter)['+i+'].Size / 1GB, 2)');
-				drive.total = Math.round(drive.total)
-				drive.totalUnit = "GB"
-			} catch (err) {console.error("[DRIVE"+i+" TOTAL]", err);}
-	
-			drive.percent = Math.round((drive.remaining / drive.total)*100)
-	
-			// progress bar
-			let container = document.createElement("div")
-			container.className="progress-container"
-			card.appendChild(container)
-	
-			let bar = document.createElement("div")
-			bar.className = "progress-bar"
-			bar.innerText =  drive.percent + "%"
-			bar.style.width = bar.innerText
-			container.appendChild(bar)
-	
-			let p = document.createElement("p")
-			p.innerText = drive.remaining + " " + drive.remUnit + " free of " + drive.total + " " + drive.totalUnit
-			card.appendChild(p)
-	
-	
-			myDrives.push(drive)
-		}
-
-	}
-}
-
-// buildAndRetrieveDrive()
-
-async function buildAndRetrieveDrive2() {
 	const parent = document.getElementById("diskContainer");
 
 	logTime("Start")
@@ -319,6 +225,7 @@ async function buildAndRetrieveDrive2() {
 	// Loop through drives
 	for (let i = 0; i < driveCount; i++) {
 		// Fetch all properties for the current drive in parallel
+		logTime("Promise start")
 		const properties = await Promise.allSettled([
 			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveLetter`),
 			execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveType`),
@@ -330,6 +237,7 @@ async function buildAndRetrieveDrive2() {
 			execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].SizeRemaining / 1GB, 2)`),
 			execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].Size / 1GB, 2)`),
 		]);
+		logTime("Promise Completed")
 		// Parse the results
 		const [
 			letter,
@@ -383,7 +291,83 @@ async function buildAndRetrieveDrive2() {
 		myDrives.push(drive);
 
 		logTime("Finish")
+		hideLoading()
 	}
 }
 
-buildAndRetrieveDrive2()
+async function buildAndRetrieveDrive3() {
+	const parent = document.getElementById("diskContainer");
+
+	logTime("Start")
+	// Get drive count
+	let driveCount = 0;
+	try {
+		driveCount = await execute('(Get-Volume | Sort-Object DriveLetter).Count');
+	} catch (err) {
+		console.error("[DRIVE COUNT]", err);
+		return; // Exit early if drive count can't be retrieved
+	}
+	let props = ["letter", "type", "file sys", "label", "health", "operation", "remaining", "total"]
+	// Loop through drives
+	for (let i = 0; i < driveCount; i++) {
+		logTime("Drive "+i)
+		const letter = await execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveLetter`);
+		if (!letter) continue; // Skip invalid drives
+		
+		const drive = driveTemplate;		
+		drive.letter = letter;
+
+		// Init Card + Header
+		const card = document.createElement("div");
+		card.className = "card";
+		parent.appendChild(card);
+		
+		card.innerHTML += `<h1 id="drive${i}h1">(${drive.letter[0]}:) <h1>`;
+
+		// Init Icon based on file system type
+		drive.fileSysType = await execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FileSystemType`);
+		drive.icon = findDriveImg(drive.fileSysType);
+		
+		// Init icon and table
+		card.innerHTML += `
+		<div class="row-details">
+			<img src="${drive.icon}" class="material-symbols-rounded"></img>
+			<table id="drive${i}table"></table>
+		</div>`;
+		
+		// Get Table Data
+		drive.driveType = await execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].DriveType`);
+		drive.health = await execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].HealthStatus`);
+		drive.operational = await execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].OperationalStatus`);
+
+		// Build Table
+		createTable(drive, document.getElementById("drive"+i+"table"));
+		
+		// Find Name
+		const fileSystemLabel = await execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FileSystemLabel`);
+
+		const friendlyName = await execute(`(Get-Volume | Sort-Object DriveLetter)[${i}].FriendlyName`);
+		drive.friendlyName = findDriveName(friendlyName, fileSystemLabel, drive.fileSysType);
+		document.getElementById("drive"+i+"h1").innerHTML += `${drive.friendlyName}`;
+		
+		// Progress Bar
+		drive.remaining = await execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].SizeRemaining / 1GB, 0)`);
+		drive.remUnit = "GB";
+				
+		drive.total = await execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].Size / 1GB, 0)`);
+		drive.totalUnit = "GB";
+		drive.percent = Math.round((drive.remaining / drive.total) * 100);
+			
+		card.innerHTML += `
+		<div class="progress-container">
+			<div class="progress-bar" style="width: ${drive.percent}%">${drive.percent}%</div>
+		</div>`;
+		card.innerHTML += `<p>${drive.remaining} ${drive.remUnit} free of ${drive.total} ${drive.totalUnit}</p>`;
+				
+		myDrives.push(drive);
+
+		logTime("Finish")
+	}
+}
+
+buildAndRetrieveDrive()

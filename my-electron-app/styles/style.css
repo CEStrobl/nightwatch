@@ -44,3 +44,47 @@ body{
 
 	width: 100%;
 }
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+
+.blur{
+	background-image: radial-gradient(circle at center center, rgba(59, 62, 58, 0.375),rgba(8, 8, 8, 0.432));
+	
+	background-size: 200% 200%;
+	animation: gradient 10s ease infinite;
+
+	
+	
+	/* filter: blur(10px); */
+	backdrop-filter: blur(10px);
+	width: 100%;
+	height: 100%;
+	position:absolute;
+	z-index: -10;
+}
+
+#loadingScreen {
+	width: 70%;
+	height: 100%;
+
+	display: flex;
+	justify-content: center;
+    align-items: center;
+
+	position:fixed;
+	z-index: 100;
+
+	transition: 0.8s ease-in-out;
+}

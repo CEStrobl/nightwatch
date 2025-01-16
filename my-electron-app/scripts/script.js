@@ -27,3 +27,14 @@ function startRefreshing() {
 if (localStorage.getItem('refreshLoop')) {
     startRefreshing();
 }
+
+
+function hideLoading(){
+    let loading = document.getElementById("loadingScreen")
+
+    loading.style.opacity = 0;
+
+    setInterval(() =>{
+        loading.style.display = "none";
+    }, 1000)
+}
