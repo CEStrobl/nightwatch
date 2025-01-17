@@ -1,0 +1,19 @@
+
+================================================
+------------------DASHBOARD---------------------
+
+ 	improve drive load times by Write-Host Get-Volume 
+	and parse with js
+
+ 	Net adapter ui
+
+	load once into file and read from file after
+
+===============================================
+--------------NETWORK-DISCOVERY----------------
+
+	option to refresh
+
+	incremental loading
+	
+

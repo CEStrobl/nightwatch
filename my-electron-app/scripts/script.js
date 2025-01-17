@@ -38,3 +38,6 @@ function hideLoading(){
         loading.style.display = "none";
     }, 1000)
 }
+
+
+document.getElementById("logo").innerText = "</>"
