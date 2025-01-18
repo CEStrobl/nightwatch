@@ -14,11 +14,17 @@ body{
 	font-family:system-ui;
 }
 
-#logo {
-	font-family: Courier, monospace;
-	margin: 0px 0px 60px 0px;
+.button {
+	margin: 20px;
+	padding: 10px;
+	width: 100%;
+	background-color: rgba(240, 248, 255, 0.109);
+	transition: 0.2s ease-in-out;
 }
 
+.button:hover {
+	background-color: rgba(240, 248, 255, 0.297);
+}
 .row{
 	display: flex;
 	flex-direction: row;

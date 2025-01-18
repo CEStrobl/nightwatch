@@ -1,9 +1,8 @@
 .side-nav{
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+	align-items: stretch;
 
 	height: 90%;
 	width: 230px;
@@ -34,6 +33,37 @@
 }
 
 .side-nav a:hover{
-	background-color: rgba(240, 248, 255, 0.403);
+	background-color: rgba(240, 248, 255, 0.511);
+}
+
+#logo {
+	font-family: Courier, monospace;
+	/* margin: 0px 0px 60px 0px; */
+}
+
+
+.side-nav .top{
+	display: flex;
+	justify-content: center;
+    align-items: center;
+
+	height: 30%;
+	
+	
+}
+
+.side-nav .mid {
+	display: flex;
+	flex-direction: column;
+	
+	height: 80%;
+}
+
+.side-nav .bottom {
+	display: flex;
+	align-items: flex-end;
+    justify-content: center;
+	
+	height: 30%;
 }
 
