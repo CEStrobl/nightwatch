@@ -7,13 +7,12 @@
     /* border: 2px white solid; */
 
     background-color: rgba(0, 0, 0, 0.414);
-
-    transition: 0.8s ease-in-out !important;
+    transition: 0.4s ease-in-out !important;
     
 }
 
 .card * {
-    transition: 0.8s ease-in-out !important;
+    transition: 0.4s ease-in-out !important;
 }
 
 .card h1, .card h2, .card h3{
@@ -36,6 +35,8 @@
 }
 
 .card .column {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     margin: 10px;
 }
@@ -76,4 +77,53 @@
 p{
     margin: 10px;
     text-align: center;
+}
+
+.netcard {
+    min-height: unset;
+    width: 250px;
+}
+
+.netcard table {
+    width: 100%;
+}
+
+.net-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.net-header h1{
+    margin: 0px;
+}
+
+.subheader {
+    display: flex;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.383);
+    
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.divline {
+    width: 100%;
+    background-color: white;
+    height: 1px;
+}
+
+.block {
+    height: 70px;
+    width: 70px;
+    margin: 10px 5px;
+
+    background-color: rgba(123, 135, 125, 0.161);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

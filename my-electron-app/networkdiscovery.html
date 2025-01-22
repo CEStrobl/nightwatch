@@ -8,10 +8,9 @@
 	<link rel="stylesheet" href="styles/card.css">
 	<link rel="stylesheet" href="styles/infographics.css">
 
-	<title>Dashboard</title>
+	<title>Network Discovery</title>
 </head>
-<body onload="buildAndRetrieveDrive()">
-
+<body style="background-color: black; color: white;">
 	<div class="row" style="height: 100%;">
 
 		<div class="side-nav">
@@ -37,21 +36,64 @@
 		</div>
 
 		<div class="content" id="mainDiv">
-			<div id="loadingScreen" 
-			style="display: none;"
-			>
-				<h1>Loading Dashboard...</h1>
-				<div class="blur"></div>
-			</div>
+			
+			<h1 
+			
+			>NETWORK DISCOVERY</h1>
 
-			<h1>DASHBOARD</h1>
-
-			<h2>Drives</h2>
-
-			<div id="diskContainer">
+			<div class="netcontainer">
 
 			</div>
 
+			<div class="netcard card">
+				<div class="net-header">
+					<h1>TRIFORCE</h1>
+					<h3>Online</h3>
+				</div>
+				<div class="divline"></div>
+				<div class="row-details">
+					<div class="block">
+						10.0.0.53
+					</div>
+					<div class="block">
+						ff-ff-ff
+					</div>
+					<div class="block">
+						Microsoft
+					</div>
+
+				</div>
+			</div>
+			
+			<div class="netcard card">
+				<div class="net-header">
+					<h1>TRIFORCE</h1>
+					<h3>10.0.0.53</h3>
+				</div>
+				<div class="row-details">
+					<table>
+						<tr>
+							<th>Status</th>
+							<td>Online</td>
+						</tr>
+						<tr>
+							<th>MAC Address</th>
+							<td>ff-ff-ff-ff</td>
+						</tr>
+						<tr>
+							<th>Vendor</th>
+							<td>Microsoft</td>
+						</tr>
+						<tr>
+							<th>Ping</th>
+							<td>30ms</td>
+						</tr>
+					</table>
+
+				</div>
+			</div>
+
+			
 	
 		</div>
 
