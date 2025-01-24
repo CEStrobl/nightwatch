@@ -117,11 +117,11 @@ p{
 }
 
 .block {
-    height: 70px;
+    /* height: 70px; */
     width: 70px;
     margin: 10px 5px;
 
-    background-color: rgba(123, 135, 125, 0.161);
+    /* background-color: rgba(123, 135, 125, 0.161); */
 
     display: flex;
     align-items: center;
