@@ -15,5 +15,8 @@
 	option to refresh
 
 	incremental loading
+
+	drop down initial details -> big list details
+	(thanks jared)
 	
 

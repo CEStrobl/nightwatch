@@ -127,3 +127,15 @@ p{
     align-items: center;
     justify-content: center;
 }
+
+h4 {
+    font-size: 14px;
+    margin: 0px 0px 6px 0px;
+    font-weight: unset;
+}
+
+.netcontainer{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
