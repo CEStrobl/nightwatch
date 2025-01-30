@@ -16,73 +16,6 @@ let driveTemplate = {
 
 let myDrives = []
 
-async function populateDriveInfo() {
-
-	// Get drive count
-	let driveCount = 0;
-
-	try {
-		driveCount = await execute('(Get-Volume | Sort-Object DriveLetter).Count');
-	} catch (err) {console.error("[DRIVE COUNT]", err);}
-
-	// Loop thru drives based on count
-	for (let i = 0; i < driveCount - 1; i++) {
-
-		// Init object
-		let drive = driveTemplate;
-		
-		// Letter
-		try {
-			drive.letter = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].DriveLetter');
-		} catch (err) {console.error("[DRIVE"+i+" LETTER]", err);}
-	
-		// Name
-		try {
-			drive.friendlyName = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].FileSystemLabel');
-		} catch (err) {console.error("[DRIVE"+i+" NAME]", err);}
-	
-		// Drive Type
-		try {
-			drive.driveType = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].DriveType');
-		} catch (err) {console.error("[DRIVE"+i+" TYPE]", err);}
-	
-		// File System Type
-		try {
-			drive.fileSysType = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].FileSystemType');
-		} catch (err) {console.error("[DRIVE"+i+" FST]", err);}
-	
-		// Health Status
-		try {
-			drive.health = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].HealthStatus');
-		} catch (err) {console.error("[DRIVE"+i+" HEALTH]", err);}
-
-		// Operational Status
-		try {
-			drive.operational = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].OperationalStatus');
-		} catch (err) {console.error("[DRIVE"+i+" OPERATIONAL]", err);}
-
-		// Remaining space
-		try {
-			drive.remaining = await execute('[Math]::Round((Get-Volume | Sort-Object DriveLetter)['+i+'].SizeRemaining / 1GB, 2)');
-			drive.remUnit = "GB"
-		} catch (err) {console.error("[DRIVE"+i+" REMAINING]", err);}
-
-		// Total Space
-		try {
-			drive.total = await execute('[Math]::Round((Get-Volume | Sort-Object DriveLetter)['+i+'].Size / 1GB, 2)');
-			drive.totalUnit = "GB"
-		} catch (err) {console.error("[DRIVE"+i+" TOTAL]", err);}
-
-		myDrives.push(drive)
-	}
-
-	console.table(myDrives[0])
-
-	createDiskCard(myDrives[0])
-
-}
-// populateDriveInfo()
-
 function findDriveNameFS(fstype){
 	let x = "Unknown Drive"
 	
@@ -111,17 +44,30 @@ function findDriveNameFS(fstype){
 		default:
 			break;
 	}
+	console.log(x)
 	return x;
 
 }
 
 function findDriveName(friendly, label, fstype) {
 	let x = "Unknown Device";
+
+	friendly = friendly.trim();
+	label = label.trim();
+	fstype = fstype.trim();
+
 	if (friendly !== "") {
 		x = friendly;
 	} else {
 		x = label;
 	}
+
+	console.table(
+		[["friendly", friendly],
+		["label", label],
+		["fstype", fstype],
+		["x", x]]
+	)
 	
 	if (x === "") {
 		switch (fstype) {
@@ -143,6 +89,9 @@ function findDriveName(friendly, label, fstype) {
 			case "CDFS":
 				x = "CD-ROM"
 				break;
+			case "CD-ROM":
+				x = "CD Player"
+				break;
 			case "RAW":
 				x = "Unformatted Drive"
 				break;
@@ -150,7 +99,7 @@ function findDriveName(friendly, label, fstype) {
 				break;
 		}
 	}
-	
+	console.log(x)
 	return x
 }
 
@@ -256,12 +205,16 @@ async function buildAndRetrieveDrive() {
 			<div class="row-details">
 				<img src="${drive.icon}" class="material-symbols-rounded"></img>
 				<table></table>
-			</div>
+			</div>`
+
+		if (drive.total > 0) {
+			card.innerHTML += `
 			<div class="progress-container">
 				<div class="progress-bar" style="width: ${drive.percent}%">${drive.percent}%</div>
 			</div>
 			<p>${drive.remaining} ${drive.remUnit} free of ${drive.total} ${drive.totalUnit}</p>
-		`;
+			`
+		}
 
 		createTable(drive, card.querySelector("table"));
 		myDrives.push(drive);
