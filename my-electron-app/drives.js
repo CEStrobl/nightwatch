@@ -16,73 +16,6 @@ let driveTemplate = {
 
 let myDrives = []
 
-async function populateDriveInfo() {
-
-	// Get drive count
-	let driveCount = 0;
-
-	try {
-		driveCount = await execute('(Get-Volume | Sort-Object DriveLetter).Count');
-	} catch (err) {console.error("[DRIVE COUNT]", err);}
-
-	// Loop thru drives based on count
-	for (let i = 0; i < driveCount - 1; i++) {
-
-		// Init object
-		let drive = driveTemplate;
-		
-		// Letter
-		try {
-			drive.letter = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].DriveLetter');
-		} catch (err) {console.error("[DRIVE"+i+" LETTER]", err);}
-	
-		// Name
-		try {
-			drive.friendlyName = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].FileSystemLabel');
-		} catch (err) {console.error("[DRIVE"+i+" NAME]", err);}
-	
-		// Drive Type
-		try {
-			drive.driveType = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].DriveType');
-		} catch (err) {console.error("[DRIVE"+i+" TYPE]", err);}
-	
-		// File System Type
-		try {
-			drive.fileSysType = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].FileSystemType');
-		} catch (err) {console.error("[DRIVE"+i+" FST]", err);}
-	
-		// Health Status
-		try {
-			drive.health = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].HealthStatus');
-		} catch (err) {console.error("[DRIVE"+i+" HEALTH]", err);}
-
-		// Operational Status
-		try {
-			drive.operational = await execute('(Get-Volume | Sort-Object DriveLetter)['+i+'].OperationalStatus');
-		} catch (err) {console.error("[DRIVE"+i+" OPERATIONAL]", err);}
-
-		// Remaining space
-		try {
-			drive.remaining = await execute('[Math]::Round((Get-Volume | Sort-Object DriveLetter)['+i+'].SizeRemaining / 1GB, 2)');
-			drive.remUnit = "GB"
-		} catch (err) {console.error("[DRIVE"+i+" REMAINING]", err);}
-
-		// Total Space
-		try {
-			drive.total = await execute('[Math]::Round((Get-Volume | Sort-Object DriveLetter)['+i+'].Size / 1GB, 2)');
-			drive.totalUnit = "GB"
-		} catch (err) {console.error("[DRIVE"+i+" TOTAL]", err);}
-
-		myDrives.push(drive)
-	}
-
-	console.table(myDrives[0])
-
-	createDiskCard(myDrives[0])
-
-}
-// populateDriveInfo()
-
 function findDriveNameFS(fstype){
 	let x = "Unknown Drive"
 	
@@ -271,7 +204,7 @@ async function buildAndRetrieveDrive() {
 	}
 }
 
-async function buildAndRetrieveDrive3() {
+async function buildAndRetrieveDrive2() {
 	const parent = document.getElementById("diskContainer");
 
 	logTime("Start")
@@ -344,5 +277,27 @@ async function buildAndRetrieveDrive3() {
 
 		logTime("Finish")
 	}
+}
+
+async function buildAndRetrieveDrive3() {
+	const parent = document.getElementById("diskContainer");
+
+	logTime("Start")
+
+	const powerShellOutput = await execute(
+		`Get-Volume | Sort-Object DriveLetter | ForEach-Object {
+    	Write-Host "$($_.DriveLetter)|$($_.FriendlyName -join " ")|$($_.FileSystemType)|$($_.DriveType)|$($_.HealthStatus)|$($_.OperationalStatus)"
+		}`);
+	
+	console.log(powerShellOutput)
+
+	const parsedData = parsePowerShellTable(powerShellOutput);
+
+	console.table(parsedData[0])
+	console.table(parsedData[1])
+	console.table(parsedData[2])
+
+	logTime("Finish")
+	
 }
 

@@ -33,3 +33,17 @@ const logTime = (() => {
         lastTime = now; // Update the last log time
     };
 })();
+
+
+
+
+function parsePowerShellTable(input) {
+    input
+        .trim()
+        .split("\n")
+        .map(line => {
+            const [DriveLetter, FriendlyName, FileSystemType, DriveType, HealthStatus, OperationalStatus] = line.split("|");
+            return { DriveLetter, FriendlyName, FileSystemType, DriveType, HealthStatus, OperationalStatus };
+        });
+}
+
