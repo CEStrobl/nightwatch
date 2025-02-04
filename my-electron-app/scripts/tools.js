@@ -78,23 +78,3 @@ function parseArpTable(input) {
 
     return result;
 }
-
-// Example Usage
-const arpTable = `
-Interface: 192.168.19.114 --- 0x16
-  Internet Address      Physical Address      Type
-  10.128.128.128        98-18-88-c1-19-21     dynamic
-  192.168.19.1          2c-54-2d-0c-77-cd     dynamic
-  192.168.19.2          50-57-a8-db-c2-f7     dynamic
-  192.168.19.255        ff-ff-ff-ff-ff-ff     static
-  224.0.0.2             01-00-5e-00-00-02     static
-
-Interface: 172.28.176.1 --- 0x30
-  Internet Address      Physical Address      Type
-  172.28.191.255        ff-ff-ff-ff-ff-ff     static
-  224.0.0.22            01-00-5e-00-00-16     static
-`;
-
-const parsedData = parseArpTable(arpTable);
-console.log(parsedData);
-console.table(parsedData.flatMap(iface => iface.Entries)); // Flattened table view
