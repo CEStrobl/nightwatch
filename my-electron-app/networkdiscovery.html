@@ -10,7 +10,7 @@
 
 	<title>Network Discovery</title>
 </head>
-<body style="background-color: black; color: white;">
+<body onload="discover()" style="background-color: black; color: white;">
 	<div class="row" style="height: 100%;">
 
 		<div class="side-nav">
@@ -51,7 +51,28 @@
 
 			</div>
 
-			<div class="card">
+			
+			<div class="netcard card">
+				<div class="net-header">
+					<h1>TRIFORCE</h1>
+					<h3>10.0.0.53</h3>
+				</div>
+				<div class="divline"></div>
+				<div class="row-details">
+					<div class="block">
+						Online
+					</div>
+					<div class="block">
+						ff-ff-ff
+					</div>
+					<div class="block">
+						Microsoft
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- <div class="card">
 				<div class="net-header">
 					<h1>10.0.0.53</h1>
 					<h1>TRIFORCE</h1>
@@ -78,29 +99,10 @@
 						</tr>
 					</table>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="netcard card">
-				<div class="net-header">
-					<h1>TRIFORCE</h1>
-					<h3>Online</h3>
-				</div>
-				<div class="divline"></div>
-				<div class="row-details">
-					<div class="block">
-						10.0.0.53
-					</div>
-					<div class="block">
-						ff-ff-ff
-					</div>
-					<div class="block">
-						Microsoft
-					</div>
 
-				</div>
-			</div>
-			
-			<div class="netcard card">
+			<!-- <div class="netcard card">
 				<div class="net-header">
 					<h1>TRIFORCE</h1>
 					<h3>10.0.0.53</h3>
@@ -126,7 +128,7 @@
 					</table>
 
 				</div>
-			</div>
+			</div> -->
 
 			
 
@@ -141,7 +143,7 @@
 <!-- Node.js Scripts -->
 <script src="scripts/tools.js"></script>
 <script src="renderer.js"></script>
-<script src="netdiscovery.js"></script>
+<script src="networkdiscovery.js"></script>
 <script src="scripts/storage.js"></script>
 
 <!-- HTML/CSS Scripts -->
