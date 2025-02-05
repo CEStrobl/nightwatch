@@ -78,3 +78,19 @@ function parseArpTable(input) {
 
     return result;
 }
+
+function isOddMAC(mac) {
+    return mac.startsWith("01-00-5E") || mac.startsWith("FF-FF-FF");
+}
+
+const ouiMap = new Map(
+    oui.trim().split(/\r?\n/).map(line => {
+        const [prefix, manufacturer] = line.split(",").map(s => s.trim().toUpperCase());
+        return [prefix, manufacturer];
+    })
+);
+
+function lookupOUI(macPrefix) {
+    return ouiMap.get(macPrefix.toUpperCase()) || "Unknown OUI";
+}
+
