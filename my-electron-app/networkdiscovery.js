@@ -1,5 +1,6 @@
 let myIps = []
 
+initOui()
 
 async function discover() {
 
