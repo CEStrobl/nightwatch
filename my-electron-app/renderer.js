@@ -10,3 +10,14 @@ async function runcom(command) {
 }
 
 let execute = window.electronAPI.runCommand;
+
+let findHostname = window.electronAPI.getHostname;
+
+async function hostnamecom(ip) {
+	try {
+		const result = await window.electronAPI.getHostname(ip);
+		return result;
+	} catch (err) {
+		throw err;
+	}
+}

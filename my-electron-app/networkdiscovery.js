@@ -31,6 +31,10 @@ async function discover() {
 			const devvend = lookupOUI(devmac);
 			console.log(devmac, devvend)
 
+			const x = await hostnamecom(devip)
+
+			console.log(x)
+
 			const ping = "-"
 	
 			card.innerHTML =
