@@ -224,7 +224,7 @@ async function buildAndRetrieveDrive() {
 	}
 }
 
-async function buildAndRetrieveDrive3() {
+async function buildAndRetrieveDrive2() {
 	const parent = document.getElementById("diskContainer");
 
 	logTime("Start")
@@ -285,7 +285,7 @@ async function buildAndRetrieveDrive3() {
 				
 		drive.total = await execute(`[Math]::Round((Get-Volume | Sort-Object DriveLetter)[${i}].Size / 1GB, 0)`);
 		drive.totalUnit = "GB";
-		drive.percent = Math.round((drive.remaining / drive.total) * 100);
+		drive.percent = Math.round(((drive.total - drive.remaining) / drive.total) * 100);
 			
 		card.innerHTML += `
 		<div class="progress-container">
@@ -297,5 +297,23 @@ async function buildAndRetrieveDrive3() {
 
 		logTime("Finish")
 	}
+}
+
+async function buildAndRetrieveDrive3() {
+	const parent = document.getElementById("diskContainer");
+
+	logTime("Start")
+
+	const powerShellOutput = await execute(
+		`Get-Volume | Sort-Object DriveLetter | ForEach-Object {
+    	Write-Host "$($_.DriveLetter)|$($_.FriendlyName -join " ")|$($_.FileSystemType)|$($_.DriveType)|$($_.HealthStatus)|$($_.OperationalStatus)"
+		}`);	
+	
+	console.log(powerShellOutput)
+
+	const parsedData = parsePowerShellTable(powerShellOutput);
+
+	logTime("Finish")
+	
 }
 

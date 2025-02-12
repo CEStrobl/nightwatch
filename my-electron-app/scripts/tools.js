@@ -33,3 +33,69 @@ const logTime = (() => {
         lastTime = now; // Update the last log time
     };
 })();
+
+
+
+
+function parsePowerShellTable(input) {
+    input
+        .trim()
+        .split("\n")
+        .map(line => {
+            const [DriveLetter, FriendlyName, FileSystemType, DriveType, HealthStatus, OperationalStatus] = line.split("|");
+            return { DriveLetter, FriendlyName, FileSystemType, DriveType, HealthStatus, OperationalStatus };
+        });
+}
+
+function parseArpTable(input) {
+    const lines = input.trim().split("\n").map(line => line.trim());
+    const result = [];
+    let currentInterface = null;
+
+    for (let line of lines) {
+        // Match interface lines like: "Interface: 192.168.19.114 --- 0x16"
+        let interfaceMatch = line.match(/^Interface:\s+([\d\.]+)\s+---\s+(\S+)/);
+        if (interfaceMatch) {
+            currentInterface = {
+                InterfaceIP: interfaceMatch[1],
+                InterfaceID: interfaceMatch[2],
+                Entries: [],
+            };
+            result.push(currentInterface);
+            continue;
+        }
+
+        // Match ARP entries like: "10.128.128.128  98-18-88-c1-19-21  dynamic"
+        let arpMatch = line.match(/^([\d\.]+)\s+([\w-]+)\s+(\w+)$/);
+        if (arpMatch && currentInterface) {
+            currentInterface.Entries.push({
+                IPAddress: arpMatch[1],
+                MACAddress: arpMatch[2],
+                Type: arpMatch[3],
+            });
+        }
+    }
+
+    return result;
+}
+
+function isOddMAC(mac) {
+    return mac.startsWith("01-00-5E") || mac.startsWith("FF-FF-FF");
+}
+
+let ouiMap = '';
+
+function initOui() {
+    ouiMap = new Map(
+        oui.trim().split(/\r?\n/).map(line => {
+            const [prefix, manufacturer] = line.split(",").map(s => s.trim().toUpperCase());
+            return [prefix, manufacturer];
+        })
+    );
+}
+
+
+function lookupOUI(macPrefix) {
+    return ouiMap.get(macPrefix.toUpperCase()) || "Unknown OUI";
+}
+
