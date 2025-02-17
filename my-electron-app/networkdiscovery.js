@@ -41,6 +41,11 @@ async function discover() {
 			device.ip = node.IPAddress;
 			device.vendor = lookupOUI(device.mac);
 
+			// shorten vendor to two words if its too long
+			if(device.vendor.length > 12) {
+				device.vendor = device.vendor.split(" ")[0] + " " + device.vendor.split(" ")[1]
+			}
+
 			const x = await execute(
 				`$hostname=''; 
 				try { $temp=(Resolve-DnsName '${device.ip}' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty NameHost); if ($temp) { $hostname=$temp } } catch {}; 
@@ -80,6 +85,8 @@ async function discover() {
 		
 
 	}
+
+	allPingTimes()
 	
 }
 
@@ -93,4 +100,36 @@ async function pingDevice(ip) {
 	const match = pingOutput.match(/time[=<]([\d]+)ms/i);
 
 	return match ? `${match[1]} ms` : "Offline";
+}
+
+async function allPingTimes() {
+	// loop thru myNetwork
+
+	for (let i = 0; i < myNetwork.length; i++) {
+		const device = myNetwork[i];
+		
+		// go to id deviceiping
+		const pingdiv = document.getElementById("device"+i+"ping");
+	
+		// change to Pinging...
+		pingdiv.innerText = "Pinging...";
+		pingdiv.className += " loading";
+	
+		// actually ping it
+		let result = await pingDevice(device.ip);
+		pingdiv.innerText = result;
+		pingdiv.className = "block"
+		
+		// change status
+		if(result == "Offline") {
+			device.status = "Offline";
+		} else if (result.includes("ms")){
+			device.status = "Online";
+			device.ping = result;
+		} else {
+			console.log("error: something went wrong with pinging", device.ip)
+			console.log("results: ", results)
+		}
+	}
+
 }

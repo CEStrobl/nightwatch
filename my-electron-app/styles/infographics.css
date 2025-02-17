@@ -33,37 +33,30 @@
 
 }
 
-.animated-underline {
-    display: inline-block;
-    position: relative;
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
-    color: black;
-}
 
-.animated-underline::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -3px; /* Adjust the underline position */
-    width: 100%;
-    height: 3px;
-    background: black;
-    overflow: hidden;
-    
-    animation: loading-underline 1.5s infinite ease-in-out;
-}
-
-@keyframes loading-underline {
+@keyframes text-loading {
     0% {
-        transform: translateX(-100%);
-    }
-    50% {
-        transform: translateX(0%);
+        background-position: 250% 0;
     }
     100% {
-        transform: translateX(100%);
+        background-position: -250% 0;
     }
 }
+
+
+.loading {
+    color: transparent; /* Hide original text */
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1) 20%, 
+        rgba(255, 255, 255, 0.9) 60%, 
+        rgba(255, 255, 255, 0.1) 80%
+    );
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: text-loading 5s infinite linear;
+}
+
+
+
 
