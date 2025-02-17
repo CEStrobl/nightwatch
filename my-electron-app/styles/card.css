@@ -81,7 +81,7 @@ p{
 
 .netcard {
     min-height: unset;
-    width: 250px;
+    width: 300px;
 }
 
 .netcard table {
@@ -99,6 +99,7 @@ p{
 
 .net-header h1{
     margin: 0px;
+    font-size: 22px;
 }
 
 .subheader {
