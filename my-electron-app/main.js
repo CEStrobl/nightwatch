@@ -67,25 +67,3 @@ ipcMain.handle('ping-command', async (event) => {
 		});
 	});
 });
-
-ipcMain.handle('hostname-command', async (event, ip) => {
-	const hostnameCommand = `
-	$hostname="Unnamed Device"; 
-	try { $temp=(Resolve-DnsName "10.0.0.53" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty NameHost); if ($temp) { $hostname=$temp } } catch {}; 
-	try { if ($hostname -eq "Unnamed Device") { $temp=([System.Net.Dns]::GetHostEntry("10.0.0.53").HostName); if ($temp) { $hostname=$temp } } } catch {}; 
-	[Console]::WriteLine($hostname)
-	`;
-	
-	exec(`powershell -NoProfile -Command "${hostnameCommand}"`, (error, stdout, stderr) => {
-		if (error) {
-			console.error(`Error: ${error.message}`);
-			return;
-		}
-		if (stderr) {
-			console.error(`Stderr: ${stderr}`);
-			return;
-		}
-		console.log(`Hostname:`, stdout.trim() || "Unnamed Device"); // Prevents "undefined"
-	});
-});
-

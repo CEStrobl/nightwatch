@@ -1,5 +1,7 @@
 let myIps = []
 
+let myNetwork = []
+
 initOui()
 
 async function discover() {
@@ -15,51 +17,121 @@ async function discover() {
 
 	for (let i = 0; i < arpData.length; i++) {
 		const node = arpData[i];
+
+		let device = {
+			name: "-",
+			mac: "-",
+			ip: "-",
+			vendor: "-",
+			ping: "-",
+			status: "-",
+		};
 		
-		const devmac = node.MACAddress.substring(0,8).toUpperCase();
+		device.mac = node.MACAddress.substring(0,8).toUpperCase();
 				
-		if(!isOddMAC(devmac)){
+		if(!isOddMAC(device.mac)){
 			
 			// init net card
 			const card = document.createElement("div");
 			card.className = "netcard card";
-			card.id = "netdevice"+i;
+			card.id = "netdevice.ice"+i;
 			parent.appendChild(card);
 			
-			const devname = "-"
-			const devip = node.IPAddress;
-			const devvend = lookupOUI(devmac);
-			console.log(devmac, devvend)
+			device.name = "-";
+			device.ip = node.IPAddress;
+			device.vendor = lookupOUI(device.mac);
 
-			const x = await hostnamecom(devip)
+			// shorten vendor to two words if its too long
+			if(device.vendor.length > 12) {
+				device.vendor = device.vendor.split(" ")[0] + " " + device.vendor.split(" ")[1]
+			}
 
-			console.log(x)
+			const x = await execute(
+				`$hostname=''; 
+				try { $temp=(Resolve-DnsName '${device.ip}' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty NameHost); if ($temp) { $hostname=$temp } } catch {}; 
+				try { if (-not $hostname) { $temp=([System.Net.Dns]::GetHostEntry('${device.ip}').HostName); if ($temp) { $hostname=$temp } } } catch {}; 
+				[Console]::WriteLine($hostname)`
+			);
+			
+			const hostname = x.trim() || "Unnamed Device";
 
-			const ping = "-"
+			device.name = hostname.replace("Unnamed", device.vendor.split(" ")[0])
+			
+			device.ping = "Located";
 	
 			card.innerHTML =
 			`
-				<div class="net-header">
-					<h1>${devname}</h1>
-					<h3>${devip}</h3>
+				<div class="net-header" id="${"device"+i}">
+					<h1>${device.name}</h1>
+					<h3>${device.ip}</h3>
 				</div>
 				<div class="divline"></div>
 				<div class="row-details">
-					<div class="block">
-						${ping}
+					<div class="block" id="${"device"+i+"ping"}">
+						${device.ping}
 					</div>
 					<div class="block">
-						${devmac}
+						${device.mac}
 					</div>
 					<div class="block">
-						${devvend}
+						${device.vendor}
 					</div>
 					
 				</div>
 			`
+
+			myNetwork.push(device)
 		}
 		
 
 	}
+
+	allPingTimes()
 	
+}
+
+async function pingDevice(ip) {
+	let pingOutput = await execute(`ping ${ip}`);
+
+    if (typeof pingOutput !== "string") {
+        return "Offline";
+    }
+
+	const match = pingOutput.match(/time[=<]([\d]+)ms/i);
+
+	return match ? `${match[1]} ms` : "Offline";
+}
+
+async function allPingTimes() {
+	// loop thru myNetwork
+
+	for (let i = 0; i < myNetwork.length; i++) {
+		const device = myNetwork[i];
+		
+		// go to id deviceiping
+		const pingdiv = document.getElementById("device"+i+"ping");
+	
+		// change to Pinging...
+		pingdiv.innerText = "Pinging...";
+		pingdiv.className += " loading";
+	
+		// actually ping it
+		let result = await pingDevice(device.ip);
+		pingdiv.className = "block"
+		
+		// change status
+		if(result == "Offline") {
+			device.status = "Offline";
+			pingdiv.innerHTML = `<span class="status-dot offline"></span>`+result;
+		} else if (result.includes("ms")){
+			pingdiv.innerHTML = `<span class="status-dot online"></span>`+result;
+			device.status = "Online";
+			device.ping = result;
+		} else {
+			pingdiv.innerHTML = "Error"
+			console.log("error: something went wrong with pinging", device.ip)
+			console.log("results: ", results)
+		}
+	}
+
 }
