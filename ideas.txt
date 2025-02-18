@@ -17,6 +17,21 @@
 	incremental loading
 
 	drop down initial details -> big list details
-	(thanks jared)
+	(thanks jared) and evan
+
+	ping all at once (multi threading)
+	(thanks jar)
+
+	subnets (dropdown, select)
+
+	ip range
+
 	
+
+===============================================
+----------------PORT-SCANNING------------------
+
+	protocol with port
+
+
 

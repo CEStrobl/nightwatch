@@ -15,6 +15,8 @@ async function discover() {
 	// define parent div container
 	let parent = document.getElementById("netcontainer");
 
+	let index = 0;
+
 	for (let i = 0; i < arpData.length; i++) {
 		const node = arpData[i];
 
@@ -34,7 +36,7 @@ async function discover() {
 			// init net card
 			const card = document.createElement("div");
 			card.className = "netcard card";
-			card.id = "netdevice.ice"+i;
+			card.id = "netdevice"+index;
 			parent.appendChild(card);
 			
 			device.name = "-";
@@ -61,13 +63,13 @@ async function discover() {
 	
 			card.innerHTML =
 			`
-				<div class="net-header" id="${"device"+i}">
+				<div class="net-header" id="${"device"+index}">
 					<h1>${device.name}</h1>
 					<h3>${device.ip}</h3>
 				</div>
 				<div class="divline"></div>
 				<div class="row-details">
-					<div class="block" id="${"device"+i+"ping"}">
+					<div class="block" id="${"device"+index+"ping"}">
 						${device.ping}
 					</div>
 					<div class="block">
@@ -81,6 +83,7 @@ async function discover() {
 			`
 
 			myNetwork.push(device)
+			index++
 		}
 		
 
