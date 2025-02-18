@@ -117,16 +117,18 @@ async function allPingTimes() {
 	
 		// actually ping it
 		let result = await pingDevice(device.ip);
-		pingdiv.innerText = result;
 		pingdiv.className = "block"
 		
 		// change status
 		if(result == "Offline") {
 			device.status = "Offline";
+			pingdiv.innerHTML = `<span class="status-dot offline"></span>`+result;
 		} else if (result.includes("ms")){
+			pingdiv.innerHTML = `<span class="status-dot online"></span>`+result;
 			device.status = "Online";
 			device.ping = result;
 		} else {
+			pingdiv.innerHTML = "Error"
 			console.log("error: something went wrong with pinging", device.ip)
 			console.log("results: ", results)
 		}

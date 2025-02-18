@@ -57,6 +57,17 @@
     animation: text-loading 5s infinite linear;
 }
 
+.status-dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+	border:none;
+}
+
+.online { background-color: rgb(69, 192, 69); }
+.offline { background-color: rgb(131,127,127); }
 
 
 
