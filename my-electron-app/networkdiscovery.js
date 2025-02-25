@@ -1,140 +1,60 @@
-let myIps = []
+const progress = document.getElementById("progressStatus")
+const bar = document.getElementById("progressStatusBar")
 
-let myNetwork = []
+async function pingHost(ip) {
+    const result = await execute(`ping -n 1 -w 500 ${ip}`);
 
-initOui()
-
-async function discover() {
-
-	// send PS arp -a
-	const arpTable = await execute("arp -a");
-
-	// parse it to an array of network objects
-	const arpData = parseArpTable(arpTable).flatMap(iface => iface.Entries);
-	
-	// define parent div container
-	let parent = document.getElementById("netcontainer");
-
-	let index = 0;
-
-	for (let i = 0; i < arpData.length; i++) {
-		const node = arpData[i];
-
-		let device = {
-			name: "-",
-			mac: "-",
-			ip: "-",
-			vendor: "-",
-			ping: "-",
-			status: "-",
-		};
-		
-		device.mac = node.MACAddress.substring(0,8).toUpperCase();
-				
-		if(!isOddMAC(device.mac)){
-			
-			// init net card
-			const card = document.createElement("div");
-			card.className = "netcard card";
-			card.id = "netdevice"+index;
-			parent.appendChild(card);
-			
-			device.name = "-";
-			device.ip = node.IPAddress;
-			device.vendor = lookupOUI(device.mac);
-
-			// shorten vendor to two words if its too long
-			if(device.vendor.length > 12) {
-				device.vendor = device.vendor.split(" ")[0] + " " + device.vendor.split(" ")[1]
-			}
-
-			const x = await execute(
-				`$hostname=''; 
-				try { $temp=(Resolve-DnsName '${device.ip}' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty NameHost); if ($temp) { $hostname=$temp } } catch {}; 
-				try { if (-not $hostname) { $temp=([System.Net.Dns]::GetHostEntry('${device.ip}').HostName); if ($temp) { $hostname=$temp } } } catch {}; 
-				[Console]::WriteLine($hostname)`
-			);
-			
-			const hostname = x.trim() || "Unnamed Device";
-
-			device.name = hostname.replace("Unnamed", device.vendor.split(" ")[0])
-			
-			device.ping = "Located";
-	
-			card.innerHTML =
-			`
-				<div class="net-header" id="${"device"+index}">
-					<h1>${device.name}</h1>
-					<h3>${device.ip}</h3>
-				</div>
-				<div class="divline"></div>
-				<div class="row-details">
-					<div class="block" id="${"device"+index+"ping"}">
-						${device.ping}
-					</div>
-					<div class="block">
-						${device.mac}
-					</div>
-					<div class="block">
-						${device.vendor}
-					</div>
-					
-				</div>
-			`
-
-			myNetwork.push(device)
-			index++
-		}
-		
-
-	}
-
-	allPingTimes()
-	
-}
-
-async function pingDevice(ip) {
-	let pingOutput = await execute(`ping ${ip}`);
-
-    if (typeof pingOutput !== "string") {
-        return "Offline";
+    if (!result) { // If execute() returns undefined or null, assume offline
+        return { ip, status: "Offline", time: "0ms" };
     }
 
-	const match = pingOutput.match(/time[=<]([\d]+)ms/i);
+    // Extract response time (matches "time=3ms" or "time<1ms")
+    const match = result.match(/time[=<](\d+)ms/);
+    const time = match ? `${match[1]}ms` : "N/A";
 
-	return match ? `${match[1]} ms` : "Offline";
+    return { ip, status: result.includes("Reply from") ? "Online" : "Offline", time };
 }
 
-async function allPingTimes() {
-	// loop thru myNetwork
+async function printOnlineDevices(devices) {
+    console.log("Live Online Devices:");
+    console.table(devices);
+}
 
-	for (let i = 0; i < myNetwork.length; i++) {
-		const device = myNetwork[i];
-		
-		// go to id deviceiping
-		const pingdiv = document.getElementById("device"+i+"ping");
-	
-		// change to Pinging...
-		pingdiv.innerText = "Pinging...";
-		pingdiv.className += " loading";
-	
-		// actually ping it
-		let result = await pingDevice(device.ip);
-		pingdiv.className = "block"
-		
-		// change status
-		if(result == "Offline") {
-			device.status = "Offline";
-			pingdiv.innerHTML = `<span class="status-dot offline"></span>`+result;
-		} else if (result.includes("ms")){
-			pingdiv.innerHTML = `<span class="status-dot online"></span>`+result;
-			device.status = "Online";
-			device.ping = result;
-		} else {
-			pingdiv.innerHTML = "Error"
-			console.log("error: something went wrong with pinging", device.ip)
-			console.log("results: ", results)
-		}
-	}
+async function pingSweep(network) {
+    let onlineDevices = [];
+    const ips = Array.from({ length: 254 }, (_, i) => `${network}.${i + 1}`);
+    const batchSize = 15;
 
+    progress.className += " loading"
+
+    for (let i = 0; i < ips.length; i += batchSize) {
+        progress.innerText = `Scanning network ${network}.x ...`;
+        bar.style.width =`${Math.round((i / ips.length) * 100)}%`;
+
+        if(i>0){bar.innerText = i;}
+        
+        // Get the next batch of 15 + Run them in parallel
+        const batch = ips.slice(i, i + batchSize); 
+        const results = await Promise.all(batch.map(ip => pingHost(ip))); 
+
+        results.forEach(({ ip, status, time }) => {
+            if (status === "Online") {
+                onlineDevices.push({ ip, status, ms: time });
+            }
+        });
+
+        console.log(`Scanned ${i + batch.length} IPs so far...`);
+        await printOnlineDevices(onlineDevices);
+    }
+
+    progress.style.display = 'none';
+    bar.style.display = 'none';
+
+    console.log("Scan complete.");
+}
+
+
+async function discover() {
+	
+	pingSweep("192.168.19");
 }
