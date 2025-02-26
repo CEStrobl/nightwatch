@@ -46,7 +46,9 @@ ipcMain.handle('run-command', async (event, command) => {
         exec(powershellCommand, (error, stdout, stderr) => {
             // Reject the promise if an error occurs
             if (error) {
+				// console.error(error);
                 reject(stderr);
+				console.log("    ", command, "failed")
             } else {
                 // Resolve the promise with the command output
                 resolve(stdout);

@@ -75,17 +75,20 @@ async function createIpCard(ip, time, status, index) {
 
 
 async function pingHost(ip) {
-	const result = await execute(`ping -n 1 -w 500 ${ip}`);
+    const result = await execute(`
+        $output = ping -n 1 -w 500 ${ip} 2>$null;
+        if ($?) { $output } else { Write-Output "Ping Failed" }
+    `);
 
-	if (!result) { // If execute() returns undefined or null, assume offline
-		return { ip, status: "Offline", time: "0ms" };
-	}
+    if (!result || result.includes("Ping Failed")) { // Handle failures
+        return { ip, status: "Offline", time: "0ms" };
+    }
 
-	// Extract response time (matches "time=3ms" or "time<1ms")
-	const match = result.match(/time[=<](\d+)ms/);
-	const time = match ? `${match[1]}ms` : "N/A";
+    // Extract response time (matches "time=3ms" or "time<1ms")
+    const match = result.match(/time[=<](\d+)ms/);
+    const time = match ? `${match[1]}ms` : "N/A";
 
-	return { ip, status: result.includes("Reply from") ? "Online" : "Offline", time };
+    return { ip, status: result.includes("Reply from") ? "Online" : "Offline", time };
 }
 
 async function printOnlineDevices(devices) {
@@ -133,5 +136,5 @@ async function pingSweep(network) {
 
 async function discover() {
 	
-	pingSweep("192.168.19");
+	pingSweep("192.168.56");
 }
