@@ -99,3 +99,22 @@ function lookupOUI(macPrefix) {
     return ouiMap.get(macPrefix.toUpperCase()) || "Unknown OUI";
 }
 
+function getMacAddress(getNetNeighborOutput, targetIP) {
+    // Split into lines and filter out empty lines
+    const lines = getNetNeighborOutput.trim().split("\n").filter(line => line.trim());
+
+    for (let line of lines) {
+        // Normalize spaces and split columns
+        const parts = line.trim().split(/\s+/);
+
+        const ip = parts[1];
+        const mac = parts[2].substring(0,8).toUpperCase();
+
+        if (ip === targetIP) {
+            return mac.substring(0,8).toUpperCase();
+        }
+    }
+
+    return "00-00-00"; 
+}
+
