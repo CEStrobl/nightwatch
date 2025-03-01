@@ -1,0 +1,52 @@
+== DASHBOARD =================================================
+
+	[ ] improve drive load times
+	// Write-Host Get-Volume and parse with js
+
+	[ ] Net adapter ui
+
+	[ ] load once into file and read from file after
+
+	[ ] loading indicator
+
+== SIDE NAV =================================================
+
+	[ ] Add logo
+
+	[ ] collapsible button
+	
+	[ ] auto collapse when small screen
+
+	[ ] Command History
+
+== NETWORK DISCOVERY =========================================
+
+	[ ] option to refresh
+
+	[√] incremental loading
+
+	[ ] drop down initial details -> big list details
+	// thanks jared and evan
+
+	[√] ping all at once
+	// multi threading, thanks jar
+
+	[√] subnets 
+	// dropdown, select
+
+	[ ] ip range
+
+	[ ] Copy to CSV
+
+	
+== PORT SCANNING ===========================================
+
+	[ ] protocol with port
+
+	[ ] status
+	// listening, outbound
+
+	[ ] Copy to CSV
+
+
+

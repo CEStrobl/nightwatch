@@ -10,7 +10,7 @@
 
 	<title>Network Discovery</title>
 </head>
-<body onload="discover()" style="background-color: black; color: white;">
+<body style="background-color: black; color: white;">
 	<div class="row" style="height: 100%;">
 
 		<div class="side-nav">
@@ -53,7 +53,7 @@
 					<option value="10.0.0">10.0.0.x</option>
 					<option value="172.16.0">172.16.0.x</option>
 				</select>
-				<div class="button">Start</div>
+				<div class="button" onclick="discover()">Start</div>
 			</div>
 			
 			<div id="sweepnetcontainer" class="netcontainer">

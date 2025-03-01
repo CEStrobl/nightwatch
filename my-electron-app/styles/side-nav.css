@@ -47,14 +47,13 @@
 
 #logo {
 	font-family: Courier, monospace;
-	/* margin: 0px 0px 60px 0px; */
 }
 
 
 .side-nav .top{
 	display: flex;
 	justify-content: center;
-    align-items: center;
+	align-items: center;
 
 	height: 30%;
 	
@@ -71,7 +70,7 @@
 .side-nav .bottom {
 	display: flex;
 	align-items: flex-end;
-    justify-content: center;
+	justify-content: center;
 	
 	height: 30%;
 }
