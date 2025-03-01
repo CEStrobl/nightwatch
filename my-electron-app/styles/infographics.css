@@ -1,7 +1,7 @@
 .progress-container {
 	width: 95%;
 	overflow: hidden;
-
+	
 	margin: 10px;
 
 	background-color: #52525282;
@@ -11,12 +11,26 @@
 	height: 20px;
 	width: 0;
 
+    font-size: 14px;
+
 	background-color: #2a802d;
 
 	display: flex;
 	justify-content: center;
+    align-content: center;
+    align-items: center;
 
     transition: 0.5s ease-in-out;
+}
+
+#progressbarconatainer {
+    width: 100%;
+	max-width: 500px;
+    height: 90px;
+}
+
+#progressStatus{
+    font-size: 16px;
 }
 
 .num{
@@ -80,7 +94,6 @@
     align-items: center;
     gap: 10px;
     font-size: 20px;
-    /* font-weight: bold; */
     color: white;
 }
 
@@ -90,7 +103,6 @@
     border:none;
     padding: 8px 12px;
     font-size: 18px;
-    /* font-weight: bold; */
     border-radius: 6px;
     outline: none;
     transition: all 0.2s ease-in-out;

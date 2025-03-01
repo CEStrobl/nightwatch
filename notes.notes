@@ -34,6 +34,14 @@
 	[√] subnets 
 	// dropdown, select
 
+	[ ] sort button
+
+	[√] clear on start
+
+	[ ] increment name finding
+
+	[ ] fix get self issue 10.0.0.53
+
 	[ ] Copy to CSV
 
 	
