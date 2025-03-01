@@ -23,7 +23,7 @@ const logTime = (() => {
 		const timeFormatted = `[${minutes}:${seconds}]`;
 
 		// Log "Finish" with total runtime
-		if (label === "Finish") {
+		if (label === "Finish" || label === "Stop") {
 			console.log(`${timeFormatted} ${label} - Total runtime: ${totalElapsed} seconds`);
 			return;
 		}
@@ -118,6 +118,24 @@ function getMacAddress(getNetNeighborOutput, targetIP) {
 		if (ip === targetIP) {
 			return mac.substring(0,8).toUpperCase();
 		}
+	}
+
+	return "00-00-00"; 
+}
+
+function getHostMacAddress(getNetNeighborOutput) {
+	// Split into lines and filter out empty lines
+	const lines = getNetNeighborOutput.trim().split("\n").filter(line => line.trim());
+	for (let line of lines) {
+		// Normalize spaces and split columns
+		const parts = line.trim().split(/\s+/);
+		
+		const mac = parts[0];
+
+		if (mac.includes("-")) {
+			return mac.substring(0,8).toUpperCase();
+		}
+
 	}
 
 	return "00-00-00"; 

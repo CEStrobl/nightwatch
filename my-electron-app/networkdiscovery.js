@@ -1,8 +1,15 @@
 initOui();
 
 async function createIpCard(ip, time, status, index) {
-	const netresult = await execute(`Get-NetNeighbor ${ip}`);
-	const mac = getMacAddress(netresult, ip);
+	let netresult = 0;
+	let mac = 0;
+	try {
+		netresult = await execute(`Get-NetNeighbor ${ip}`)
+		mac = getMacAddress(netresult, ip);
+	} catch {
+		netresult = await execute(`getmac`);
+		mac = getHostMacAddress(netresult);
+	}
 	
 	let device = {
 		name: "-",
@@ -102,7 +109,11 @@ async function pingHost(ip) {
 let onlineDevices = [];
 
 async function pingSweep(network) {
+
+	logTime("Start");
+
 	onlineDevices = [];
+
 	const ips = Array.from({ length: 254 }, (_, i) => `${network}.${i + 1}`);
 	const batchSize = 15;
 
@@ -130,13 +141,16 @@ async function pingSweep(network) {
 				index++;
 			}
 		});
-		console.log(`Scanned ${i + batch.length} IPs so far...`);
+		logTime(`Scanned ${i + batch.length} IPs so far...`);
 	}
 
 	progress.style.display = 'none';
 	bar.style.display = 'none';
 
-	console.log("Scan complete.");
+	console.log(`Scan Complete. Found ${onlineDevices.length} devices. `);
+	logTime("Finish");
+
+	enableButton();
 	return true;
 }
 
@@ -150,12 +164,22 @@ function clearIpCards() {
 	}
 }
 
-
-async function discover() {
-
+function disableButton() {
 	startButton.innerText = "In Progress...";
 	startButton.disabled = true;
 	startButton.style.color = "#ffffff65";
+}
+
+function enableButton(){
+	startButton.innerText = "Start";
+	startButton.disabled = false;
+	startButton.style.color = "#ffffff";
+}
+
+
+async function discover() {
+
+	disableButton()
 
 	const selection = document.getElementById("subnet").value;
 
@@ -165,8 +189,5 @@ async function discover() {
 	
 	pingSweep(selection);
 	
-	startButton.innerText = "Start";
-	startButton.disabled = false;
-	startButton.style.color = "#ffffff";
 
 }
