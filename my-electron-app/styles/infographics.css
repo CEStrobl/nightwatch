@@ -73,3 +73,35 @@
 
 
 
+
+/* Subnet Selector Styling */
+.subnet-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    /* font-weight: bold; */
+    color: white;
+}
+
+.subnet-select {
+    background-color: rgba(0, 0, 0, 0.249); /* Slightly lighter for contrast */
+    color: white;
+    border:none;
+    padding: 8px 12px;
+    font-size: 18px;
+    /* font-weight: bold; */
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover & Focus Effects */
+.subnet-select:hover, .subnet-select:focus {
+    background-color: rgba(157, 157, 157, 0.15);
+}
+
+.subnet-select option{
+    border:none;
+    background-color: rgb(20, 20, 20); /* Slightly lighter for contrast */
+}

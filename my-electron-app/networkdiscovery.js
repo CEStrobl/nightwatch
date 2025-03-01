@@ -1,6 +1,3 @@
-const progress = document.getElementById("progressStatus")
-const bar = document.getElementById("progressStatusBar")
-
 initOui()
 
 async function createIpCard(ip, time, status, index) {
@@ -133,8 +130,33 @@ async function pingSweep(network) {
 	console.log("Scan complete.");
 }
 
+let progress = 0
+let bar = 0
+
+function createProgressBar() {
+	let parent = document.getElementById("mainDiv");
+
+	const div = document.createElement("div");
+
+	div.innerHTML=
+	`
+	<p id="progressStatus"></p>
+	<div class="progress-container">
+		<div id="progressStatusBar" class="progress-bar" style="width: 0%"></div>
+	</div>
+	`
+	parent.appendChild(div);
+
+	
+	progress = document.getElementById("progressStatus")
+	bar = document.getElementById("progressStatusBar")
+}
+
+
 
 async function discover() {
+
+	createProgressBar();
 	
 	pingSweep("192.168.56");
 }
