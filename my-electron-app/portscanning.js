@@ -18,36 +18,37 @@ function parseNetTCPConnection(output) {
 		110: "POP3",
 		119: "NNTP",
 		123: "NTP",
+		135: "RPC",
 		161: "SNMP",
 		162: "SNMP",
 		443: "HTTPS",
+		445: "SMB",
 		902: "VMware Server",
 		3074: "XBOX Live",
 		3306: "MySQL",
 		3389: "RDP",
+		5357: "WSD",
 		5900: "VNC",
+		5040: "RDMA",
+		5040: "RDMA",
 		5432: "PostgreSQL"
 	};
 
-	let lineCount = 0;
-
 	for (let line of lines) {
 		const parts = line.split(/\s+/); 
+		const port = parseInt(parts[1]);
 
-		if (lineCount > 1) {
-			const port = parseInt(parts[1]);
+		if (Number.isInteger(port)) {
 
 			let portObj = {
 				localAddress: parts[0],
 				localPort: port,
+				protocol: portProtocols[port] || "",
 				remoteAddress: parts[2],
-				protocol: portProtocols[port] || "Unknown"
 			};
 	
 			results.push(portObj);
 		}
-
-		lineCount++;
 	}
 
 	return results;
@@ -55,31 +56,46 @@ function parseNetTCPConnection(output) {
 
 
 function categorizeConnections(connections) {
-    const categorized = {
-        localOnly: [],
-        internalLAN: [],
-        listeningAll: [],
-        external: []
-    };
+	const categorized = {
+		localOnly: [],
+		internalLAN: [],
+		listeningAll: [],
+		external: []
+	};
 
-    connections.forEach(conn => {
-        const { localAddress, localPort, remoteAddress } = conn;
+	connections.forEach(conn => {
+		const { localAddress, localPort, remoteAddress } = conn;
 
-        if (localAddress === "127.0.0.1" || localAddress === "::1") {
-            categorized.localOnly.push(conn); // Localhost connections
-        } else if (localAddress.startsWith("192.168.") || localAddress.startsWith("10.") ||
-                   (localAddress.startsWith("172.") && parseInt(localAddress.split(".")[1]) >= 16 &&
-                    parseInt(localAddress.split(".")[1]) <= 31)) {
-            categorized.internalLAN.push(conn); // Internal LAN connections
-        } else if (localAddress === "0.0.0.0" || localAddress === "::") {
-            categorized.listeningAll.push(conn); // Listening on all interfaces
-        } else {
-            categorized.external.push(conn); // External connections (Internet)
-        }
-    });
+		// Localhost connections
+		if (localAddress === "127.0.0.1" || localAddress === "::1") {
+			categorized.localOnly.push(conn); 
+		}
+		
+		// Internal LAN connections
+		else if (localAddress.startsWith("192.168.") || localAddress.startsWith("10.") ||
+				   (localAddress.startsWith("172.") && parseInt(localAddress.split(".")[1]) >= 16 &&
+					parseInt(localAddress.split(".")[1]) <= 31)) {
+			categorized.internalLAN.push(conn);
+		}
+		
+		// Listening on all interfaces
+		else if (localAddress === "0.0.0.0" || localAddress === "::") {
+			categorized.listeningAll.push(conn);
+		}
+		
+		// External connections (Internet)
+		else {
+			categorized.external.push(conn);
+		}
+	});
 
-    return categorized;
+	return categorized;
 }
+
+function createPortBlock(obj) {
+	
+}
+
 
 async function portScanning() {
 	// Example PowerShell Output
@@ -90,7 +106,9 @@ async function portScanning() {
 
 	const categorized = categorizeConnections(parsedPorts);
 
-	console.table(categorized);
+	for (const property in categorized) {
+		console.table(categorized[property]);
+	}
 
 }
 
