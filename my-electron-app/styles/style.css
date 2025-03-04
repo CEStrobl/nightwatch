@@ -2,6 +2,12 @@ html {
 	height: 100%;
 }
 
+:root {
+	--bg1: rgba(0, 0, 0, 0.348);
+	--bg1hover: rgba(240, 248, 255, 0.511);
+}
+
+
 body{
 	margin:0px;
 	height: 100%;

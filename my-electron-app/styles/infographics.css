@@ -98,7 +98,7 @@
 }
 
 .subnet-select {
-    background-color: rgba(0, 0, 0, 0.249); /* Slightly lighter for contrast */
+    background-color: var(--bg1);
     color: white;
     border:none;
     padding: 8px 12px;
@@ -108,12 +108,11 @@
     transition: all 0.2s ease-in-out;
 }
 
-/* Hover & Focus Effects */
 .subnet-select:hover, .subnet-select:focus {
-    background-color: rgba(157, 157, 157, 0.15);
+    background-color: var(--bg1hover);
 }
 
 .subnet-select option{
+    background-color: rgb(20, 20, 20);
     border:none;
-    background-color: rgb(20, 20, 20); /* Slightly lighter for contrast */
 }
