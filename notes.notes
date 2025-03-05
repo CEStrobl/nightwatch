@@ -49,9 +49,9 @@
 	
 == PORT SCANNING ===========================================
 
-	[ ] protocol with port
+	[√] protocol with port
 
-	[ ] Categorize 
+	[√] Categorize 
 	// localOnly
 	// internalLAN
 	// listeningAll
