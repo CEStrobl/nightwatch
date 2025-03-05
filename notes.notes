@@ -51,10 +51,18 @@
 
 	[ ] protocol with port
 
+	[ ] Categorize 
+	// localOnly
+	// internalLAN
+	// listeningAll
+	// external
+
 	[ ] status
 	// listening, outbound
 
 	[ ] Copy to CSV
+
+	[ ] Protocol search
 
 
 

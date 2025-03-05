@@ -92,8 +92,20 @@ function categorizeConnections(connections) {
 	return categorized;
 }
 
-function createPortBlock(obj) {
+function createPortBlock(obj, parentID) {
 	
+	const parent = document.getElementById(parentID);
+
+	const card = document.createElement("div");
+	
+	card.innerHTML = `
+	<div class="portblock">
+		<h4>${obj.localAddress}</h4>
+		<h2>${obj.localPort}</h2>
+		<h4>${obj.protocol}</h4>
+	</div>`
+
+	parent.appendChild(card);
 }
 
 
@@ -107,7 +119,11 @@ async function portScanning() {
 	const categorized = categorizeConnections(parsedPorts);
 
 	for (const property in categorized) {
-		console.table(categorized[property]);
+		for (let i = 0; i < categorized[property].length; i++) {
+			const x = categorized[property][i];
+			
+			createPortBlock(x, property);
+		}
 	}
 
 }
