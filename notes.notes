@@ -2,12 +2,12 @@
 
 	[ ] improve drive load times
 	// Write-Host Get-Volume and parse with js
+	
+	[ ] loading indicator
 
 	[ ] Net adapter ui
 
 	[ ] load once into file and read from file after
-
-	[ ] loading indicator
 
 == SIDE NAV =================================================
 

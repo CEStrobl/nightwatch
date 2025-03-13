@@ -141,3 +141,85 @@ function getHostMacAddress(getNetNeighborOutput) {
 	return "00-00-00"; 
 }
 
+
+function parseGetVolumeOutput(getVolumeOutput) {
+	getVolumeOutput += "";
+
+	// Split into two sections: Volume Info and Friendly Name Mapping
+	const sections = getVolumeOutput.trim().split("=====");
+
+	console.log("sections")
+	console.table(sections)
+	
+	const volumeData = sections[0].trim().split("\n\n").filter(drive => drive.trim())+"";
+	const nameData = sections[1].trim().split("\n\n").filter(entry => entry.trim()) +"";
+
+	console.log("Raw Drive Entries:");
+	console.table(volumeData);
+
+	console.log("Raw Name Entries:");
+	console.table(nameData);
+
+	// Create a mapping of DriveLetter -> FriendlyName
+	const friendlyNameMap = {};
+	for (let entry of nameData) {
+		const lines = entry.split("\n").map(line => line.trim());
+		let letter = "N/A";
+		let name = "N/A";
+
+		for (let line of lines) {
+			const parts = line.split(":").map(part => part.trim());
+			if (parts[0] === "DriveLetter") letter = parts[1] + "";
+			if (parts[0] === "FriendlyName") name = parts.slice(1).join(":") + "";
+		}
+
+		friendlyNameMap[letter] = name;
+	}
+
+	console.log("Mapped Friendly Names:");
+	console.table(friendlyNameMap);
+
+	const results = [];
+
+	// Process the main volume data
+	for (let drive of volumeData) {
+		const lines = drive.split("\n").map(line => line.trim());
+
+		let driveObj = {
+			letter: "N/A",
+			friendlyName: "N/A",
+			fileSysType: "N/A",
+			driveType: "N/A",
+			healthStatus: "N/A",
+			operationalStatus: "N/A",
+			remainingSpace: "N/A",
+			totalSpace: "N/A",
+		};
+
+		for (let line of lines) {
+			const parts = line.split(":").map(part => part.trim());
+
+			const key = parts[0] + "";
+			const value = parts.slice(1).join(":") + "";
+
+			if (key === "DriveLetter") driveObj.letter = value;
+			if (key === "FileSystemType") driveObj.fileSysType = value;
+			if (key === "DriveType") driveObj.driveType = value;
+			if (key === "HealthStatus") driveObj.healthStatus = value;
+			if (key === "OperationalStatus") driveObj.operationalStatus = value;
+			if (key === "SizeRemaining") driveObj.remainingSpace = value;
+			if (key === "Size") driveObj.totalSpace = value;
+		}
+
+		// Map FriendlyName using DriveLetter
+		driveObj.friendlyName = friendlyNameMap[driveObj.letter] || "N/A";
+
+		console.log("Parsed Drive Object:");
+		console.table([driveObj]);
+		results.push(driveObj);
+	}
+
+	console.log("Final Parsed Drive List:");
+	console.table(results);
+	return results;
+}
