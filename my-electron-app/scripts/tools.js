@@ -143,83 +143,58 @@ function getHostMacAddress(getNetNeighborOutput) {
 
 
 function parseGetVolumeOutput(getVolumeOutput) {
-	getVolumeOutput += "";
+    getVolumeOutput += ""; // Ensure input is treated as a string
 
-	// Split into two sections: Volume Info and Friendly Name Mapping
-	const sections = getVolumeOutput.trim().split("=====");
+    const volumes = [];
+    const entries = getVolumeOutput.trim().split("\n\n"); // Split each drive block
 
-	console.log("sections")
-	console.table(sections)
-	
-	const volumeData = sections[0].trim().split("\n\n").filter(drive => drive.trim())+"";
-	const nameData = sections[1].trim().split("\n\n").filter(entry => entry.trim()) +"";
+    for (let entry of entries) {
+        const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
 
-	console.log("Raw Drive Entries:");
-	console.table(volumeData);
+        let drive = {
+            DriveLetter: "N/A",
+            FileSystemLabel: "N/A",
+            FileSystemType: "N/A",
+            DriveType: "N/A",
+            HealthStatus: "N/A",
+            OperationalStatus: "N/A",
+            SizeRemaining: "N/A",
+            Size: "N/A"
+        };
 
-	console.log("Raw Name Entries:");
-	console.table(nameData);
+        for (let line of lines) {
+            const parts = line.split(":").map(part => part.trim());
 
-	// Create a mapping of DriveLetter -> FriendlyName
-	const friendlyNameMap = {};
-	for (let entry of nameData) {
-		const lines = entry.split("\n").map(line => line.trim());
-		let letter = "N/A";
-		let name = "N/A";
+            if (parts.length === 2) {
+                const key = parts[0].replace(/\s+/g, ""); // Remove spaces in keys
+                const value = parts[1];
 
-		for (let line of lines) {
-			const parts = line.split(":").map(part => part.trim());
-			if (parts[0] === "DriveLetter") letter = parts[1] + "";
-			if (parts[0] === "FriendlyName") name = parts.slice(1).join(":") + "";
-		}
+                if (drive.hasOwnProperty(key)) {
+                    drive[key] = value;
+                }
+            }
+        }
 
-		friendlyNameMap[letter] = name;
-	}
+        volumes.push(drive);
+    }
 
-	console.log("Mapped Friendly Names:");
-	console.table(friendlyNameMap);
-
-	const results = [];
-
-	// Process the main volume data
-	for (let drive of volumeData) {
-		const lines = drive.split("\n").map(line => line.trim());
-
-		let driveObj = {
-			letter: "N/A",
-			friendlyName: "N/A",
-			fileSysType: "N/A",
-			driveType: "N/A",
-			healthStatus: "N/A",
-			operationalStatus: "N/A",
-			remainingSpace: "N/A",
-			totalSpace: "N/A",
-		};
-
-		for (let line of lines) {
-			const parts = line.split(":").map(part => part.trim());
-
-			const key = parts[0] + "";
-			const value = parts.slice(1).join(":") + "";
-
-			if (key === "DriveLetter") driveObj.letter = value;
-			if (key === "FileSystemType") driveObj.fileSysType = value;
-			if (key === "DriveType") driveObj.driveType = value;
-			if (key === "HealthStatus") driveObj.healthStatus = value;
-			if (key === "OperationalStatus") driveObj.operationalStatus = value;
-			if (key === "SizeRemaining") driveObj.remainingSpace = value;
-			if (key === "Size") driveObj.totalSpace = value;
-		}
-
-		// Map FriendlyName using DriveLetter
-		driveObj.friendlyName = friendlyNameMap[driveObj.letter] || "N/A";
-
-		console.log("Parsed Drive Object:");
-		console.table([driveObj]);
-		results.push(driveObj);
-	}
-
-	console.log("Final Parsed Drive List:");
-	console.table(results);
-	return results;
+    console.log("Parsed Drive Entries:");
+    console.table(volumes);
+    return volumes;
 }
+
+
+function formatBytes(bytes) {
+    bytes = parseInt(bytes, 10); 
+
+    if (isNaN(bytes) || bytes < 0) return "0 B"; 
+
+    if (bytes >= 1_000_000_000) return (bytes / 1_000_000_000).toFixed(2) + " GB";
+    if (bytes >= 256_000_000) return (bytes / 1_000_000_000).toFixed(2) + " GB"; 
+    if (bytes >= 1_000_000) return (bytes / 1_000_000).toFixed(2) + " MB";
+    if (bytes >= 1_000) return (bytes / 1_000).toFixed(2) + " KB";
+
+    return bytes + " B";
+}
+
+

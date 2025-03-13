@@ -164,7 +164,7 @@ function buildDrive(drive) {
 
 async function getDriveInfo(){
 	const rawData = await execute(
-		'$volumes = Get-Volume | Select-Object DriveLetter, FileSystemType, DriveType, HealthStatus, OperationalStatus, SizeRemaining, Size | Sort-Object DriveLetter | Format-Table -AutoSize -Wrap | Out-String; $names = Get-Volume | Select-Object DriveLetter, FriendlyName | Sort-Object DriveLetter | Format-Table -AutoSize -Wrap | Out-String;"$volumes`n=====`n$names"'
+		'Get-Volume | Select-Object DriveLetter, FileSystemLabel, FileSystemType, DriveType, HealthStatus, OperationalStatus, SizeRemaining, Size | Sort-Object DriveLetter'
 	);
 
 	console.log("raw data: ",rawData);
