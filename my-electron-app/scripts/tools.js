@@ -143,10 +143,14 @@ function getHostMacAddress(getNetNeighborOutput) {
 
 
 function parseGetVolumeOutput(getVolumeOutput) {
-    getVolumeOutput += ""; // Ensure input is treated as a string
+    getVolumeOutput += ""; // Ensure input is a string
+    console.log("Raw Get-Volume Output:\n", getVolumeOutput); // ✅ Step 1
 
-    const volumes = [];
-    const entries = getVolumeOutput.trim().split("\n\n"); // Split each drive block
+    let volumes = [];
+
+    // ✅ Step 2: See how we are splitting drives
+    const entries = getVolumeOutput.split(/\n(?=DriveLetter\s+:)/);
+    console.log("Split Entries:", entries);
 
     for (let entry of entries) {
         const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
@@ -163,11 +167,11 @@ function parseGetVolumeOutput(getVolumeOutput) {
         };
 
         for (let line of lines) {
-            const parts = line.split(":").map(part => part.trim());
+            const parts = line.split(":");
 
-            if (parts.length === 2) {
-                const key = parts[0].replace(/\s+/g, ""); // Remove spaces in keys
-                const value = parts[1];
+            if (parts.length >= 2) {
+                const key = parts[0].replace(/\s+/g, ""); // Remove spaces from keys
+                const value = parts.slice(1).join(":").trim(); // Preserve colons in values
 
                 if (drive.hasOwnProperty(key)) {
                     drive[key] = value;
@@ -175,11 +179,18 @@ function parseGetVolumeOutput(getVolumeOutput) {
             }
         }
 
+        // ✅ Step 3: Check each drive before adding
+        console.log("Parsed Drive Before Adding:", drive);
         volumes.push(drive);
     }
 
+    // ✅ Final Output Check
+    console.log("Final Parsed Drives:");
+    console.table(volumes);
     return volumes;
 }
+
+
 
 
 function formatBytes(bytes) {

@@ -142,9 +142,15 @@ async function getDriveInfo(){
 	const rawData = await execute(
 		'Get-Volume | Select-Object DriveLetter, FileSystemLabel, FileSystemType, DriveType, HealthStatus, OperationalStatus, SizeRemaining, Size | Sort-Object DriveLetter'
 	);
+
+	console.log("raw data")
+	console.log(rawData)
 	const results = parseGetVolumeOutput(rawData);
 
 	myDrives = results;
+
+	console.log("results:")
+	console.table(results)
 
 	buildAllDrives()
 }
