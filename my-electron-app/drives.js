@@ -173,6 +173,12 @@ function buildAllDrives(){
 
 		drive.img = findDriveImg(drive.FileSystemType);
 
-		buildDrive(drive);
+		const x = drive.DriveLetter + "";
+
+
+		if(x[0] != null && drive.DriveType != "N/A") {
+			buildDrive(drive);
+		}
+
 	}
 }
