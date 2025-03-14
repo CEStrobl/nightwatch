@@ -1,11 +1,13 @@
 == DASHBOARD =================================================
 
-	[ ] improve drive load times
+	[√] improve drive load times
 	// Write-Host Get-Volume and parse with js
 	
 	[ ] loading indicator
 
 	[ ] Net adapter ui
+
+	[ ] Ipconfig info
 
 	[ ] load once into file and read from file after
 

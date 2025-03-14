@@ -178,8 +178,6 @@ function parseGetVolumeOutput(getVolumeOutput) {
         volumes.push(drive);
     }
 
-    console.log("Parsed Drive Entries:");
-    console.table(volumes);
     return volumes;
 }
 
@@ -189,10 +187,10 @@ function formatBytes(bytes) {
 
     if (isNaN(bytes) || bytes < 0) return "0 B"; 
 
-    if (bytes >= 1_000_000_000) return (bytes / 1_000_000_000).toFixed(2) + " GB";
-    if (bytes >= 256_000_000) return (bytes / 1_000_000_000).toFixed(2) + " GB"; 
-    if (bytes >= 1_000_000) return (bytes / 1_000_000).toFixed(2) + " MB";
-    if (bytes >= 1_000) return (bytes / 1_000).toFixed(2) + " KB";
+    if (bytes >= 1_000_000_000) return Math.floor(bytes / 1_000_000_000) + " GB";
+    if (bytes >= 256_000_000) return Math.floor(bytes / 1_000_000_000) + " GB"; 
+    if (bytes >= 1_000_000) return Math.floor(bytes / 1_000_000) + " MB";
+    if (bytes >= 1_000) return Math.floor(bytes / 1_000) + " KB";
 
     return bytes + " B";
 }

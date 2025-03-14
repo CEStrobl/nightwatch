@@ -1,19 +1,3 @@
-let driveTemplate = {
-	friendlyName: "",
-	letter: "",
-	driveType: "",
-	fileSysType: "",
-	health: "",
-	operational: "",
-	remaining: 0,
-	remUnit: "",
-	total: 0,
-	totalUnit: "",
-	percent: 0,
-
-	icon: ""
-}
-
 let myDrives = []
 
 function findDriveNameFS(fstype){
@@ -44,7 +28,6 @@ function findDriveNameFS(fstype){
 		default:
 			break;
 	}
-	console.log(x)
 	return x;
 
 }
@@ -58,13 +41,6 @@ function findDriveName(friendly, fstype) {
 	if (friendly !== "") {
 		x = friendly;
 	}
-
-	console.table(
-		[["friendly", friendly],
-		["label", label],
-		["fstype", fstype],
-		["x", x]]
-	)
 	
 	if (x === "") {
 		switch (fstype) {
@@ -96,7 +72,6 @@ function findDriveName(friendly, fstype) {
 				break;
 		}
 	}
-	console.log(x)
 	return x
 }
 
@@ -137,24 +112,25 @@ function buildDrive(drive) {
 	const parent = document.getElementById("diskContainer");
 
 	const card = document.createElement("div");
+	card.className += "card"
 	
 	card.innerHTML = `
-		<h1>(${drive.letter[0]}:) ${drive.friendlyName}</h1>
+		<h1>(${drive.DriveLetter[0]}:) ${drive.friendlyName}</h1>
 		<div class="row-details">
-			<img src="${drive.letter}" class="material-symbols-rounded">
+			<img src="${drive.img}" class="material-symbols-rounded">
 			<table>
 				<tbody>
-					<tr><th>Drive Type</th><td>${drive.driveType}<br></td></tr>
-					<tr><th>File System</th><td>${drive.fileSysType}<br></td></tr>
-					<tr><th>Status</th><td>${drive.health}<br></td></tr>
-					<tr><th>Operational</th><td>${drive.operational}<br></td></tr>
+					<tr><th>Drive Type</th><td>${drive.DriveType}<br></td></tr>
+					<tr><th>File System</th><td>${drive.FileSystemType}<br></td></tr>
+					<tr><th>Status</th><td>${drive.HealthStatus}<br></td></tr>
+					<tr><th>Operational</th><td>${drive.OperationalStatus}<br></td></tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="progress-container">
 			<div class="progress-bar" style="width: ${drive.percent}%">${drive.percent}%</div>
 		</div>
-			<p>${drive.remaining} GB free of ${drive.total} GB</p>
+			<p>${drive.remaining} free of ${drive.total}</p>
 		</div>
 	`
 
@@ -166,12 +142,31 @@ async function getDriveInfo(){
 	const rawData = await execute(
 		'Get-Volume | Select-Object DriveLetter, FileSystemLabel, FileSystemType, DriveType, HealthStatus, OperationalStatus, SizeRemaining, Size | Sort-Object DriveLetter'
 	);
-
-	console.log("raw data: ",rawData);
 	const results = parseGetVolumeOutput(rawData);
 
-	console.table("results: ", results);
+	myDrives = results;
 
+	buildAllDrives()
 }
 
+getDriveInfo()
 
+
+function buildAllDrives(){
+	for (let i = 0; i < myDrives.length; i++) {
+		const drive = myDrives[i];
+		
+		drive.friendlyName = findDriveName(drive.FileSystemLabel, drive.FileSystemType)
+		
+		if(drive.Size > 0) {
+			drive.percent = Math.floor(( (drive.Size - drive.SizeRemaining) / drive.Size)*100)
+		} else {drive.percent = "N/A"}
+
+		drive.remaining = formatBytes(drive.SizeRemaining)
+		drive.total = formatBytes(drive.Size)
+
+		drive.img = findDriveImg(drive.FileSystemType);
+
+		buildDrive(drive);
+	}
+}
