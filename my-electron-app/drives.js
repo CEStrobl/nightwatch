@@ -2,6 +2,8 @@ let myDrives = []
 
 function findDriveNameFS(fstype){
 	let x = "Unknown Drive"
+
+	console.log(fstype)
 	
 	switch (fstype.trim()) {
 		case "NTFS":
@@ -32,8 +34,8 @@ function findDriveNameFS(fstype){
 
 }
 
-function findDriveName(friendly, fstype) {
-	let x = "Unknown Device";
+function findDriveName(friendly, fstype, dvtype) {
+	let x = "";
 
 	friendly = friendly.trim();
 	fstype = fstype.trim();
@@ -41,9 +43,15 @@ function findDriveName(friendly, fstype) {
 	if (friendly !== "") {
 		x = friendly;
 	}
+
+	let switchvar = fstype;
+
+	if(fstype == "Unknown") {switchvar = dvtype}
+
+	console.log(friendly, fstype, dvtype, x)
 	
 	if (x === "") {
-		switch (fstype) {
+		switch (switchvar) {
 			case "NTFS":
 				x = "Hard Drive"
 				break;
@@ -69,6 +77,7 @@ function findDriveName(friendly, fstype) {
 				x = "Unformatted Drive"
 				break;
 			default:
+				x = "Unknown Device"
 				break;
 		}
 	}
@@ -126,13 +135,18 @@ function buildDrive(drive) {
 					<tr><th>Operational</th><td>${drive.OperationalStatus}<br></td></tr>
 				</tbody>
 			</table>
-		</div>
-		<div class="progress-container">
-			<div class="progress-bar" style="width: ${drive.percent}%">${drive.percent}%</div>
-		</div>
-			<p>${drive.remaining} free of ${drive.total}</p>
-		</div>
-	`
+		</div>`
+
+		if(drive.percent != "N/A") {
+			card.innerHTML += `
+			<div class="progress-container">
+				<div class="progress-bar" style="width: ${drive.percent}%">${drive.percent}%</div>
+			</div>
+				<p>${drive.remaining} free of ${drive.total}</p>
+			</div>
+			
+			`
+		}
 
 	parent.appendChild(card);
 }
@@ -142,15 +156,9 @@ async function getDriveInfo(){
 	const rawData = await execute(
 		'Get-Volume | Select-Object DriveLetter, FileSystemLabel, FileSystemType, DriveType, HealthStatus, OperationalStatus, SizeRemaining, Size | Sort-Object DriveLetter'
 	);
-
-	console.log("raw data")
-	console.log(rawData)
 	const results = parseGetVolumeOutput(rawData);
 
 	myDrives = results;
-
-	console.log("results:")
-	console.table(results)
 
 	buildAllDrives()
 }
@@ -162,7 +170,7 @@ function buildAllDrives(){
 	for (let i = 0; i < myDrives.length; i++) {
 		const drive = myDrives[i];
 		
-		drive.friendlyName = findDriveName(drive.FileSystemLabel, drive.FileSystemType)
+		drive.friendlyName = findDriveName(drive.FileSystemLabel, drive.FileSystemType, drive.DriveType)
 		
 		if(drive.Size > 0) {
 			drive.percent = Math.floor(( (drive.Size - drive.SizeRemaining) / drive.Size)*100)

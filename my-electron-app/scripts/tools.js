@@ -144,12 +144,10 @@ function getHostMacAddress(getNetNeighborOutput) {
 
 function parseGetVolumeOutput(getVolumeOutput) {
     getVolumeOutput += "";
-    console.log("Raw Get-Volume Output:\n", getVolumeOutput);
 
     let volumes = [];
 
     const entries = getVolumeOutput.split(/\n(?=DriveLetter\s+:)/);
-    console.log("Split Entries:", entries);
 
     for (let entry of entries) {
         const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
@@ -178,12 +176,8 @@ function parseGetVolumeOutput(getVolumeOutput) {
             }
         }
 
-        console.log("Parsed Drive Before Adding:", drive);
         volumes.push(drive);
     }
-
-    console.log("Final Parsed Drives:");
-    console.table(volumes);
     return volumes;
 }
 
@@ -195,10 +189,11 @@ function formatBytes(bytes) {
 
     if (isNaN(bytes) || bytes < 0) return "0 B"; 
 
-    if (bytes >= 1_000_000_000) return Math.floor(bytes / 1_000_000_000) + " GB";
-    if (bytes >= 256_000_000) return Math.floor(bytes / 1_000_000_000) + " GB"; 
-    if (bytes >= 1_000_000) return Math.floor(bytes / 1_000_000) + " MB";
-    if (bytes >= 1_000) return Math.floor(bytes / 1_000) + " KB";
+    if (bytes >= 1_000_000_000_000) return Math.round(bytes / 1_000_000_000_000) + " TB";
+    if (bytes >= 1_000_000_000) return Math.round(bytes / 1_000_000_000) + " GB";
+    if (bytes >= 256_000_000) return Math.round(bytes / 1_000_000_000) + " GB"; 
+    if (bytes >= 1_000_000) return Math.round(bytes / 1_000_000) + " MB";
+    if (bytes >= 1_000) return Math.round(bytes / 1_000) + " KB";
 
     return bytes + " B";
 }
