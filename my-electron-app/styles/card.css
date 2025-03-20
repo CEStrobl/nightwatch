@@ -135,7 +135,7 @@ h4 {
 	font-weight: unset;
 }
 
-.netcontainer{
+.netcontainer, #netadapterContainer{
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
@@ -162,4 +162,22 @@ h4 {
 
 .portblock h2 {
 	font-size: 22px;
+}
+
+.adaptercard {
+	width: 190px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.adaptercard img{
+	height: 80px;
+	width: 80px;
+	margin: 10px;
+}
+
+.adaptercard table{
+	width: 100%;
 }

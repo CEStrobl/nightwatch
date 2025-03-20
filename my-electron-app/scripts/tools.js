@@ -199,3 +199,42 @@ function formatBytes(bytes) {
 }
 
 
+function parseNetAdapterOutput(netAdapterOutput) {
+    netAdapterOutput += ""; // Ensure it's a string
+
+    let adapters = [];
+
+    // Split entries by detecting the start of a new adapter block
+    const entries = netAdapterOutput.split(/\n(?=Name\s+:)/);
+
+    for (let entry of entries) {
+        const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
+
+        let adapter = {
+            Name: "N/A",
+            InterfaceDescription: "N/A",
+            ifIndex: "N/A",
+            Status: "N/A",
+            MacAddress: "N/A",
+            LinkSpeed: "N/A"
+        };
+
+        for (let line of lines) {
+            const parts = line.split(":");
+
+            if (parts.length >= 2) {
+                const key = parts[0].replace(/\s+/g, "");
+                const value = parts.slice(1).join(":").trim();
+
+                if (adapter.hasOwnProperty(key)) {
+                    adapter[key] = value;
+                }
+            }
+        }
+		if (adapter.ifIndex != "N/A") {
+			adapters.push(adapter);
+		}
+
+    }
+    return adapters;
+}

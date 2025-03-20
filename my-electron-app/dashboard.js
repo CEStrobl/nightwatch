@@ -2,8 +2,6 @@ let myDrives = []
 
 function findDriveNameFS(fstype){
 	let x = "Unknown Drive"
-
-	console.log(fstype)
 	
 	switch (fstype.trim()) {
 		case "NTFS":
@@ -48,7 +46,7 @@ function findDriveName(friendly, fstype, dvtype) {
 
 	if(fstype == "Unknown") {switchvar = dvtype}
 
-	console.log(friendly, fstype, dvtype, x)
+	// console.log(friendly, fstype, dvtype, x)
 	
 	if (x === "") {
 		switch (switchvar) {
@@ -116,6 +114,23 @@ function findDriveImg(fstype) {
 	return x
 }
 
+function findAdapterImg(description) {
+	description += ""
+	let x = "img/"
+	
+	if(description.includes("Wi-Fi")){
+		x += "wifi.png"
+	} 
+	else if (description.includes("Ethernet")) {
+		x += "ethernet.png"
+	}
+	else {
+		x += "network.png"
+	}
+	
+	return x
+}
+
 function buildDrive(drive) {
 
 	const parent = document.getElementById("diskContainer");
@@ -163,8 +178,6 @@ async function getDriveInfo(){
 	buildAllDrives()
 }
 
-getDriveInfo()
-
 
 function buildAllDrives(){
 	for (let i = 0; i < myDrives.length; i++) {
@@ -189,4 +202,89 @@ function buildAllDrives(){
 		}
 
 	}
+}
+
+
+function buildNetAdapter(adapter) {
+	const parent = document.getElementById("netadapterContainer");
+
+	let card = document.createElement("div");
+	card.className += "adaptercard card"
+
+	let dotcolor = "offline"
+
+	if (adapter.Status == "Up") {dotcolor = "online"}
+	
+	card.innerHTML = `
+		<h1>${adapter.Name}</h1>
+		<img src="img/network2.png" alt="">
+		<p>${adapter.InterfaceDescription}</p>
+		<table>
+			<tbody>
+				<tr>
+					<td>Status:</td>
+					<td>
+						<span class="status-dot ${dotcolor}"></span>	
+						${adapter.Status}
+					</td>
+				</tr>
+				<tr>
+					<td>LinkSpeed:</td>
+					<td>${adapter.LinkSpeed}</td>
+				</tr>
+				<tr>
+					<td>MAC:</td>
+					<td>${adapter.MacAddress}</td>
+				</tr>
+				<tr>
+					<td>Vendor:</td>
+					<td>${adapter.vendor}</td>
+				</tr>
+			</tbody>
+		</table>`
+
+	parent.appendChild(card);
+}
+
+
+async function getNetAdapterInfo() {
+	const psOutput = await execute('Get-NetAdapter | Select-Object Name, InterfaceDescription, ifIndex, Status, MacAddress, LinkSpeed ');
+
+	console.log(psOutput)
+
+	const adapters = parseNetAdapterOutput(psOutput);
+
+	console.table(adapters)
+
+	for (let i = 0; i < adapters.length; i++) {
+		const x = adapters[i];
+
+		// finish gathering info
+		
+		// console.log(x.MacAddress);
+		// console.log(x.MacAddress.substring(0,8).toUpperCase());
+		// let vendor = lookupOUI(x.MacAddress.substring(0,8).toUpperCase());
+
+		// console.log(vendor)
+
+		// adapters[i].vendor = vendor;
+
+		// adapters[i].icon = findAdapterImg(x.InterfaceDescription);
+		
+		buildNetAdapter(x)
+	}
+
+}
+
+function dashboard() {
+
+	initOui();
+
+	// Init drive info
+	getDriveInfo();
+
+	// init net adapter info
+	getNetAdapterInfo()
+
+
 }

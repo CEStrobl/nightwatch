@@ -10,7 +10,7 @@
 
 	<title>Dashboard</title>
 </head>
-<body style="background-color: black;" onload="buildAllDrives()">
+<body style="background-color: black;" onload="dashboard()">
 
 	<div class="row" style="height: 100%;">
 
@@ -58,6 +58,40 @@
 
 			</div>
 
+			<h2>Network Adapters</h2>
+			
+			<div id="netadapterContainer">
+				<!-- <div class="adaptercard card">
+					<h1>Ethernet</h1>
+					<img src="img/network2.png" alt="">
+					<p>VirtualBox Host-Only Ethernet Adapter</p>
+					<table>
+						<tbody>
+							<tr>
+								<td>Status:</td>
+								<td>
+									<span class="status-dot online"></span>	
+									4ms
+								</td>
+							</tr>
+							<tr>
+								<td>LinkSpeed:</td>
+								<td>10 Gbps</td>
+							</tr>
+							<tr>
+								<td>MAC:</td>
+								<td>CD-3F-99-44-F2-E4</td>
+							</tr>
+							<tr>
+								<td>Vendor:</td>
+								<td>Microsoft</td>
+							</tr>
+						</tbody>
+					</table>
+									
+				</div> -->
+			</div>
+
 	
 		</div>
 
@@ -66,9 +100,10 @@
 	
 </body>
 <!-- Node.js Scripts -->
+<script src="scripts/oui.js"></script>
 <script src="scripts/tools.js"></script>
 <script src="renderer.js"></script>
-<script src="drives.js"></script>
+<script src="dashboard.js"></script>
 
 <!-- HTML/CSS Scripts -->
 <script src="scripts/script.js"></script>
