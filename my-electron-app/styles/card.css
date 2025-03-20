@@ -172,6 +172,12 @@ h4 {
 	flex-wrap: wrap;
 }
 
+.adaptercard p {
+	height: 45px;
+    display: flex;
+    align-items: center;
+}
+
 .adaptercard img{
 	height: 80px;
 	width: 80px;

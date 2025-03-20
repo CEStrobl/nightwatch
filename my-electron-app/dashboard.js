@@ -260,16 +260,9 @@ async function getNetAdapterInfo() {
 		const x = adapters[i];
 
 		// finish gathering info
-		
-		// console.log(x.MacAddress);
-		// console.log(x.MacAddress.substring(0,8).toUpperCase());
-		// let vendor = lookupOUI(x.MacAddress.substring(0,8).toUpperCase());
+		adapters[i].vendor = cleanVendor(x.MacAddress);
 
-		// console.log(vendor)
-
-		// adapters[i].vendor = vendor;
-
-		// adapters[i].icon = findAdapterImg(x.InterfaceDescription);
+		adapters[i].icon = findAdapterImg(x.InterfaceDescription);
 		
 		buildNetAdapter(x)
 	}

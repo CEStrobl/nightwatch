@@ -198,6 +198,64 @@ function formatBytes(bytes) {
     return bytes + " B";
 }
 
+function cleanVendor(fullmac) {
+	let vendor = lookupOUI(fullmac.substring(0,8).toUpperCase());
+
+	vendor += ""
+
+	let words = vendor.split(" ");
+
+	if(vendor.length > 15){
+		vendor = words.slice(0, 2).join(" ");
+		if(vendor.length > 15){
+			vendor = words.slice(0, 1).join(" ");
+		}
+	}
+
+	return vendor
+}
+
+function cleanAdapterName(name) {
+    // Remove full sets of parentheses and trim spaces
+    let cleaned = name.replace(/\s*\(.*?\)/g, "").trim();
+
+    // If a stray closing parenthesis remains, remove it
+    cleaned = cleaned.replace(/\)$/, "").trim();
+
+    // If name has more than two words, keep only the first two
+    let words = cleaned.split(" ");
+    if (cleaned.length > 12) {
+        cleaned = words.slice(0, 2).join(" ");
+		if (cleaned.length > 12) {
+			cleaned = words.slice(0, 1).join(" ");
+
+		}
+    }
+
+    return cleaned;
+}
+
+function cleanAdapterDesc(desc) {
+	// Remove full sets of parentheses and trim spaces
+    let cleaned = desc.replace(/\s*\(.*?\)/g, "").trim();
+
+    // If a stray closing parenthesis remains, remove it
+    cleaned = cleaned.replace(/\)$/, "").trim();
+
+    // If name has more than two words, keep only the first two
+    let words = cleaned.split(" ");
+    if (cleaned.length > 43) {
+        cleaned = words.slice(0, 5).join(" ");
+		if (cleaned.length > 43) {
+			cleaned = words.slice(0, 4).join(" ");
+
+		}
+    }
+
+    return cleaned;
+}
+
+
 
 function parseNetAdapterOutput(netAdapterOutput) {
     netAdapterOutput += ""; // Ensure it's a string
@@ -227,7 +285,16 @@ function parseNetAdapterOutput(netAdapterOutput) {
                 const value = parts.slice(1).join(":").trim();
 
                 if (adapter.hasOwnProperty(key)) {
-                    adapter[key] = value;
+					if(key == "Name") {
+						adapter[key] = cleanAdapterName(value);
+					}
+					else if (key == "InterfaceDescription") {
+						adapter[key] =  cleanAdapterDesc(value);
+					}
+					
+					else {
+						adapter[key] = value;
+					}
                 }
             }
         }
