@@ -7,11 +7,16 @@
 
 	[√] Net adapter ui
 
-	[ ] net adapter img
+	[√] net adapter img
 
 	[ ] Ipconfig info
 
+	[ ] inital pop up
+
 	[ ] load once into file and read from file after
+	// or remove multi html page format and do one mega page
+	// that changes visually but doesn't reset script info
+	// unless you close the app. 
 
 == SIDE NAV =================================================
 
@@ -24,6 +29,8 @@
 	[ ] Command History
 
 	[ ] add security information section
+
+	[ ] target ip scan
 
 == NETWORK DISCOVERY =========================================
 
@@ -65,6 +72,8 @@
 
 	[ ] status
 	// listening, outbound
+
+	[ ] click to learn more side pannel
 
 	[ ] Copy to CSV
 

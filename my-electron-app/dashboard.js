@@ -116,18 +116,23 @@ function findDriveImg(fstype) {
 
 function findAdapterImg(description) {
 	description += ""
-	let x = "img/"
+	let x = "img/";
+
+	// console.log("description:", description)
 	
 	if(description.includes("Wi-Fi")){
 		x += "wifi.png"
 	} 
-	else if (description.includes("Ethernet")) {
-		x += "ethernet.png"
+	else if (description.includes("vEthernet") || description.includes("Virtual")) {
+		x += "vadapter.png"
+	}
+	else if(description.includes("Bluetooth")){
+		x += "bluetooth.png"
 	}
 	else {
-		x += "network.png"
+		x += "ethernet.png"
 	}
-	
+	// console.log("x:", x)
 	return x
 }
 
@@ -213,11 +218,13 @@ function buildNetAdapter(adapter) {
 
 	let dotcolor = "offline"
 
-	if (adapter.Status == "Up") {dotcolor = "online"}
+	let status = "Disconnected";
+
+	if (adapter.Status == "Up") {dotcolor = "online"; status = "Connected"}
 	
 	card.innerHTML = `
 		<h1>${adapter.Name}</h1>
-		<img src="img/network2.png" alt="">
+		<img src="${adapter.icon}" alt="">
 		<p>${adapter.InterfaceDescription}</p>
 		<table>
 			<tbody>
@@ -225,7 +232,7 @@ function buildNetAdapter(adapter) {
 					<td>Status:</td>
 					<td>
 						<span class="status-dot ${dotcolor}"></span>	
-						${adapter.Status}
+						${status}
 					</td>
 				</tr>
 				<tr>
@@ -250,11 +257,9 @@ function buildNetAdapter(adapter) {
 async function getNetAdapterInfo() {
 	const psOutput = await execute('Get-NetAdapter | Select-Object Name, InterfaceDescription, ifIndex, Status, MacAddress, LinkSpeed ');
 
-	console.log(psOutput)
-
 	const adapters = parseNetAdapterOutput(psOutput);
 
-	console.table(adapters)
+	// console.table(adapters)
 
 	for (let i = 0; i < adapters.length; i++) {
 		const x = adapters[i];
