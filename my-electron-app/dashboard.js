@@ -274,6 +274,16 @@ async function getNetAdapterInfo() {
 
 }
 
+
+async function getUptime(uptimedisplay) {
+	const psoutput = await execute(`(New-TimeSpan -Start (Get-CimInstance Win32_OperatingSystem).LastBootUpTime)`)
+
+	const uptime = parseUptimeOutput(psoutput);
+
+	uptimedisplay.innerText = `${uptime.days}:${uptime.hours}:${uptime.minutes}:${uptime.seconds}`
+}
+
+
 function dashboard() {
 
 	initOui();
@@ -281,8 +291,16 @@ function dashboard() {
 	// Init drive info
 	getDriveInfo();
 
-	// init net adapter info
-	getNetAdapterInfo()
+	// Init net adapter info
+	getNetAdapterInfo();
 
+	const uptimedisplay = document.getElementById("uptimedisplay");
 
+	// Initial fetch
+	getUptime(uptimedisplay);
+
+	// Update every second
+	setInterval(() => {
+		getUptime(uptimedisplay);
+	}, 1000);
 }

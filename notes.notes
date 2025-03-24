@@ -5,6 +5,8 @@
 	
 	[ ] loading indicator
 
+	[ ] bread crumbs header
+
 	[√] Net adapter ui
 
 	[√] net adapter img
@@ -12,6 +14,8 @@
 	[ ] Ipconfig info
 
 	[ ] inital pop up
+
+	[√] uptime info
 
 	[ ] load once into file and read from file after
 	// or remove multi html page format and do one mega page
@@ -90,4 +94,4 @@
 
 	Netgaze
 
-	Invizend
+	Netrix

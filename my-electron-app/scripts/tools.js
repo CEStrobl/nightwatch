@@ -305,3 +305,37 @@ function parseNetAdapterOutput(netAdapterOutput) {
     }
     return adapters;
 }
+
+
+function parseUptimeOutput(output) {
+	output += ""; // Ensure it's a string
+	const lines = output.trim().split("\n").filter(line => line.trim());
+
+	const uptime = {
+		days: "00",
+		hours: "00",
+		minutes: "00",
+		seconds: "00"
+	};
+
+	for (let line of lines) {
+		const [rawKey, rawValue] = line.split(":");
+		const key = rawKey.trim().toLowerCase() + "";
+		const value = parseInt(rawValue.trim());
+
+		if (isNaN(value)) continue;
+
+		const padded = String(value).padStart(2, "0");
+
+		switch (key) {
+			case "days": uptime.days = padded; break;
+			case "hours": uptime.hours = padded; break;
+			case "minutes": uptime.minutes = padded; break;
+			case "seconds": uptime.seconds = padded; break;
+		}
+	}
+
+	return uptime;
+}
+
+
