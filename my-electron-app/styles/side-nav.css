@@ -5,7 +5,7 @@
 	align-items: stretch;
 
 	height: 90%;
-	width: 230px;
+	width: 260px;
 	padding: 10px 15px;
 	margin: 20px;
 	border-radius: 15px;
@@ -27,7 +27,6 @@
 
 	margin: 5px;
 	padding: 10px;
-	width: 160px;
 	border-radius: 5px;
 
 	font-size: 14px;
@@ -46,7 +45,9 @@
 }
 
 #logo {
-	font-family: Courier, monospace;
+	font-family:"Playfair Display", serif;
+	font-weight: 200;
+	font-size: 36px;
 }
 
 

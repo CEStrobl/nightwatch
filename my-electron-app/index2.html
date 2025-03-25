@@ -1,0 +1,195 @@
+<html lang="en"><head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/side-nav.css">
+	<link rel="stylesheet" href="styles/card.css">
+	<link rel="stylesheet" href="styles/infographics.css">
+
+	<title>Netgaze</title>
+</head>
+<body onload="dashboard()">
+
+	<div class="row" style="height: 100%;">
+
+		<div class="side-nav">
+			<div class="top">
+				<h1 id="logo">Netgaze</h1>
+
+			</div>
+
+			<div class="mid">
+
+				<a href="index.html">
+					<img src="img/home1.png" alt="">
+					Dashboard</a>
+				<a href="networkdiscovery.html">
+					<img src="img/network2.png" alt="">
+					Network Discovery</a>
+				<a href="portscanning.html">
+					<img src="img/scan1.png" alt="">
+					Port Scanning</a>
+			</div>
+	
+
+			<div class="bottom">
+				<a class="button" onclick="window.location.reload()">
+					Refresh</a>
+
+			</div>
+
+		</div>
+
+		<div class="content" id="mainDiv">
+			<div id="loadingScreen" style="display: none;">
+				<h1>Loading Dashboard...</h1>
+				<div class="blur"></div>
+			</div>
+
+			<h2>This Device</h2>
+
+			<div class="container">
+
+				<div class="card">
+					<h3>Uptime</h3>
+					<h1 id="uptimedisplay">00:23:41:06</h1>
+				</div>
+
+			</div>
+
+
+			<h2>Drives</h2>
+
+			<div id="diskContainer">
+
+			<div class="card">
+		<h1>(C:) Hard Drive</h1>
+		<div class="row-details">
+			<img src="img/drive1.png" class="material-symbols-rounded">
+			<table>
+				<tbody>
+					<tr><th>Drive Type</th><td>Fixed<br></td></tr>
+					<tr><th>File System</th><td>NTFS<br></td></tr>
+					<tr><th>Status</th><td>Healthy<br></td></tr>
+					<tr><th>Operational</th><td>OK<br></td></tr>
+				</tbody>
+			</table>
+		</div>
+			<div class="progress-container">
+				<div class="progress-bar" style="width: 60%">60%</div>
+			</div>
+				<p>792 GB free of 2 TB</p>
+			
+			
+			</div><div class="card">
+		<h1>(D:) STUFF!!!!</h1>
+		<div class="row-details">
+			<img src="img/drive1.png" class="material-symbols-rounded">
+			<table>
+				<tbody>
+					<tr><th>Drive Type</th><td>Fixed<br></td></tr>
+					<tr><th>File System</th><td>NTFS<br></td></tr>
+					<tr><th>Status</th><td>Healthy<br></td></tr>
+					<tr><th>Operational</th><td>OK<br></td></tr>
+				</tbody>
+			</table>
+		</div>
+			<div class="progress-container">
+				<div class="progress-bar" style="width: 78%">78%</div>
+			</div>
+				<p>424 GB free of 2 TB</p>
+			
+			
+			</div><div class="card">
+		<h1>(E:) CD Player</h1>
+		<div class="row-details">
+			<img src="img/cdrom.png" class="material-symbols-rounded">
+			<table>
+				<tbody>
+					<tr><th>Drive Type</th><td>CD-ROM<br></td></tr>
+					<tr><th>File System</th><td>Unknown<br></td></tr>
+					<tr><th>Status</th><td>Healthy<br></td></tr>
+					<tr><th>Operational</th><td>Unknown<br></td></tr>
+				</tbody>
+			</table>
+		</div></div></div>
+
+			<h2>Network Adapters</h2>
+			
+			<div id="netadapterContainer">
+			<div class="adaptercard card">
+		<h1>Ethernet</h1>
+		<img src="img/ethernet.png" alt="">
+		<p>Intel Ethernet Connection I218-V</p>
+		<table>
+			<tbody>
+				<tr>
+					<td>Status:</td>
+					<td>
+						<span class="status-dot online"></span>	
+						Connected
+					</td>
+				</tr>
+				<tr>
+					<td>LinkSpeed:</td>
+					<td>1 Gbps</td>
+				</tr>
+				<tr>
+					<td>MAC:</td>
+					<td>74-D4-35-EC-E2-F9</td>
+				</tr>
+				<tr>
+					<td>Vendor:</td>
+					<td>GIGA-BYTE</td>
+				</tr>
+			</tbody>
+		</table></div><div class="adaptercard card">
+		<h1>Ethernet 2</h1>
+		<img src="img/vadapter.png" alt="">
+		<p>VirtualBox Host-Only Ethernet Adapter</p>
+		<table>
+			<tbody>
+				<tr>
+					<td>Status:</td>
+					<td>
+						<span class="status-dot online"></span>	
+						Connected
+					</td>
+				</tr>
+				<tr>
+					<td>LinkSpeed:</td>
+					<td>1 Gbps</td>
+				</tr>
+				<tr>
+					<td>MAC:</td>
+					<td>0A-00-27-00-00-02</td>
+				</tr>
+				<tr>
+					<td>Vendor:</td>
+					<td>Unknown OUI</td>
+				</tr>
+			</tbody>
+		</table></div></div>
+
+	
+		</div>
+
+	</div>
+
+	
+
+
+<script src="scripts/oui.js"></script>
+<script src="scripts/tools.js"></script>
+<script src="renderer.js"></script>
+<script src="dashboard.js"></script>
+
+<!-- HTML/CSS Scripts -->
+<script src="scripts/script.js"></script>
+<script src="scripts/builder.js"></script>
+</body><!-- Node.js Scripts --></html>

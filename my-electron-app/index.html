@@ -3,20 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	
 	<link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="styles/side-nav.css">
 	<link rel="stylesheet" href="styles/card.css">
 	<link rel="stylesheet" href="styles/infographics.css">
 
-	<title>Dashboard</title>
+	<title>Netgaze</title>
 </head>
-<body style="background-color: black;" onload="dashboard()">
+<body onload="dashboard()">
 
 	<div class="row" style="height: 100%;">
 
 		<div class="side-nav">
 			<div class="top">
-				<h1 id="logo"></h1>
+				<h1 id="logo">netgaze</h1>
 
 			</div>
 
@@ -50,15 +55,13 @@
 				<div class="blur"></div>
 			</div>
 
-			<h1>DASHBOARD</h1>
-
 			<h2>This Device</h2>
 
 			<div class="container">
 
 				<div class="card">
 					<h3>Uptime</h3>
-					<h1 id="uptimedisplay">00:00:00:00</h1>
+					<h1 id="uptimedisplay"></h1>
 				</div>
 
 			</div>
@@ -73,35 +76,6 @@
 			<h2>Network Adapters</h2>
 			
 			<div id="netadapterContainer">
-				<!-- <div class="adaptercard card">
-					<h1>Ethernet</h1>
-					<img src="img/network2.png" alt="">
-					<p>VirtualBox Host-Only Ethernet Adapter</p>
-					<table>
-						<tbody>
-							<tr>
-								<td>Status:</td>
-								<td>
-									<span class="status-dot online"></span>	
-									4ms
-								</td>
-							</tr>
-							<tr>
-								<td>LinkSpeed:</td>
-								<td>10 Gbps</td>
-							</tr>
-							<tr>
-								<td>MAC:</td>
-								<td>CD-3F-99-44-F2-E4</td>
-							</tr>
-							<tr>
-								<td>Vendor:</td>
-								<td>Microsoft</td>
-							</tr>
-						</tbody>
-					</table>
-									
-				</div> -->
 			</div>
 
 	

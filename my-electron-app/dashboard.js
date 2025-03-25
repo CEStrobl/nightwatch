@@ -302,7 +302,7 @@ function updateUptime(uptime, uptimedisplay) {
 		uptime.minutes = 0;
 		uptime.hours++;
 	}
-	if (uptime.hours == 60) {
+	if (uptime.hours == 24) {
 		uptime.hours = 0;
 		uptime.days++;
 	}
