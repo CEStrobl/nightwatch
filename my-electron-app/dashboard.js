@@ -103,6 +103,9 @@ function findDriveImg(fstype) {
 		case "CDFS":
 			x += "cdrom.png"
 			break;
+		case "CD-ROM":
+			x += "cdrom.png"
+			break;
 		case "RAW":
 			x += "drive1.png"
 			break;
@@ -197,7 +200,11 @@ function buildAllDrives(){
 		drive.remaining = formatBytes(drive.SizeRemaining)
 		drive.total = formatBytes(drive.Size)
 
-		drive.img = findDriveImg(drive.FileSystemType);
+		if (drive.FileSystemType == "Unknown") {
+			drive.img = findDriveImg(drive.DriveType);
+		} else {
+			drive.img = findDriveImg(drive.FileSystemType);
+		}
 
 		const x = drive.DriveLetter + "";
 
@@ -297,10 +304,10 @@ function dashboard() {
 	const uptimedisplay = document.getElementById("uptimedisplay");
 
 	// Initial fetch
-	getUptime(uptimedisplay);
+	// getUptime(uptimedisplay);
 
 	// Update every second
-	setInterval(() => {
-		getUptime(uptimedisplay);
-	}, 1000);
+	// setInterval(() => {
+	// 	getUptime(uptimedisplay);
+	// }, 1000);
 }
