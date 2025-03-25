@@ -17,6 +17,8 @@
 
 	[√] uptime info
 
+	[√] uptime with js
+
 	[ ] load once into file and read from file after
 	// or remove multi html page format and do one mega page
 	// that changes visually but doesn't reset script info

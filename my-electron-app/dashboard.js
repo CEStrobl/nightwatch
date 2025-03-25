@@ -282,16 +282,51 @@ async function getNetAdapterInfo() {
 }
 
 
-async function getUptime(uptimedisplay) {
+async function getUptime() {
 	const psoutput = await execute(`(New-TimeSpan -Start (Get-CimInstance Win32_OperatingSystem).LastBootUpTime)`)
 
-	const uptime = parseUptimeOutput(psoutput);
+	let uptime = parseUptimeOutput(psoutput);
 
+	return uptime;
+}
+
+function updateUptime(uptime, uptimedisplay) {
+
+	uptime.seconds++
+
+	if (uptime.seconds == 60) {
+		uptime.seconds = 0;
+		uptime.minutes++;
+	}
+	if (uptime.minutes == 60) {
+		uptime.minutes = 0;
+		uptime.hours++;
+	}
+	if (uptime.hours == 60) {
+		uptime.hours = 0;
+		uptime.days++;
+	}
+
+	if(uptime.seconds < 10) {
+		uptime.seconds = String(uptime.seconds).padStart(2, "0");
+	}
+	if(uptime.minutes < 10) {
+		uptime.minutes = String(uptime.minutes).padStart(2, "0");
+	}
+	if(uptime.hours < 10) {
+		uptime.hours = String(uptime.hours).padStart(2, "0");
+	}
+	if(uptime.days < 10) {
+		uptime.days = String(uptime.days).padStart(2, "0");
+	}
+	
 	uptimedisplay.innerText = `${uptime.days}:${uptime.hours}:${uptime.minutes}:${uptime.seconds}`
+
+	return uptime
 }
 
 
-function dashboard() {
+async function dashboard() {
 
 	initOui();
 
@@ -304,10 +339,10 @@ function dashboard() {
 	const uptimedisplay = document.getElementById("uptimedisplay");
 
 	// Initial fetch
-	// getUptime(uptimedisplay);
+	let uptime = await getUptime(uptimedisplay);
 
 	// Update every second
-	// setInterval(() => {
-	// 	getUptime(uptimedisplay);
-	// }, 1000);
+	setInterval(() => {
+		uptime = updateUptime(uptime, uptimedisplay);
+	}, 1000);
 }
