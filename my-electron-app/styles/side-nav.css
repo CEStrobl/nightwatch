@@ -11,16 +11,25 @@
 	border-radius: 15px;
 
 
-	background-color: var(--bg1);
+	background: linear-gradient(-45deg,  
+	var(--lightpurple),
+	var(--purple),
+	var(--purple)
+	);
 }
+
+
+
 
 .side-nav a{
 	text-decoration: none;
 	color: unset;
 
-	-webkit-user-select: none; /* Safari */
-	-ms-user-select: none; /* IE 10 and IE 11 */
-	user-select: none; /* Standard syntax */
+	background-color: var(--sidenava);
+
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 
 	display: flex;
 	align-items:center;
@@ -41,7 +50,7 @@
 }
 
 .side-nav a:hover{
-	background-color: rgba(240, 248, 255, 0.511);
+	background-color: var(--sidenavahov);
 }
 
 #logo {

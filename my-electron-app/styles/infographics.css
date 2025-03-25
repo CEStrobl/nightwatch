@@ -4,7 +4,7 @@
 	
 	margin: 10px;
 
-	background-color: #52525282;
+	background-color: var(--infoempty);;
 }
   
 .progress-bar {
@@ -13,7 +13,7 @@
 
     font-size: 14px;
 
-	background-color: #2a802d;
+	background-color: var(--infofill);
 
 	display: flex;
 	justify-content: center;
@@ -82,8 +82,8 @@
 	border:none;
 }
 
-.online { background-color: rgb(69, 192, 69); }
-.offline { background-color: rgb(131,127,127); }
+.online { background-color: var(--infoon);}
+.offline { background-color: var(--infooff); }
 
 
 
@@ -98,7 +98,7 @@
 }
 
 .subnet-select {
-    background-color: var(--bg1);
+    background-color: var(--selectbg);
     color: white;
     border:none;
     padding: 8px 12px;
@@ -109,7 +109,7 @@
 }
 
 .subnet-select:hover, .subnet-select:focus {
-    background-color: var(--bg1hover);
+    background-color: var(--selectbghov);
 }
 
 .subnet-select option{

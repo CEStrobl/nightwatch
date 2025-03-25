@@ -3,18 +3,39 @@ html {
 }
 
 :root {
-	--bg1: rgba(0, 0, 0, 0.348);
-	--bg1hover: rgba(240, 248, 255, 0.511);
+	--yellow:#EEC471;
+	--lightpurple:#6e5f9d;
+	--purple: #3b3353;
+	--darkblue:#0d1321;
+	--navy: #1D2D44;
+	--blue:#284B63;
+	--lightblue:#A9E4EF;
+
+	--mainbg: 		var(--darkblue);
+	
+	--sidenavbg: 	transparent;
+	--sidenava:		transparent;
+	--sidenavahov:	var(--blue);
+
+	--portbg:		var(--blue);
+	--cardbg:		var(--navy);
+	--selectbg:		var(--blue);
+	--selectbghov:	var(--blue);
+
+	--buttonfill: 	var(--purple);
+	--buttonhov: 	var(--purple);
+
+	--infofill:		var(--lightblue);
+	--infoempty:	var(--blue);
+	--infoon:		var(--blue);
+	--infooff:		var(--blue);
 }
 
 
 body{
 	margin:0px;
 	height: 100%;
-
-	/* background-image: radial-gradient(circle at center center, transparent,rgb(33,33,33)),repeating-linear-gradient(135deg, rgb(33,33,33) 0px, rgb(33,33,33) 2px,transparent 2px, transparent 10px,rgb(33,33,33) 10px, rgb(33,33,33) 11px,transparent 11px, transparent 21px),repeating-linear-gradient(45deg, rgb(47,47,47) 0px, rgb(47,47,47) 4px,transparent 4px, transparent 8px),linear-gradient(90deg, rgb(33,33,33),rgb(33,33,33)); */
-
-	background-color: white;
+	background-color: var(--mainbg);
 
 	color:white;
 
@@ -26,7 +47,7 @@ body{
 	margin: 20px;
 	padding: 10px;
 	width: 150px;
-	background-color: rgba(240, 248, 255, 0.109);
+	background-color: var(--buttonfill);
 	transition: 0.2s ease-in-out;
 	font-size: 16px;
 	display: flex;
@@ -41,7 +62,7 @@ body{
 }
 
 .button:hover {
-	background-color: rgba(240, 248, 255, 0.297);
+	background-color: var(--buttonhov);
 }
 .row{
 	display: flex;
