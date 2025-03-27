@@ -10,11 +10,7 @@
 	border-radius: 15px;
 
 
-	background: linear-gradient(-45deg,  
-	var(--lightpurple),
-	var(--purple),
-	var(--purple)
-	);
+	background: var(--sidenavbg);
 }
 
 
@@ -48,9 +44,9 @@
 	margin-right: 7px;
 }
 
-.side-nav a:hover{
+/* .side-nav a:hover{
 	background-color: var(--sidenavahov);
-}
+} */
 
 #logo {
 	font-family:"Playfair Display", serif;

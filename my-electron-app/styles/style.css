@@ -1,42 +1,79 @@
 html {
 	height: 100%;
+	color: white;
 }
 
 :root {
-	--yellow:       #EEC471;
-	--lightpurple:  #6e5f9d;
-	--purple:       #3b3353;
-	--darkblue:     #0d1321;
-	--navy:         #1D2D44;
-	--blue:         #284B63;
-	--lightblue:    #A9E4EF;
+	/* Brand Colors */
+	--yellow:		#EEC471;
+	--green:		#5f9d87;
+	--slateblue:	#5f769d;
+	--lightpurple:	#6e5f9d;
+	--purple:		#3b3353;
+	--darkblue:		#0d1321;
+	--navy:			#1D2D44;
+	--blue:			#284B63;
+	--lightblue:	#A9E4EF;
 
-	--mainbg:       var(--darkblue);
-	
-	--sidenavbg:    transparent;
-	--sidenava:     transparent;
-	--sidenavahov:  var(--blue);
+	/* Space Base */
+	--mainbg:		radial-gradient(circle at bottom left, #0d1321 0%, #0a0f1a 100%);
+	--cardbg:		rgba(29, 38, 68, 0.47); /* semi-transparent navy */
+	--portbg:		rgba(40, 75, 99, 0.35);
+	--glow-overlay: rgba(169, 228, 239, 0.1);
 
-	--portbg:       var(--blue);
-	--cardbg:       var(--navy);
-	--selectbg:     var(--blue);
-	--selectbghov:  var(--blue);
+	/* Navigation */
+	--sidenavbg:	rgba(20, 30, 45, 0.4);
+	--sidenava:		transparent;
+	--sidenavahov:	rgba(255, 255, 255, 0.15);
 
-	--buttonfill:   var(--purple);
-	--buttonhov:    var(--purple);
+	/* Interactive */
+	--selectbg:		rgba(40, 75, 99, 0.5);
+	--selectbghov:	rgba(40, 75, 99, 0.7);
+	--buttonfill:	rgba(107, 95, 157, 0.4);
+	--buttonhov:	rgba(107, 95, 157, 0.6);
 
-	--infofill:     var(--lightblue);
-	--infoempty:    var(--blue);
-	--infoon:       var(--blue);
-	--infooff:      var(--blue);
+	/* Info + Visuals */
+	--infofill:		linear-gradient(135deg, var(--slateblue), var(--lightpurple));
+	--infoempty:	var(--navy);
+	--infoon:		var(--green);
+	--infooff:		rgba(40, 75, 99, 0.3);
 
-	--star-color:   rgba(255, 255, 255, 0.8);
-	--glow-color:   #284B6373;
+	/* Star / Glow FX */
+	--star-color:	rgba(255, 255, 255, 0.8);
+	--glow-color:	rgba(169, 228, 239, 0.15);
+	--glass-blur:	blur(14px);
 }
 
 .card, .dashboard-header-card {
-	box-shadow: 0 0 20px var(--glow-color);
+	background: linear-gradient(135deg, rgba(107, 95, 157, 0.15), rgba(40, 75, 99, 0.3));
+	box-shadow: inset 0 0 80px rgba(206, 169, 239, 0.1);
+	border-radius: 20px;
+	backdrop-filter: blur(10px);
 }
+
+
+.side-nav a {
+	position: relative;
+	color: white;
+	text-decoration: none;
+	transition: color 0.3s;
+}
+
+.side-nav a::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 0%;
+	height: 2px;
+	background: var(--lightblue);
+	transition: width 0.3s ease;
+}
+
+.side-nav a:hover::after {
+	width: 100%;
+}
+
 
 
 body{

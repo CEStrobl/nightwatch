@@ -3,7 +3,7 @@
 	flex: 1;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--cardbg);
+	background: var(--cardbg);
 	padding: 1rem 1.5rem;
 	border-radius: 10px;
 	color: #fff;

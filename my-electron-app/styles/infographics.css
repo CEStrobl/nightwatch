@@ -4,7 +4,7 @@
 	
 	margin: 10px;
 
-	background-color: var(--infoempty);;
+	background: var(--infoempty);;
 }
   
 .progress-bar {
@@ -13,7 +13,7 @@
 
     font-size: 14px;
 
-	background-color: var(--infofill);
+	background: var(--infofill);
 
 	display: flex;
 	justify-content: center;
