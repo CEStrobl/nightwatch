@@ -3,43 +3,52 @@ html {
 }
 
 :root {
-	--yellow:#EEC471;
-	--lightpurple:#6e5f9d;
-	--purple: #3b3353;
-	--darkblue:#0d1321;
-	--navy: #1D2D44;
-	--blue:#284B63;
-	--lightblue:#A9E4EF;
+	--yellow:       #EEC471;
+	--lightpurple:  #6e5f9d;
+	--purple:       #3b3353;
+	--darkblue:     #0d1321;
+	--navy:         #1D2D44;
+	--blue:         #284B63;
+	--lightblue:    #A9E4EF;
 
-	--mainbg: 		var(--darkblue);
+	--mainbg:       var(--darkblue);
 	
-	--sidenavbg: 	transparent;
-	--sidenava:		transparent;
-	--sidenavahov:	var(--blue);
+	--sidenavbg:    transparent;
+	--sidenava:     transparent;
+	--sidenavahov:  var(--blue);
 
-	--portbg:		var(--blue);
-	--cardbg:		var(--navy);
-	--selectbg:		var(--blue);
-	--selectbghov:	var(--blue);
+	--portbg:       var(--blue);
+	--cardbg:       var(--navy);
+	--selectbg:     var(--blue);
+	--selectbghov:  var(--blue);
 
-	--buttonfill: 	var(--purple);
-	--buttonhov: 	var(--purple);
+	--buttonfill:   var(--purple);
+	--buttonhov:    var(--purple);
 
-	--infofill:		var(--lightblue);
-	--infoempty:	var(--blue);
-	--infoon:		var(--blue);
-	--infooff:		var(--blue);
+	--infofill:     var(--lightblue);
+	--infoempty:    var(--blue);
+	--infoon:       var(--blue);
+	--infooff:      var(--blue);
+
+	--star-color:   rgba(255, 255, 255, 0.8);
+	--glow-color:   #284B6373;
+}
+
+.card, .dashboard-header-card {
+	box-shadow: 0 0 20px var(--glow-color);
 }
 
 
 body{
 	margin:0px;
 	height: 100%;
-	background-color: var(--mainbg);
-
-	color:white;
-
 	font-family:"Poppins";
+
+	background: radial-gradient(ellipse at bottom, #0d1321 0%, #000000 100%);
+	background-attachment: fixed;
+	color: white;
+	overflow-x: hidden;
+	position: relative;
 }
 
 .button {

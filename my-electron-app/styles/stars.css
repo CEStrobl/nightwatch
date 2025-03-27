@@ -1,0 +1,124 @@
+.twinkle-layer{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	background: transparent;
+	pointer-events: none;
+	z-index: -1;
+}
+
+.twinkle-layer::before,
+.twinkle-layer::after{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	background: transparent;
+	border-radius: 3px;
+	box-shadow:
+	1720px 979px white,
+	22px 603px white,   
+	1421px 568px white, 
+	967px 780px white,  
+	413px 935px white,  
+	668px 591px white,  
+	1377px 682px white, 
+	66px 430px white,   
+	1366px 39px white,  
+	60px 110px white,   
+	610px 333px white,  
+	1582px 839px white, 
+	1297px 744px white, 
+	1571px 1031px white,
+	996px 428px white,  
+	418px 503px white,  
+	1178px 445px white, 
+	1092px 531px white, 
+	200px 172px white,  
+	1471px 722px white, 
+	1310px 436px white, 
+	91px 560px white,   
+	1308px 238px white, 
+	1437px 706px white, 
+	989px 538px white,  
+	221px 474px white,  
+	1867px 294px white, 
+	1157px 478px white, 
+	380px 199px white,  
+	968px 337px white,  
+	1448px 391px white, 
+	707px 812px white,  
+	831px 557px white,  
+	776px 787px white,  
+	182px 362px white,  
+	819px 1014px white, 
+	636px 766px white,  
+	1668px 1008px white,
+	559px 1036px white, 
+	1199px 969px white, 
+	44px 271px white,   
+	268px 790px white,  
+	307px 107px white,  
+	917px 781px white,  
+	1208px 878px white, 
+	380px 692px white,  
+	166px 841px white,
+	1171px 768px white,
+	712px 108px white,
+	1170px 81px white,
+	862px 80px white,
+	1636px 124px white,
+	539px 599px white,
+	670px 394px white,
+	1532px 986px white,
+	854px 194px white,
+	1303px 185px white,
+	1030px 702px white,
+	1790px 222px white,
+	1865px 886px white,
+	750px 518px white,
+	758px 236px white,
+	1499px 943px white,
+	1580px 516px white,
+	813px 1074px white,
+	1058px 964px white,
+	1873px 1055px white,
+	1440px 247px white,
+	397px 60px white,
+	960px 614px white,
+	839px 504px white,
+	910px 827px white,
+	477px 32px white,
+	446px 65px white,
+	1055px 720px white,
+	352px 307px white,
+	1888px 429px white,
+	784px 303px white,
+	172px 623px white,
+	378px 544px white,
+	1071px 271px white,
+	1768px 453px white,
+	429px 229px white,
+	1554px 900px white,
+	493px 744px white,
+	1080px 609px white,
+	653px 782px white,
+	686px 988px white,
+	1801px 639px white,
+	128px 1022px white,
+	434px 951px white,
+	1112px 1004px white,
+	473px 1006px white,
+	1129px 563px white,
+	283px 26px white,
+	721px 952px white,
+	1559px 577px white,
+	568px 771px white,
+	35px 746px white,
+	663px 820px white;
+}
+
