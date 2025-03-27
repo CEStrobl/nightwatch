@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="styles/side-nav.css">
 	<link rel="stylesheet" href="styles/card.css">
+	<link rel="stylesheet" href="styles/dashboard.css">
 	<link rel="stylesheet" href="styles/infographics.css">
 
 	<title>Netgaze</title>
@@ -53,17 +54,47 @@
 
 			<div class="container">
 
-				<div class="card">
-					<h3>Uptime</h3>
-					<h1 id="uptimedisplay">00:23:41:06</h1>
+				<div class="dashboard-container">
+					<div class="dashboard-header-card">
+						<div class="header-left">
+						<div class="header-text">
+							<div class="header-title">SurfaceBook2</div>
+							<div class="header-subtext">10.0.0.53</div>
+						</div>
+						</div>
+						<div class="header-right">
+						<div class="uptime-label">Uptime</div>
+						<div class="uptime-value" id="uptimedisplay">00:23:41:06</div>
+						</div>
+					</div>
+					
 				</div>
 
-			</div>
 
-			<div id="diskContainer">
 
-			<div class="card">
-				<h1>(C:) Hard Drive</h1>
+				<div id="diskContainer">
+
+				<div class="card">
+					<h1>(C:) Hard Drive</h1>
+					<div class="row-details">
+						<img src="img/drive1.png" class="material-symbols-rounded">
+						<table>
+							<tbody>
+								<tr><th>Drive Type</th><td>Fixed<br></td></tr>
+								<tr><th>File System</th><td>NTFS<br></td></tr>
+								<tr><th>Status</th><td>Healthy<br></td></tr>
+								<tr><th>Operational</th><td>OK<br></td></tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="progress-container">
+						<div class="progress-bar" style="width: 60%">60%</div>
+					</div>
+					<p>792 GB free of 2 TB</p>
+				</div>
+
+				<div class="card">
+				<h1>(D:) STUFF!!!!</h1>
 				<div class="row-details">
 					<img src="img/drive1.png" class="material-symbols-rounded">
 					<table>
@@ -76,111 +107,93 @@
 					</table>
 				</div>
 				<div class="progress-container">
-					<div class="progress-bar" style="width: 60%">60%</div>
+					<div class="progress-bar" style="width: 78%">78%</div>
 				</div>
-				<p>792 GB free of 2 TB</p>
-			</div>
-
-			<div class="card">
-			<h1>(D:) STUFF!!!!</h1>
-			<div class="row-details">
-				<img src="img/drive1.png" class="material-symbols-rounded">
-				<table>
-					<tbody>
-						<tr><th>Drive Type</th><td>Fixed<br></td></tr>
-						<tr><th>File System</th><td>NTFS<br></td></tr>
-						<tr><th>Status</th><td>Healthy<br></td></tr>
-						<tr><th>Operational</th><td>OK<br></td></tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="progress-container">
-				<div class="progress-bar" style="width: 78%">78%</div>
-			</div>
-			<p>424 GB free of 2 TB</p>
-			</div>
+				<p>424 GB free of 2 TB</p>
+				</div>
 
 
-			<div class="card">
-				<h1>(E:) CD Player</h1>
-				<div class="row-details">
-					<img src="img/cdrom.png" class="material-symbols-rounded">
-					<table>
-						<tbody>
-							<tr><th>Drive Type</th><td>CD-ROM<br></td></tr>
-							<tr><th>File System</th><td>Unknown<br></td></tr>
-							<tr><th>Status</th><td>Healthy<br></td></tr>
-							<tr><th>Operational</th><td>Unknown<br></td></tr>
-						</tbody>
-					</table>
+				<div class="card">
+					<h1>(E:) CD Player</h1>
+					<div class="row-details">
+						<img src="img/cdrom.png" class="material-symbols-rounded">
+						<table>
+							<tbody>
+								<tr><th>Drive Type</th><td>CD-ROM<br></td></tr>
+								<tr><th>File System</th><td>Unknown<br></td></tr>
+								<tr><th>Status</th><td>Healthy<br></td></tr>
+								<tr><th>Operational</th><td>Unknown<br></td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				</div>
+
+				
+				<div id="netadapterContainer">
+					<div class="adaptercard card">
+						<h1>Ethernet</h1>
+						<img src="img/ethernet.png" alt="">
+						<p>Intel Ethernet Connection I218-V</p>
+						<table>
+							<tbody>
+								<tr>
+									<td>Status:</td>
+									<td>
+										<span class="status-dot online"></span>	
+										Connected
+									</td>
+								</tr>
+								<tr>
+									<td>LinkSpeed:</td>
+									<td>1 Gbps</td>
+								</tr>
+								<tr>
+									<td>MAC:</td>
+									<td>74-D4-35-EC-E2-F9</td>
+								</tr>
+								<tr>
+									<td>Vendor:</td>
+									<td>GIGA-BYTE</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				
+					<div class="adaptercard card">
+						<h1>Ethernet 2</h1>
+						<img src="img/vadapter.png" alt="">
+						<p>VirtualBox Host-Only Ethernet Adapter</p>
+						<table>
+							<tbody>
+								<tr>
+									<td>Status:</td>
+									<td>
+										<span class="status-dot online"></span>	
+										Connected
+									</td>
+								</tr>
+								<tr>
+									<td>LinkSpeed:</td>
+									<td>1 Gbps</td>
+								</tr>
+								<tr>
+									<td>MAC:</td>
+									<td>0A-00-27-00-00-02</td>
+								</tr>
+								<tr>
+									<td>Vendor:</td>
+									<td>Unknown OUI</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
-
-		</div>
-
-			
-		<div id="netadapterContainer">
-			<div class="adaptercard card">
-				<h1>Ethernet</h1>
-				<img src="img/ethernet.png" alt="">
-				<p>Intel Ethernet Connection I218-V</p>
-				<table>
-					<tbody>
-						<tr>
-							<td>Status:</td>
-							<td>
-								<span class="status-dot online"></span>	
-								Connected
-							</td>
-						</tr>
-						<tr>
-							<td>LinkSpeed:</td>
-							<td>1 Gbps</td>
-						</tr>
-						<tr>
-							<td>MAC:</td>
-							<td>74-D4-35-EC-E2-F9</td>
-						</tr>
-						<tr>
-							<td>Vendor:</td>
-							<td>GIGA-BYTE</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			
-			<div class="adaptercard card">
-				<h1>Ethernet 2</h1>
-				<img src="img/vadapter.png" alt="">
-				<p>VirtualBox Host-Only Ethernet Adapter</p>
-				<table>
-					<tbody>
-						<tr>
-							<td>Status:</td>
-							<td>
-								<span class="status-dot online"></span>	
-								Connected
-							</td>
-						</tr>
-						<tr>
-							<td>LinkSpeed:</td>
-							<td>1 Gbps</td>
-						</tr>
-						<tr>
-							<td>MAC:</td>
-							<td>0A-00-27-00-00-02</td>
-						</tr>
-						<tr>
-							<td>Vendor:</td>
-							<td>Unknown OUI</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
 
 	
-	</div>
+		</div>
 
 </div>
 

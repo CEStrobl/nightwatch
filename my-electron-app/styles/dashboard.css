@@ -1,0 +1,44 @@
+.dashboard-header-card {
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--cardbg);
+	padding: 1rem 1.5rem;
+	border-radius: 10px;
+	color: #fff;
+	font-family: 'Inter', sans-serif;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	min-height: 120px;
+	margin: 10px;
+}
+
+.header-left {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.header-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.header-title {
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.header-subtext {
+	font-size: 0.9rem;
+	color: #cccccc;
+}
+
+.header-right {
+	text-align: right;
+}
+
+.uptime-label {
+	font-size: 0.85rem;
+	color: #fff;
+}
