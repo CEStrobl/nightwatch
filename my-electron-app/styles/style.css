@@ -36,7 +36,7 @@ html {
 	--infofill:		linear-gradient(135deg, var(--slateblue), var(--lightpurple));
 	--infoempty:	var(--navy);
 	--infoon:		var(--green);
-	--infooff:		rgba(40, 75, 99, 0.3);
+	--infooff:		var(--navy);
 
 	/* Star / Glow FX */
 	--star-color:	rgba(255, 255, 255, 0.8);
@@ -45,9 +45,8 @@ html {
 }
 
 .card, .dashboard-header-card {
-	box-shadow: inset 0 0 80px rgba(127, 87, 190, 0.216);
+	box-shadow: inset 0 0 80px rgba(126, 87, 190, 0.14);
 	border-radius: 20px;
-	backdrop-filter: blur(10px);
 }
 
 
