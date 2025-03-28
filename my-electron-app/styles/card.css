@@ -2,14 +2,26 @@
 	padding: 20px;
 	border-radius: 15px;
 
-	flex: 1 1 300px;
-	max-width: 300px;
+	flex: 1 1;
+	max-width: 480px;
 	min-width: 280px;
 	min-height: 180px;
 	margin: 10px;
 
 	background: var(--cardbg);
 	transition: 0.4s ease-in-out !important;
+}
+
+@media only screen and (max-width: 1424px) {
+	.card{
+		max-width: 45%;
+	}
+}
+
+@media only screen and (max-width: 1006px) {
+	.card{
+		max-width: 100%;
+	}
 }
 
 .card * {
@@ -82,13 +94,6 @@
 	padding: 10px;
 }
 
-.container {
-	display: flex;
-	height: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: space-evenly;
-}
 
 .card p{
 	margin: 10px;

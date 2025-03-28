@@ -33,7 +33,7 @@ html {
 	--buttonhov:	rgba(107, 95, 157, 0.6);
 
 	/* Info + Visuals */
-	--infofill:		linear-gradient(135deg, var(--slateblue), var(--lightpurple));
+	--infofill:		linear-gradient(135deg, var(--blue), var(--slateblue));
 	--infoempty:	var(--navy);
 	--infoon:		var(--green);
 	--infooff:		var(--navy);
@@ -113,6 +113,17 @@ body{
 	color: white;
 	overflow-x: hidden;
 	position: relative;
+}
+
+.container {
+	display: flex;
+	height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-evenly;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	scrollbar-color: var(--purple) var(--darkblue);
 }
 
 .button {
