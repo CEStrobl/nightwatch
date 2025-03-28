@@ -23,6 +23,10 @@
 
 .card h1 {
 	font-size: 26px;
+	font-family: "rajdhani";
+	font-weight: 600;
+	font-stretch:extra-expanded;
+	letter-spacing: 1px;
 	margin-bottom: 10px;
 }
 

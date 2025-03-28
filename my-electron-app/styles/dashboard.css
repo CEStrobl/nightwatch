@@ -4,10 +4,9 @@
 	justify-content: space-between;
 	align-items: center;
 	background: var(--cardbg);
-	padding: 1rem 1.5rem;
+	padding: 15px 20px;
 	border-radius: 10px;
 	color: #fff;
-	font-family: 'Inter', sans-serif;
 	min-height: 120px;
 	margin: 10px;
 }
@@ -15,7 +14,6 @@
 .header-left {
 	display: flex;
 	align-items: center;
-	gap: 1rem;
 }
 
 .header-text {
@@ -24,12 +22,15 @@
 }
 
 .header-title {
-	font-size: 1.2rem;
+	font-size: 26px;
+	font-family: "rajdhani";
 	font-weight: 600;
+	font-stretch:extra-expanded;
+	letter-spacing: 1px;
 }
 
 .header-subtext {
-	font-size: 0.9rem;
+	font-size: 16px;
 	color: #cccccc;
 }
 
@@ -38,6 +39,6 @@
 }
 
 .uptime-label {
-	font-size: 0.85rem;
+	font-size: 16px;
 	color: #fff;
 }
