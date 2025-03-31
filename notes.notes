@@ -1,5 +1,31 @@
 == DASHBOARD =================================================
 
+	
+	[ ] devices detected on x subnet
+	// arp table?
+
+	[ ] store js in js
+	//session commands log
+
+~~ DROPPED ~~
+
+	[ ] load once into file and read from file after
+	// or remove multi html page format and do one mega page
+	// that changes visually but doesn't reset script info
+	// unless you close the app. 
+
+== SYS INFO ===================================================
+
+	! IMPORTANT =====================
+
+	[ ] Host Name
+
+	[ ] Host Ip
+
+	[ ] OS Info
+	
+	!================================
+
 	[√] improve drive load times
 	// Write-Host Get-Volume and parse with js
 	
@@ -11,7 +37,6 @@
 
 	[√] net adapter img
 
-	[ ] Ipconfig info
 
 	[ ] inital pop up
 
@@ -19,26 +44,35 @@
 
 	[√] uptime with js
 
-	[ ] load once into file and read from file after
-	// or remove multi html page format and do one mega page
-	// that changes visually but doesn't reset script info
-	// unless you close the app. 
 
 == SIDE NAV =================================================
 
+	! IMPORTANT =====================
+
+	[ ] Command History
+	// session only
+	
+	!================================
+	
 	[ ] Add logo
 
 	[ ] collapsible button
 	
 	[ ] auto collapse when small screen
 
-	[ ] Command History
-
 	[ ] add security information section
 
 	[ ] target ip scan
 
 == NETWORK DISCOVERY =========================================
+
+	! IMPORTANT =====================
+
+	[ ] "THE Device" fix
+
+	[ ] increment name finding
+
+	!================================
 
 	[√] option to refresh
 
@@ -57,16 +91,23 @@
 
 	[√] clear on start
 
-	[ ] increment name finding
-
-	[ ] "THE Device" fix
-
 	[√] fix get self issue 10.0.0.53
 
 	[ ] Copy to CSV
 
 	
 == PORT SCANNING ===========================================
+
+	! IMPORTANT =====================
+
+	[ ] ui rework: nmap ahh display
+
+	[ ] click to learn more side pannel
+	
+	[ ] status
+	// listening, outbound
+
+	!================================
 
 	[√] protocol with port
 
@@ -75,11 +116,6 @@
 	// internalLAN
 	// listeningAll
 	// external
-
-	[ ] status
-	// listening, outbound
-
-	[ ] click to learn more side pannel
 
 	[ ] Copy to CSV
 
@@ -97,3 +133,10 @@
 	Netgaze
 
 	Netrix
+
+	Netbula
+
+	Nightwatch
+
+	voidwatch
+

@@ -156,7 +156,7 @@ h4 {
 	font-weight: unset;
 }
 
-.netcontainer, #netadapterContainer{
+.netcontainer, #netadapterContainer, #diskContainer{
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;

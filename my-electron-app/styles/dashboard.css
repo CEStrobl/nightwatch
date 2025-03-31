@@ -23,9 +23,8 @@
 
 .header-title {
 	font-size: 26px;
-	font-family: "rajdhani";
+	font-family:"rajdhani", system-ui, Arial sans-serif;
 	font-weight: 600;
-	font-stretch:extra-expanded;
 	letter-spacing: 1px;
 }
 

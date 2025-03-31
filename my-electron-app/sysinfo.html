@@ -14,10 +14,12 @@
 	<link rel="stylesheet" href="styles/card.css">
 	<link rel="stylesheet" href="styles/infographics.css">
 	<link rel="stylesheet" href="styles/stars.css">
+	<link rel="stylesheet" href="styles/dashboard.css">
 
 	<title>NightWatch</title>
 </head>
-<body>
+<body onload="dashboard()">
+	
 	<div class="twinkle-layer"></div>
 
 	<div class="side-nav">
@@ -55,38 +57,42 @@
 	</div>
 
 
+
 	<div class="container">
-		
-		<h1>NETWORK DISCOVERY</h1>
 
-		<div class="subnet-container">
-			<label for="subnet">Subnet:</label>
-			<select id="subnet" class="subnet-select">
-				<option value="10.0.0">10.0.0.x</option>
-				<option value="192.168.1">192.168.1.x</option>
-				<option value="192.168.19">192.168.19.x</option>
-				<option value="172.16.0">172.16.0.x</option>
-			</select>
-			<button class="button" id="startButton" onclick="discover()">Start</button>
-			<div id="progressbarconatainer">
+		<h1>SYSTEM INFORMATION</h1>
 
+		<div class="dashboard-container">
+			<div class="dashboard-header-card">
+				<div class="header-left">
+					<div class="header-text">
+						<div class="header-title">SurfaceBook2</div>
+						<div class="header-subtext">10.0.0.53</div>
+					</div>
+				</div>
+				<div class="header-right">
+					<div class="uptime-label">Uptime</div>
+					<div class="uptime-value" id="uptimedisplay">00:23:41:06</div>
+				</div>
 			</div>
 		</div>
-
 		
-		<div id="sweepnetcontainer" class="netcontainer">
-			
-		</div>
+		<div id="diskContainer">
 
+		</div>
+		
+		<div id="netadapterContainer">
+		</div>
 	</div>
+
 
 	
 </body>
 <!-- Node.js Scripts -->
- <script src="scripts/oui.js"></script>
+<script src="scripts/oui.js"></script>
 <script src="scripts/tools.js"></script>
 <script src="renderer.js"></script>
-<script src="networkdiscovery.js"></script>
+<script src="dashboard.js"></script>
 
 <!-- HTML/CSS Scripts -->
 <script src="scripts/script.js"></script>

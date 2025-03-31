@@ -106,24 +106,31 @@ html {
 body{
 	margin:0px;
 	height: 100%;
-	font-family:"Poppins";
+	max-height: 100%;
+	font-family:"Poppins", system-ui, Arial sans-serif;
 
 	background: radial-gradient(ellipse at bottom, #0d1321 0%, #000000 100%);
 	background-attachment: fixed;
 	color: white;
 	overflow-x: hidden;
+	overflow-y: hidden;
 	position: relative;
+
+	display: flex;
+	flex-direction: row;
 }
 
 .container {
 	display: flex;
-	height: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: space-evenly;
+	margin: 20px;
+	width: 100%;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: flex-start;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	scrollbar-color: var(--purple) var(--darkblue);
+	scrollbar-color: var(--purple) transparent;
+	scroll-behavior: smooth;
 }
 
 .button {
@@ -148,19 +155,6 @@ body{
 .button:hover {
 	background-color: var(--buttonhov);
 }
-.row{
-	display: flex;
-	flex-direction: row;
-}
-
-.column{
-	display:flex;
-	flex-direction: column;
-}
-
-.content{
-	margin: 20px;
-}
 
 .header {
 	color: gray;
@@ -174,19 +168,6 @@ body{
 	letter-spacing: 5px;
 	font-size: 24px;
 	color: rgba(255, 255, 255, 0.552);
-}
-
-#mainDiv {
-	width: 100%;
-}
-
-
-#diskContainer {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-
-	width: 100%;
 }
 
 @keyframes gradient {
