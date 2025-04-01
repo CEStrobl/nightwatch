@@ -1,3 +1,23 @@
+/**
+
+	Welcome to tools.js
+
+	This file contains powershell output parsers, debugging tools,
+	and oui handlers. These are useful functions that may need to 
+	be used in several places. 
+
+*/
+
+/** 
+Log Time
+
+displays the time stamp in addition to whatever youre console.log-ing
+
+also acts as a stopwatch. pass it "Start" and "Stop" to start or stop the 
+stopwatch
+
+@param label console.log input
+*/
 const logTime = (() => {
 	let startTime = null; // Tracks the start time
 	let lastTime = null;  // Tracks the last log time

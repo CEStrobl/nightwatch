@@ -26,6 +26,8 @@
 	
 	!================================
 
+	[ ] icon
+
 	[√] improve drive load times
 	// Write-Host Get-Volume and parse with js
 	
@@ -36,7 +38,6 @@
 	[√] Net adapter ui
 
 	[√] net adapter img
-
 
 	[ ] inital pop up
 
@@ -71,6 +72,8 @@
 	[ ] "THE Device" fix
 
 	[ ] increment name finding
+
+	[ ] fix weird spacing
 
 	!================================
 

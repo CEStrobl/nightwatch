@@ -1,3 +1,15 @@
+/**
+ * Welcome to script.js
+ * 
+ * this is used for DOM elements that perform an action.
+ * it has nothing to do with the main features of the 
+ * program. it is mainly used for activating some
+ * visual effect.
+ * 
+ * this might even be deletable in the final product
+ */
+
+
 let refreshInterval = null;
 
 function refresh(toggle) {
