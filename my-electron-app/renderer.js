@@ -9,4 +9,10 @@ async function runcom(command) {
 	}
 }
 
-let execute = window.electronAPI.runCommand;
+// let execute = window.electronAPI.runCommand;
+
+async function execute(command) {
+	const result = await window.electronAPI.runCommand(command);
+	logps(command)
+	return result;
+}
