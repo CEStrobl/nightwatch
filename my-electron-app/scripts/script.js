@@ -6,10 +6,20 @@
  * program. it is mainly used for activating some
  * visual effect.
  * 
- * this might even be deletable in the final product
- */
+*/
+
+const logcontainer = document.getElementById("commandhistory")
+
+function showcommandhistory() {
+	logcontainer.style.display = "flex";
+}
+
+function hidecommandhistory() {
+	logcontainer.style.display = "none";
+}
 
 
+// refresh is a debugging tool
 let refreshInterval = null;
 
 function refresh(toggle) {

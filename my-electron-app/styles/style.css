@@ -10,6 +10,8 @@ html {
 	--slateblue:	#5f769d;
 	--lightpurple:	#6e5f9d;
 	--purple:		#3b3353;
+	--indigo:		#1f224c;
+	--darkindigo:	#141436;
 	--darkblue:		#0d1321;
 	--navy:			#1D2D44;
 	--blue:			#284B63;
@@ -37,6 +39,10 @@ html {
 	--infoempty:	var(--navy);
 	--infoon:		var(--green);
 	--infooff:		var(--navy);
+
+	/* Command History */
+	--histbg:		linear-gradient(135deg, var(--darkindigo), var(--indigo));
+	--histshadow:	var(--darkindigo);
 
 	/* Star / Glow FX */
 	--star-color:	rgba(255, 255, 255, 0.8);

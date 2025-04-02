@@ -17,6 +17,19 @@
 	<title>NightWatch</title>
 </head>
 <body>
+	<div class="logcontainer" id="commandhistory">
+		<div class="popupcard">
+			<div class="loghead">
+				<h1>Command History</h1>
+				<div class="button" onclick="hidecommandhistory()">X</div>
+			</div>
+			<table class="commandlist">
+				<tbody id="commanddisplay">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<div class="twinkle-layer"></div>
 
 	<div class="side-nav">
@@ -46,9 +59,7 @@
 
 
 		<div class="bottom">
-			<a class="button" onclick="window.location.reload()">
-				Refresh</a>
-
+			<a class="button" onclick="showcommandhistory()">View Command History</a>
 		</div>
 
 	</div>

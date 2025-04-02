@@ -61,10 +61,10 @@ function readps() {
 }
 
 
+const comdisplay = document.getElementById("commanddisplay")
 function updateComDisplay() {
+	
 	// always update command history
-	const comdisplay = document.getElementById("commanddisplay")
-
 	// clear commands
 
 	if(comdisplay.hasChildNodes()) {
