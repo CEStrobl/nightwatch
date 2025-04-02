@@ -92,9 +92,3 @@ function updateComDisplay() {
 }
 
 updateComDisplay()
-
-
-
-console.table(readps())
-
-

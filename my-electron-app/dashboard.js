@@ -307,39 +307,47 @@ function updateUptime(uptime, uptimedisplay) {
 		uptime.days++;
 	}
 
-	if(uptime.seconds < 10) {
-		uptime.seconds = String(uptime.seconds).padStart(2, "0");
-	}
-	if(uptime.minutes < 10) {
-		uptime.minutes = String(uptime.minutes).padStart(2, "0");
-	}
-	if(uptime.hours < 10) {
-		uptime.hours = String(uptime.hours).padStart(2, "0");
-	}
-	if(uptime.days < 10) {
-		uptime.days = String(uptime.days).padStart(2, "0");
-	}
-	
+	uptime.seconds = String(uptime.seconds).padStart(2, "0");
+	uptime.minutes = String(uptime.minutes).padStart(2, "0");
+	uptime.hours = String(uptime.hours).padStart(2, "0");
+	uptime.days = String(uptime.days).padStart(2, "0");
+
 	uptimedisplay.innerText = `${uptime.days}:${uptime.hours}:${uptime.minutes}:${uptime.seconds}`
 
 	return uptime
 }
 
+async function initHostInfo() {
+	const hostInfo = document.getElementById("hostInfo");
+
+	const hostname = await execute(`(Get-CimInstance Win32_ComputerSystem).Name`);
+	hostInfo.innerHTML += `<div class="header-title">${hostname}</div>`;
+	
+	let hostIP = await execute(`(Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -notlike '*Loopback*' }).IPAddress`);
+	hostIP+="";
+	hostIP = hostIP.split("\r\n")
+	hostInfo.innerHTML += `<div class="header-subtext">${hostIP[0]}</div>`;
+
+	const hostOS = await execute(`(Get-CimInstance Win32_OperatingSystem).Caption`);
+	hostInfo.innerHTML += `<div class="header-subtext">${hostOS}</div>`;
+}
 
 async function dashboard() {
 
 	initOui();
+
+	// init host info
+	initHostInfo()
+	
+	// Initial fetch for uptime
+	const uptimedisplay = document.getElementById("uptimedisplay");
+	let uptime = await getUptime(uptimedisplay);
 
 	// Init drive info
 	getDriveInfo();
 
 	// Init net adapter info
 	getNetAdapterInfo();
-
-	const uptimedisplay = document.getElementById("uptimedisplay");
-
-	// Initial fetch
-	let uptime = await getUptime(uptimedisplay);
 
 	// Update every second
 	setInterval(() => {
