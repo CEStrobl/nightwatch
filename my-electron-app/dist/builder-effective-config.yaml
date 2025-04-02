@@ -1,0 +1,13 @@
+directories:
+  output: dist
+  buildResources: build
+productName: NightWatch
+artifactName: NightWatch-1.0.0-x64.exe
+asar: true
+asarUnpack: []
+win:
+  target:
+    - nsis
+  forceCodeSigning: false
+files: []
+electronVersion: 32.1.2

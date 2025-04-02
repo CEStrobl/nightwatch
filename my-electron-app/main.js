@@ -12,9 +12,9 @@ const createWindow = () => {
 
 	// Create the browser window.
 	const mainWindow = new BrowserWindow({
-		width: 454,
+		width: 1000,
 		height: 800,
-
+		icon: path.join(__dirname, 'icon.ico'),
 		webPreferences: {
 			// Use preload script to expose only what’s needed
 			preload: path.join(app.getAppPath(), 'preload.js'),
@@ -28,7 +28,7 @@ const createWindow = () => {
 	});
 
 	mainWindow.loadFile(path.join(__dirname, 'index.html'));
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 };
 app.whenReady().then(() => {
 	createWindow();

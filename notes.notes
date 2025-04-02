@@ -4,7 +4,7 @@
 	[ ] devices detected on x subnet
 	// arp table?
 
-	[ ] store js in js
+	[√] store js in js
 	//session commands log
 
 ~~ DROPPED ~~
@@ -50,7 +50,7 @@
 
 	! IMPORTANT =====================
 
-	[ ] Command History
+	[√] Command History
 	// session only
 	
 	!================================
