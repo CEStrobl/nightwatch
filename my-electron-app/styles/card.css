@@ -35,7 +35,7 @@
 
 .card h1 {
 	font-size: 26px;
-	font-family: "rajdhani";
+	font-family:"rajdhani", system-ui, Arial sans-serif;
 	font-weight: 600;
 	font-stretch:extra-expanded;
 	letter-spacing: 1px;
@@ -208,4 +208,66 @@ h4 {
 
 .adaptercard table{
 	width: 100%;
+}
+
+.logcontainer{
+	position: fixed;
+	z-index: 39;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(18, 19, 39, 0.33);
+}
+
+.logcontainer .loghead {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 60px;
+	align-items: center;
+}
+
+.logcontainer .loghead .button {
+	height: 25px;
+	width: 25px;
+	background: none;
+}
+
+.popupcard{
+	display:flex;
+	align-items: center;
+	flex-direction: column;
+	position: fixed;
+	z-index: 40;
+	background: var(--infofill);
+	height: 70%;
+	max-height: 70%;
+	border-radius: 7px;
+	max-width: 700px;
+}
+
+.popupcard h1{
+	font-family:"rajdhani", system-ui, Arial sans-serif;
+	margin: 5px;
+	font-size: 22px;
+}
+
+.commandlist {
+	font-family:monospace;
+	background-color: black;
+	padding: 20px;
+	height: 100%;
+	overflow-x: none;
+	overflow-y: scroll;
+}
+
+.commandlist tbody tr {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.commandlist tbody td {
+	margin: 3px;
 }

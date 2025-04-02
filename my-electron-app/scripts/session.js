@@ -52,12 +52,47 @@ function logps(command) {
 	}
 
 	addToSessionArray(record,pskey);
+	updateComDisplay();
 }
 
 function readps() {
 	const all = getSessionArray(pskey);
 	return all;
 }
+
+
+function updateComDisplay() {
+	// always update command history
+	const comdisplay = document.getElementById("commanddisplay")
+
+	// clear commands
+
+	if(comdisplay.hasChildNodes()) {
+		const children = comdisplay.children;
+		for (let i = 0; i < children.length; i++) {
+			const child = children[i];
+			comdisplay.removeChild(child)
+		}
+
+	}
+
+	// add elements
+	const storage = readps();
+	for (let i = 0; i < storage.length; i++) {
+		const x = storage[i];
+		
+		comdisplay.innerHTML += `
+			<tr>
+			<td>${x.timestamp}</td>
+			<td>${x.command}</td>
+			</tr>
+		`;
+	}
+
+}
+
+updateComDisplay()
+
 
 
 console.table(readps())
