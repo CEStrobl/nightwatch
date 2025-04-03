@@ -292,6 +292,7 @@ async function getUptime() {
 
 function updateUptime(uptime, uptimedisplay) {
 
+	// click time over
 	uptime.seconds++
 
 	if (uptime.seconds == 60) {
@@ -307,12 +308,7 @@ function updateUptime(uptime, uptimedisplay) {
 		uptime.days++;
 	}
 
-	uptime.seconds = String(uptime.seconds).padStart(2, "0");
-	uptime.minutes = String(uptime.minutes).padStart(2, "0");
-	uptime.hours = String(uptime.hours).padStart(2, "0");
-	uptime.days = String(uptime.days).padStart(2, "0");
-
-	uptimedisplay.innerText = `${uptime.days}:${uptime.hours}:${uptime.minutes}:${uptime.seconds}`
+	uptimedisplay.innerText = formatTime([uptime.days, uptime.hours, uptime.minutes, uptime.seconds])
 
 	return uptime
 }
@@ -320,17 +316,28 @@ function updateUptime(uptime, uptimedisplay) {
 async function initHostInfo() {
 	const hostInfo = document.getElementById("hostInfo");
 
+	// Host name
 	const hostname = await execute(`(Get-CimInstance Win32_ComputerSystem).Name`);
 	hostInfo.innerHTML += `<div class="header-title">${hostname}</div>`;
 	
-	let hostIP = await execute(`(Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -notlike '*Loopback*' }).IPAddress`);
-	hostIP+="";
-	hostIP = hostIP.split("\r\n")
-	hostInfo.innerHTML += `<div class="header-subtext">${hostIP[0]}</div>`;
+	// Host IP address
+	let ipList = await execute(`(Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -notlike '*Loopback*' }).IPAddress`);
+	ipList+="";
+	ipList = ipList.split("\r\n")
 
+	let hostIP = ipList[0];
+
+	// sometimes the first result is 192.168.56.1. i think thats from vbox
+	if(hostIP == "192.168.56.1" && ipList[1] != null) {hostIP = ipList[1]} 
+
+	hostInfo.innerHTML += `<div class="header-subtext">${hostIP}</div>`;
+
+	// Host OS
 	const hostOS = await execute(`(Get-CimInstance Win32_OperatingSystem).Caption`);
 	hostInfo.innerHTML += `<div class="header-subtext">${hostOS}</div>`;
 }
+
+const uptimedisplay = document.getElementById("uptimedisplay");
 
 async function dashboard() {
 
@@ -339,18 +346,21 @@ async function dashboard() {
 	// init host info
 	initHostInfo()
 	
-	// Initial fetch for uptime
-	const uptimedisplay = document.getElementById("uptimedisplay");
-	let uptime = await getUptime(uptimedisplay);
-
 	// Init drive info
 	getDriveInfo();
-
+	
 	// Init net adapter info
 	getNetAdapterInfo();
+	
+	// Initial fetch for uptime
+	let uptime = await getUptime(uptimedisplay);
 
 	// Update every second
 	setInterval(() => {
 		uptime = updateUptime(uptime, uptimedisplay);
 	}, 1000);
+	// refetch every few mins to ensure accuracy
+	setInterval(async () => {
+		uptime = await getUptime(uptimedisplay);
+	}, 360000);
 }

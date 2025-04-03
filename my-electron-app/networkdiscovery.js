@@ -16,18 +16,13 @@ async function createIpCard(ip, time, status, index) {
 		mac: mac,
 		index: index,
 		ip: ip,
-		vendor: lookupOUI(mac),
+		vendor: cleanVendor(mac),
 		ping: time,
 		status: status,
 	};
 	
-	// shorten vendor to two words if its too long
-	if(device.vendor.length > 12) {
-		device.vendor = device.vendor.split(" ")[0] + " " + device.vendor.split(" ")[1]
-	}
-	
 	const x = await execute(
-		`[System.Net.Dns]::GetHostEntry('${device.ip}').HostName 2>$null`
+		`try {$hostname = [System.Net.Dns]::GetHostEntry('${ip}').HostName} catch {$hostname = "Unnamed Device"} Write-Host $hostname`
 	);
 	
 	const hostname = x.trim() || "Unnamed Device";
@@ -88,9 +83,13 @@ function createProgressBar() {
 }
 
 async function pingHost(ip) {
-	const result = await execute(`ping -n 1 -w 500 ${ip}`)
+	const result = await execute(
+		`try {$ping = ping -n 1 -w 500 ${ip}} catch {$ping = "No Response"} Write-Host $ping`
+	)
 
-	if (result == undefined) {
+	console.log(result)
+
+	if (result == undefined || result.includes("No Response")) {
 		return { ip, status: "Offline", time: "0ms" };
 	} else {
 
@@ -113,7 +112,7 @@ async function pingSweep(network) {
 	onlineDevices = [];
 
 	const ips = Array.from({ length: 254 }, (_, i) => `${network}.${i + 1}`);
-	const batchSize = 15;
+	const batchSize = 5;
 
 	progress.className += " loading";
 

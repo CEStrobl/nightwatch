@@ -54,6 +54,65 @@ const logTime = (() => {
 	};
 })();
 
+/**
+ * Takes time variables and formats them to dd:hh:mm:ss
+ * 
+ * example: [1, 2, 35, 0] returns 01:02:35:00
+ * @param {array} array
+ * @returns dd:hh:mm:ss
+ */
+function formatTime(array) {
+
+	let retVal = [];
+
+	for (let i = 0; i < array.length; i++) {
+		let x = array[i];
+
+		// cast to string
+		x += "";
+
+		// add leading 0's
+		x = x.padStart(2, "0");
+
+		retVal.push(x)
+		
+	}
+
+	// add colon for time format
+	retVal = retVal.join(":")
+
+	return retVal;
+}
+
+
+
+
+
+/**
+ * returns the current date in mm/dd/yy format
+ * @returns mm/dd/yy
+ */
+function getTodaysDate(){
+	const d = new Date();
+	const day = d.getDate();
+	const month = d.getMonth()+1;
+	const year = d.getFullYear()[2] + d.getFullYear()[3];
+
+	return `${month}/${day}/${year}`
+}
+
+/**
+ * returns the current time stamp in hh:mm:ss format
+ * @returns hh:mm:ss
+ */
+function getTimestamp(){
+	const d = new Date();
+
+	const hours = d.getHours();
+	const minutes = d.getMinutes();
+	const seconds = d.getSeconds();
+	return formatTime([hours, minutes, seconds]);
+}
 
 function parsePowerShellTable(input) {
 	input
@@ -97,19 +156,35 @@ function parseArpTable(input) {
 	return result;
 }
 
+/**
+ * some mac addresses are really common but are unknown on the oui table. 
+ * this helps filter those out. 
+ * 
+ * @param {string} mac partial or full mac address
+ * @returns {boolean}
+ */
 function isOddMAC(mac) {
 
-	if(mac == undefined) {
-		return true;
-	}
+	let retVal = true;
 
-	if (mac.startsWith("01-00-5E") || mac.startsWith("FF-FF-FF")) {
-		return true;
-	} else {return false;}
+	// error handling
+	if(mac == undefined) {
+		retVal = true;
+	}
+	// common, yet irrelevant mac addresses
+	else if (mac.startsWith("01-00-5E") || mac.startsWith("FF-FF-FF")) {
+		retVal = true;
+	}
+	else {retVal = false;}
+
+	return retVal;
 }
 
 let ouiMap = '';
 
+/**
+ * parses the giant oui string into a map of mac addresses and their vendor
+ */
 function initOui() {
 	ouiMap = new Map(
 		oui.trim().split(/\r?\n/).map(line => {
@@ -119,11 +194,20 @@ function initOui() {
 	);
 }
 
-
+/**
+ * @param {string} macPrefix 
+ * @returns {string} vendor || Unknown OUI
+ */
 function lookupOUI(macPrefix) {
 	return ouiMap.get(macPrefix.toUpperCase()) || "Unknown OUI";
 }
 
+/**
+ * 
+ * @param {string} getNetNeighborOutput 
+ * @param {string} targetIP 
+ * @returns 
+ */
 function getMacAddress(getNetNeighborOutput, targetIP) {
 	// Split into lines and filter out empty lines
 	const lines = getNetNeighborOutput.trim().split("\n").filter(line => line.trim());
@@ -163,148 +247,157 @@ function getHostMacAddress(getNetNeighborOutput) {
 
 
 function parseGetVolumeOutput(getVolumeOutput) {
-    getVolumeOutput += "";
+	getVolumeOutput += "";
 
-    let volumes = [];
+	let volumes = [];
 
-    const entries = getVolumeOutput.split(/\n(?=DriveLetter\s+:)/);
+	const entries = getVolumeOutput.split(/\n(?=DriveLetter\s+:)/);
 
-    for (let entry of entries) {
-        const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
+	for (let entry of entries) {
+		const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
 
-        let drive = {
-            DriveLetter: "N/A",
-            FileSystemLabel: "N/A",
-            FileSystemType: "N/A",
-            DriveType: "N/A",
-            HealthStatus: "N/A",
-            OperationalStatus: "N/A",
-            SizeRemaining: "N/A",
-            Size: "N/A"
-        };
+		let drive = {
+			DriveLetter: "N/A",
+			FileSystemLabel: "N/A",
+			FileSystemType: "N/A",
+			DriveType: "N/A",
+			HealthStatus: "N/A",
+			OperationalStatus: "N/A",
+			SizeRemaining: "N/A",
+			Size: "N/A"
+		};
 
-        for (let line of lines) {
-            const parts = line.split(":");
+		for (let line of lines) {
+			const parts = line.split(":");
 
-            if (parts.length >= 2) {
-                const key = parts[0].replace(/\s+/g, "");
-                const value = parts.slice(1).join(":").trim();
+			if (parts.length >= 2) {
+				const key = parts[0].replace(/\s+/g, "");
+				const value = parts.slice(1).join(":").trim();
 
-                if (drive.hasOwnProperty(key)) {
-                    drive[key] = value;
-                }
-            }
-        }
+				if (drive.hasOwnProperty(key)) {
+					drive[key] = value;
+				}
+			}
+		}
 
-        volumes.push(drive);
-    }
-    return volumes;
+		volumes.push(drive);
+	}
+	return volumes;
 }
 
-
-
-
+/**
+ * takes a byte input and converts it to the correct unit and value
+ * @param {int} bytes 
+ * @returns {string} 0 B format
+ */
 function formatBytes(bytes) {
-    bytes = parseInt(bytes, 10); 
+	bytes = parseInt(bytes, 10); 
 
-    if (isNaN(bytes) || bytes < 0) return "0 B"; 
+	let retVal = "";
 
-    if (bytes >= 1_000_000_000_000) return Math.round(bytes / 1_000_000_000_000) + " TB";
-    if (bytes >= 1_000_000_000) return Math.round(bytes / 1_000_000_000) + " GB";
-    if (bytes >= 256_000_000) return Math.round(bytes / 1_000_000_000) + " GB"; 
-    if (bytes >= 1_000_000) return Math.round(bytes / 1_000_000) + " MB";
-    if (bytes >= 1_000) return Math.round(bytes / 1_000) + " KB";
+	// error handing
+	if (isNaN(bytes) || bytes < 0) retVal = "0 B"; 
 
-    return bytes + " B";
+	else if (bytes >= 1_000_000_000_000) retVal = Math.round(bytes / 1_000_000_000_000) + " TB";
+	else if (bytes >= 1_000_000_000) retVal = Math.round(bytes / 1_000_000_000) + " GB";
+	else if (bytes >= 256_000_000) retVal = Math.round(bytes / 1_000_000_000) + " GB"; 
+	else if (bytes >= 1_000_000) retVal = Math.round(bytes / 1_000_000) + " MB";
+	else if (bytes >= 1_000) retVal = Math.round(bytes / 1_000) + " KB";
+	else retVal = bytes + " B";
+
+	return retVal;
 }
 
 function cleanVendor(fullmac) {
 	let vendor = lookupOUI(fullmac.substring(0,8).toUpperCase());
-
 	vendor += ""
-
+	vendor.replace("THE ", ""); // removes "the" from the name
 	let words = vendor.split(" ");
 
-	if(vendor.length > 15){
-		vendor = words.slice(0, 2).join(" ");
-		if(vendor.length > 15){
-			vendor = words.slice(0, 1).join(" ");
+	const maxCharCount = 15;
+
+	// keep reducing the word count til it is less than the max character amount
+	for (let i = 4; i > 0; i--) {
+
+		if(vendor.length > maxCharCount){
+			vendor = words.slice(0, i).join(" ");
 		}
+		
 	}
 
-	return vendor
+	return vendor;
 }
 
 function cleanAdapterName(name) {
-    // Remove full sets of parentheses and trim spaces
-    let cleaned = name.replace(/\s*\(.*?\)/g, "").trim();
+	// Remove full sets of parentheses and trim spaces
+	let cleaned = name.replace(/\s*\(.*?\)/g, "").trim();
 
-    // If a stray closing parenthesis remains, remove it
-    cleaned = cleaned.replace(/\)$/, "").trim();
+	// If a stray closing parenthesis remains, remove it
+	cleaned = cleaned.replace(/\)$/, "").trim();
 
-    // If name has more than two words, keep only the first two
-    let words = cleaned.split(" ");
-    if (cleaned.length > 12) {
-        cleaned = words.slice(0, 2).join(" ");
+	// If name has more than two words, keep only the first two
+	let words = cleaned.split(" ");
+	if (cleaned.length > 12) {
+		cleaned = words.slice(0, 2).join(" ");
 		if (cleaned.length > 12) {
 			cleaned = words.slice(0, 1).join(" ");
 
 		}
-    }
+	}
 
-    return cleaned;
+	return cleaned;
 }
 
 function cleanAdapterDesc(desc) {
 	// Remove full sets of parentheses and trim spaces
-    let cleaned = desc.replace(/\s*\(.*?\)/g, "").trim();
+	let cleaned = desc.replace(/\s*\(.*?\)/g, "").trim();
 
-    // If a stray closing parenthesis remains, remove it
-    cleaned = cleaned.replace(/\)$/, "").trim();
+	// If a stray closing parenthesis remains, remove it
+	cleaned = cleaned.replace(/\)$/, "").trim();
 
-    // If name has more than two words, keep only the first two
-    let words = cleaned.split(" ");
-    if (cleaned.length > 43) {
-        cleaned = words.slice(0, 5).join(" ");
+	// If name has more than two words, keep only the first two
+	let words = cleaned.split(" ");
+	if (cleaned.length > 43) {
+		cleaned = words.slice(0, 5).join(" ");
 		if (cleaned.length > 43) {
 			cleaned = words.slice(0, 4).join(" ");
 
 		}
-    }
+	}
 
-    return cleaned;
+	return cleaned;
 }
 
 
 
 function parseNetAdapterOutput(netAdapterOutput) {
-    netAdapterOutput += ""; // Ensure it's a string
+	netAdapterOutput += ""; // Ensure it's a string
 
-    let adapters = [];
+	let adapters = [];
 
-    // Split entries by detecting the start of a new adapter block
-    const entries = netAdapterOutput.split(/\n(?=Name\s+:)/);
+	// Split entries by detecting the start of a new adapter block
+	const entries = netAdapterOutput.split(/\n(?=Name\s+:)/);
 
-    for (let entry of entries) {
-        const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
+	for (let entry of entries) {
+		const lines = entry.split("\n").map(line => line.trim()).filter(line => line);
 
-        let adapter = {
-            Name: "N/A",
-            InterfaceDescription: "N/A",
-            ifIndex: "N/A",
-            Status: "N/A",
-            MacAddress: "N/A",
-            LinkSpeed: "N/A"
-        };
+		let adapter = {
+			Name: "N/A",
+			InterfaceDescription: "N/A",
+			ifIndex: "N/A",
+			Status: "N/A",
+			MacAddress: "N/A",
+			LinkSpeed: "N/A"
+		};
 
-        for (let line of lines) {
-            const parts = line.split(":");
+		for (let line of lines) {
+			const parts = line.split(":");
 
-            if (parts.length >= 2) {
-                const key = parts[0].replace(/\s+/g, "");
-                const value = parts.slice(1).join(":").trim();
+			if (parts.length >= 2) {
+				const key = parts[0].replace(/\s+/g, "");
+				const value = parts.slice(1).join(":").trim();
 
-                if (adapter.hasOwnProperty(key)) {
+				if (adapter.hasOwnProperty(key)) {
 					if(key == "Name") {
 						adapter[key] = cleanAdapterName(value);
 					}
@@ -315,15 +408,15 @@ function parseNetAdapterOutput(netAdapterOutput) {
 					else {
 						adapter[key] = value;
 					}
-                }
-            }
-        }
+				}
+			}
+		}
 		if (adapter.ifIndex != "N/A") {
 			adapters.push(adapter);
 		}
 
-    }
-    return adapters;
+	}
+	return adapters;
 }
 
 

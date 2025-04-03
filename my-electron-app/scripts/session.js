@@ -32,23 +32,11 @@ const pskey = "pshistory";
 initSessionArray(pskey);
 
 function logps(command) {
-	const d = new Date();
-
-	const hours = d.getHours();
-	const minutes = d.getMinutes();
-	const seconds = d.getSeconds();
-	const timeFormatted = `[${hours}:${minutes}:${seconds}]`;
-
-	const day = d.getDate();
-	const month = d.getMonth()+1;
-	const year = d.getFullYear();
-
-	const date = `${month}/${day}/${year}`
 
 	let record = {
 		command: command,
-		timestamp: timeFormatted,
-		date: date,
+		timestamp: getTimestamp(),
+		date: getTodaysDate(),
 	}
 
 	addToSessionArray(record,pskey);
