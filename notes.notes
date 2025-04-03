@@ -18,15 +18,15 @@
 
 	! IMPORTANT =====================
 
-	[ ] Host Name
+	[√] Host Name
 
-	[ ] Host Ip
+	[√] Host Ip
 
-	[ ] OS Info
+	[√] OS Info
 	
-	!================================
-
 	[ ] icon
+
+	!================================
 
 	[√] improve drive load times
 	// Write-Host Get-Volume and parse with js
@@ -52,10 +52,10 @@
 
 	[√] Command History
 	// session only
+
+	[ ] Add logo
 	
 	!================================
-	
-	[ ] Add logo
 
 	[ ] collapsible button
 	
@@ -73,7 +73,7 @@
 
 	[ ] increment name finding
 
-	[ ] fix weird spacing
+	[√] fix weird spacing
 
 	!================================
 

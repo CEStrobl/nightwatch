@@ -142,12 +142,15 @@
 
 .block {
 	height: 50px;
-	width: 70px;
 	margin: 10px 5px;
-
+	
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.pingblock{
+	width: 70px;
 }
 
 h4 {

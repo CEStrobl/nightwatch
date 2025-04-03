@@ -26,11 +26,9 @@ async function createIpCard(ip, time, status, index) {
 		device.vendor = device.vendor.split(" ")[0] + " " + device.vendor.split(" ")[1]
 	}
 	
-	// const x = await execute(
-	// 	`$hostname=''; try { $temp=(Resolve-DnsName '${device.ip}' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty NameHost); if ($temp) { $hostname=$temp } } catch {}; try { if (-not $hostname) { $temp=([System.Net.Dns]::GetHostEntry('${device.ip}').HostName); if ($temp) { $hostname=$temp } } } catch {}; [Console]::WriteLine($hostname)`
-	// );
-
-	const x = "";
+	const x = await execute(
+		`[System.Net.Dns]::GetHostEntry('${device.ip}').HostName 2>$null`
+	);
 	
 	const hostname = x.trim() || "Unnamed Device";
 	
@@ -53,7 +51,7 @@ async function createIpCard(ip, time, status, index) {
 			</div>
 			<div class="divline"></div>
 			<div class="row-details">
-				<div class="block" id="${"device"+device.index+"ping"}">
+				<div class="block pingblock" id="${"device"+device.index+"ping"}">
 				<span class="status-dot online"></span>	
 					${device.ping}
 				</div>
