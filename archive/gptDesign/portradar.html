@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Radar Port Scanner</title>
+  <link rel="stylesheet" href="portradar.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="radar-container">
+    <h2 class="device-name">Device: Sentinel-9</h2>
+    <div class="radar">
+      <div class="sweep"></div>
+
+      <!-- Port Blips -->
+      <div class="blip open" style="top: 25%; left: 60%;" data-port="22" data-service="SSH"></div>
+      <div class="blip filtered" style="top: 40%; left: 30%;" data-port="23" data-service="Telnet"></div>
+      <div class="blip closed" style="top: 70%; left: 50%;" data-port="21" data-service="FTP"></div>
+      <div class="blip open" style="top: 55%; left: 80%;" data-port="443" data-service="HTTPS"></div>
+    </div>
+  </div>
+</body>
+</html>

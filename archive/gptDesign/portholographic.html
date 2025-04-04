@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Holographic Port Cards</title>
+  <link rel="stylesheet" href="portholographic.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="cards-wrapper">
+    <h2 class="device-name">Device: Celestia-Core</h2>
+
+    <div class="port-card open">
+      <div class="port-id">22 / TCP</div>
+      <div class="service">SSH</div>
+      <div class="status">OPEN</div>
+    </div>
+
+    <div class="port-card closed">
+      <div class="port-id">21 / TCP</div>
+      <div class="service">FTP</div>
+      <div class="status">CLOSED</div>
+    </div>
+
+    <div class="port-card filtered">
+      <div class="port-id">23 / TCP</div>
+      <div class="service">Telnet</div>
+      <div class="status">FILTERED</div>
+    </div>
+    
+  </div>
+</body>
+</html>

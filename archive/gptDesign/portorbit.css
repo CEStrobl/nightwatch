@@ -1,0 +1,107 @@
+body {
+	background-color: #0b0f1a;
+	color: #ffffff;
+	font-family: 'Orbitron', sans-serif;
+	margin: 0;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .space-container {
+	position: relative;
+	width: 600px;
+	height: 600px;
+  }
+  
+  .device-name {
+	text-align: center;
+	margin-bottom: 10px;
+  }
+  
+  .device-planet {
+	position: relative;
+	width: 100%;
+	height: 100%;
+  }
+  
+  .planet {
+	width: 80px;
+	height: 80px;
+	background-color: #3478f6;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 0 20px #3478f6;
+  }
+  
+  /* Orbit Ring */
+  .orbit {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border: 1px dashed rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	animation: spin 30s linear infinite;
+  }
+  
+  .orbit2 { width: 200px; height: 200px; }
+  .orbit3 { width: 300px; height: 300px; }
+  
+  .moon {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: pointer;
+  }
+  
+  .moon::after {
+	content: attr(data-port) " (" attr(data-service) ")";
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #111;
+	color: #fff;
+	padding: 4px 6px;
+	font-size: 12px;
+	border-radius: 4px;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s;
+	white-space: nowrap;
+  }
+  
+  .moon:hover::after {
+	opacity: 1;
+  }
+  
+  /* Status Colors */
+  .open {
+	background-color: #00ff88;
+	box-shadow: 0 0 10px #00ff88;
+  }
+  .closed {
+	background-color: #ff0044;
+	box-shadow: 0 0 10px #ff0044;
+  }
+  .filtered {
+	background-color: #ffaa00;
+	box-shadow: 0 0 10px #ffaa00;
+  }
+  
+  /* Orbit Animation */
+  @keyframes spin {
+	from { transform: translate(-50%, -50%) rotate(0deg); }
+	to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  

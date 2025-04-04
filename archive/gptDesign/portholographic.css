@@ -1,0 +1,100 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: #0b0f1a;
+	color: white;
+	font-family: 'Orbitron', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	flex-direction: column;
+  }
+  
+  .device-name {
+	font-size: 1.5rem;
+	margin-bottom: 20px;
+	color: #ffffff;
+  }
+  
+  .cards-wrapper {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	justify-content: center;
+  }
+  
+  /* Holographic Card */
+  .port-card {
+	width: 160px;
+	height: 180px;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 12px;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 0 10px rgba(0,255,255,0.1);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	position: relative;
+	cursor: pointer;
+  }
+  
+  .port-card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 20px rgba(0,255,255,0.3);
+  }
+  
+  .port-id {
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+  }
+  
+  .service {
+	font-size: 1rem;
+	color: #ccc;
+	margin-bottom: 6px;
+  }
+  
+  .status {
+	font-size: 0.9rem;
+	padding: 4px 8px;
+	border-radius: 6px;
+	background-color: rgba(255,255,255,0.05);
+	border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  /* Status Colors */
+  .open {
+	border-color: #00ff88;
+	box-shadow: 0 0 10px #00ff88;
+  }
+  
+  .open .status {
+	color: #00ff88;
+	border-color: #00ff88;
+  }
+  
+  .closed {
+	border-color: #ff3366;
+	box-shadow: 0 0 10px #ff3366;
+  }
+  
+  .closed .status {
+	color: #ff3366;
+	border-color: #ff3366;
+  }
+  
+  .filtered {
+	border-color: #ffaa00;
+	box-shadow: 0 0 10px #ffaa00;
+  }
+  
+  .filtered .status {
+	color: #ffaa00;
+	border-color: #ffaa00;
+  }
+  

@@ -5,7 +5,7 @@ html {
 
 :root {
 	/* Brand Colors */
-	--yellow:		#EEC471;
+	--yellow:		#a6914e;
 	--green:		#53c19b;
 	--slateblue:	#5f769d;
 	--lightpurple:	#6e5f9d;
@@ -20,7 +20,7 @@ html {
 	/* Space Base */
 	--mainbg:		radial-gradient(circle at bottom left, #0d1321 0%, #0a0f1a 100%);
 	--cardbg:		linear-gradient(135deg, rgba(88, 74, 143, 0.215), rgba(25, 72, 104, 0.354));
-	--portbg:		rgba(40, 75, 99, 0.35);
+	--portbg:		rgba(35, 39, 69, 0.215);
 	--glow-overlay: rgba(169, 228, 239, 0.1);
 
 	/* Navigation */
@@ -43,6 +43,20 @@ html {
 	/* Command History */
 	--histbg:		linear-gradient(135deg, var(--darkindigo), var(--indigo));
 	--histshadow:	var(--darkindigo);
+
+	/* port */
+	--portopen: 	var(--slateblue);
+	--portopenbg: linear-gradient(135deg, rgba(95, 132, 157, 0.315), rgba(95, 148, 157, 0.215));
+
+	--portclosed: 	var(--indigo);
+	--portclosedbg: linear-gradient(135deg, rgba(52, 46, 106, 0.15), rgba(54, 53, 110, 0.249));
+
+	--portfilter: 	var(--lightpurple);
+	--portfilterbg: linear-gradient(135deg, rgba(123, 95, 157, 0.15), rgba(108, 95, 157, 0.15));
+
+	--portwaiting: 	var(--yellow);
+	--portwaitingbg: linear-gradient(135deg, rgba(180, 141, 83, 0.15), rgba(161, 161, 86, 0.212));
+	
 
 	/* Star / Glow FX */
 	--star-color:	rgba(255, 255, 255, 0.8);

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Star Map Port Scan</title>
+  <link rel="stylesheet" href="portstar.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="grid-container">
+    <h2 class="device-label">Device: Andromeda-2</h2>
+    <div class="star-grid">
+
+      <!-- Port "stars" -->
+      <div class="port-star open" style="top: 20%; left: 40%;" data-port="22" data-service="SSH"></div>
+      <div class="port-star closed" style="top: 60%; left: 70%;" data-port="21" data-service="FTP"></div>
+      <div class="port-star filtered" style="top: 35%; left: 20%;" data-port="23" data-service="Telnet"></div>
+      <div class="port-star open" style="top: 50%; left: 50%;" data-port="443" data-service="HTTPS"></div>
+
+    </div>
+  </div>
+</body>
+</html>
