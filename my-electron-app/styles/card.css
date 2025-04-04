@@ -176,6 +176,13 @@ h4 {
 
 /* PORTS */
 
+.portinputcontainer{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	align-items: center;
+}
+
 .deviceports {
 	display: flex;
 	flex-direction: column;

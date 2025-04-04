@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="styles/side-nav.css">
 	<link rel="stylesheet" href="styles/card.css">
 	<link rel="stylesheet" href="styles/stars.css">
+	<link rel="stylesheet" href="styles/infographics.css">
 
 	<title>NightWatch</title>
 </head>
@@ -69,17 +70,14 @@
 		
 		<h1>PORT SCANNING</h1>
 
-		<h2>Local</h2>
-		<div id="localOnly" class="netcontainer"></div>
-		
-		<h2>Internal LAN</h2>
-		<div id="internalLAN" class="netcontainer"></div>
-		
-		<h2>Listening on all Interfaces</h2>
-		<div id="listeningAll" class="netcontainer"></div>
-		
-		<h2>External</h2>
-		<div id="external" class="netcontainer"></div>
+		<div class="inputcontainer">
+			<label for="portipinput">IP address:</label>
+			<input id="portipinput" type="text" class="input-select">
+			<button class="button" id="startButton" onclick="portScanning()">Start</button>
+			<div id="progressbarconatainer">
+
+			</div>
+		</div>
 
 
 	</div>

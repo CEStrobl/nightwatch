@@ -89,15 +89,19 @@
 
 
 /* Subnet Selector Styling */
-.subnet-container {
+.inputcontainer {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: 20px;
     color: white;
+
+    label{
+        min-width: 120px;
+    }
 }
 
-.subnet-select {
+.input-select {
     background-color: var(--selectbg);
     color: white;
     border:none;
@@ -108,11 +112,11 @@
     transition: all 0.2s ease-in-out;
 }
 
-.subnet-select:hover, .subnet-select:focus {
+.input-select:hover, .input-select:focus {
     background-color: var(--selectbghov);
 }
 
-.subnet-select option{
+.input-select option{
     background-color: rgb(20, 20, 20);
     border:none;
 }
