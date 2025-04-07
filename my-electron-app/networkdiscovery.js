@@ -63,31 +63,10 @@ async function createIpCard(ip, time, status, index) {
 
 }
 
-let progress = 0;
-let bar = 0;
-
-const startButton = document.getElementById("startButton");
-
-function createProgressBar() {
-	let parent = document.getElementById("progressbarconatainer");
-
-	parent.innerHTML=
-	`
-	<p id="progressStatus"></p>
-	<div class="progress-container">
-		<div id="progressStatusBar" class="progress-bar" style="width: 0%"></div>
-	</div>
-	`	
-	progress = document.getElementById("progressStatus");
-	bar = document.getElementById("progressStatusBar");
-}
-
 async function pingHost(ip) {
 	const result = await execute(
 		`try {$ping = ping -n 1 -w 500 ${ip}} catch {$ping = "No Response"} Write-Host $ping`
-	)
-
-	console.log(result)
+	);
 
 	if (result == undefined || result.includes("No Response")) {
 		return { ip, status: "Offline", time: "0ms" };
@@ -107,25 +86,28 @@ let onlineDevices = [];
 
 async function pingSweep(network) {
 
-	logTime("Start");
-
 	onlineDevices = [];
 
-	const ips = Array.from({ length: 254 }, (_, i) => `${network}.${i + 1}`);
+	
+	// Generate IP addresses in the subnet
+	let ips = [];
+	for (let i = 1; i <= 254; i++) {
+		const ip = `${network}.${i}`;
+		ips.push(ip);
+	}
 	const batchSize = 5;
-
-	progress.className += " loading";
 
 	let index = 0;
 
 	for (let i = 0; i < ips.length; i += batchSize) {
-		
-		progress.innerText = `Scanning network ${network}.x ...`;
-		bar.style.width =`${Math.round((i / ips.length) * 100)}%`;
 
-		if(i>0){bar.innerText = i;}
+		let percent = Math.round((i / ips.length) * 100);
+
+		updateProgress(`Scanning network ${network}.x ...`, percent);
+
+		if( i > 0 ) {bar.innerText = i;}
 		
-		// Get the next batch of 15 + Run them in parallel
+		// Get the next batch of x and Run them in parallel
 		const batch = ips.slice(i, i + batchSize); 
 		const results = await Promise.all(batch.map(ip => pingHost(ip))); 
 
@@ -138,16 +120,10 @@ async function pingSweep(network) {
 				index++;
 			}
 		});
-		logTime(`Scanned ${i + batch.length} IPs so far...`);
 	}
 
-	progress.style.display = 'none';
-	bar.style.display = 'none';
+	endProgress();
 
-	console.log(`Scan Complete. Found ${onlineDevices.length} devices. `);
-	logTime("Finish");
-
-	enableButton();
 	return true;
 }
 
@@ -161,28 +137,13 @@ function clearIpCards() {
 	}
 }
 
-function disableButton() {
-	startButton.innerText = "In Progress...";
-	startButton.disabled = true;
-	startButton.style.color = "#ffffff65";
-}
-
-function enableButton(){
-	startButton.innerText = "Start";
-	startButton.disabled = false;
-	startButton.style.color = "#ffffff";
-}
-
-
 async function discover() {
 
-	disableButton()
-
-	const selection = document.getElementById("subnet").value;
-
+	startProgress();
+	
 	clearIpCards();
 
-	createProgressBar();
+	const selection = document.getElementById("subnet").value;
 	
 	pingSweep(selection);
 	

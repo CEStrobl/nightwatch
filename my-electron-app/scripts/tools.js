@@ -491,3 +491,56 @@ function getMainIP(ipList) {
 }
 
 
+// Progress Bar Functions
+let progress = 0;
+let bar = 0;
+
+const startButton = document.getElementById("startButton");
+
+/**
+ * disables the button and sets it to "In Progress..."
+ */
+function createProgressBar() {
+	let parent = document.getElementById("progressbarconatainer");
+
+	parent.innerHTML=
+	`
+	<p id="progressStatus" class="loading"></p>
+	<div class="progress-container">
+		<div id="progressStatusBar" class="progress-bar" style="width: 0%"></div>
+	</div>
+	`	
+	progress = document.getElementById("progressStatus");
+	bar = document.getElementById("progressStatusBar");
+}
+
+function disableButton() {
+	startButton.innerText = "In Progress...";
+	startButton.disabled = true;
+	startButton.style.color = "#ffffff65";
+}
+
+function enableButton(){
+	startButton.innerText = "Start";
+	startButton.disabled = false;
+	startButton.style.color = "#ffffff";
+}
+
+function startProgress() {
+
+	disableButton();
+
+	createProgressBar();
+}
+
+function updateProgress(text, percent) {
+	progress.innerText = text;
+	bar.style.width = `${percent}%`;
+	bar.innerText = percent + "%";
+}
+
+function endProgress() {
+	progress.style.display = 'none';
+	bar.style.display = 'none';
+	enableButton();
+}
