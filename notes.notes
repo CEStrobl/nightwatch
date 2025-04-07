@@ -24,7 +24,7 @@
 
 	[√] OS Info
 	
-	[ ] icon
+	[√] icon
 
 	!================================
 
@@ -103,9 +103,9 @@
 
 	! IMPORTANT =====================
 
-	[ ] ui rework: nmap ahh display
+	[√] ui rework: nmap ahh display
 	
-	[ ] status
+	[√] status
 	// listening, outbound
 
 	!================================

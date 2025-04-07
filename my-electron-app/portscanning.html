@@ -71,17 +71,16 @@
 		<h1>PORT SCANNING</h1>
 
 		<div class="inputcontainer">
-			<label for="portipinput">IP address:</label>
-			<input id="portipinput" type="text" class="input-select">
+			<span>IP address:</span>
+			<div id="ipBox">
+				<input type="text" id="ipInput" autocomplete="off" onkeydown="checkIPEnter(event)">
+			</div>
 			<button class="button" id="startButton" onclick="portScanning()">Start</button>
 			<div id="progressbarconatainer">
-
+				
 			</div>
 		</div>
-
-		
-
-
+		<p id="ipError" class="errorlabel" style="display: none;">Invalid IP address</p>
 	</div>
 
 	

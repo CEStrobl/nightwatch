@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<style>
+	#ipBox {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		margin-top: 20px;
+		font-family: monospace;
+	}
+	
+	#ipBox input {
+		width: 50px;
+		text-align: center;
+		font-size: 20px;
+		background-color: rgba(0, 0, 0, 0.6);
+		border: 2px solid #6bc1ff;
+		border-radius: 8px;
+		color: #e0faff;
+		outline: none;
+		transition: 0.2s;
+	}
+	
+	#ipBox input:focus {
+		border-color: #00fff7;
+		box-shadow: 0 0 8px #00fff7;
+	}
+	
+	#ipError {
+		color: #ff5b5b;
+		font-family: monospace;
+		text-align: center;
+		margin-top: 8px;
+	}
+	
+	body {
+		background: radial-gradient(ellipse at center, #0b0b1f 0%, #000000 100%);
+		color: #e0faff;
+	}
+</style>
+<body>
+	
+	<div id="ipBox">
+	<input type="text" maxlength="3" id="ip1" oninput="onIPInput(this, 'ip2')" onkeydown="onIPKey(this, event, null)">
+	.
+	<input type="text" maxlength="3" id="ip2" oninput="onIPInput(this, 'ip3')" onkeydown="onIPKey(this, event, 'ip1')">
+	.
+	<input type="text" maxlength="3" id="ip3" oninput="onIPInput(this, 'ip4')" onkeydown="onIPKey(this, event, 'ip2')">
+	.
+	<input type="text" maxlength="3" id="ip4" oninput="onIPInput(this, null)" onkeydown="onIPKey(this, event, 'ip3')">
+	</div>
+	
+	<p id="ipError" style="display: none;">Invalid IP address</p>
+</body>
+
+<script>
+	function onIPInput(current, nextId) {
+	var value = current.value;
+	var cleaned = "";
+
+	for (var i = 0; i < value.length; i++) {
+		var ch = value.charAt(i);
+		if (ch >= '0' && ch <= '9') {
+		cleaned += ch;
+		}
+	}
+
+	current.value = cleaned;
+
+	if (cleaned.length === 3 && nextId) {
+		document.getElementById(nextId).focus();
+	}
+	}
+
+	function onIPKey(current, event, prevId) {
+	var key = event.key;
+
+	if (key === "Backspace" && current.value.length === 0 && prevId) {
+		document.getElementById(prevId).focus();
+	}
+
+	if (key === "." || key === "Decimal") {
+		event.preventDefault();
+		var next = current.nextElementSibling;
+		while (next && next.tagName !== "INPUT") {
+		next = next.nextElementSibling;
+		}
+		if (next) {
+		next.focus();
+		}
+	}
+
+	if (key === "Enter") {
+		validateFullIP();
+	}
+	}
+
+	function validateFullIP() {
+	var a = document.getElementById("ip1").value;
+	var b = document.getElementById("ip2").value;
+	var c = document.getElementById("ip3").value;
+	var d = document.getElementById("ip4").value;
+
+	var parts = [a, b, c, d];
+	var retval = false;
+	var allFilled = true;
+
+	for (var i = 0; i < parts.length; i++) {
+		if (parts[i] === "") {
+		allFilled = false;
+		}
+	}
+
+	if (allFilled === true) {
+		var isValid = true;
+
+		for (var j = 0; j < parts.length; j++) {
+		var num = parseInt(parts[j]);
+		if (isNaN(num) || num < 0 || num > 255) {
+			isValid = false;
+		}
+		}
+
+		if (isValid === true) {
+		document.getElementById("ipError").style.display = "none";
+		retval = true;
+		} else {
+		document.getElementById("ipError").style.display = "block";
+		retval = false;
+		}
+	}
+
+	return retval;
+	}
+</script>
+
+</html>

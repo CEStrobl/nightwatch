@@ -151,6 +151,12 @@ body{
 	overflow-x: hidden;
 	scrollbar-color: var(--purple) transparent;
 	scroll-behavior: smooth;
+
+	.errorlabel {
+		margin: 0px;
+		font-size: 16px;
+		color: var(--lightpurple);
+	}
 }
 
 .button {

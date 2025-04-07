@@ -60,3 +60,38 @@ function hideLoading(){
 		loading.style.display = "none";
 	}, 1000)
 }
+
+function checkIPEnter(event) {
+	if (event.key === "Enter") {
+		var input = document.getElementById("ipInput").value;
+		var parts = input.trim().split(".");
+		var isValid = true;
+		var retval = false;
+
+		if (parts.length !== 4) {
+			isValid = false;
+		} else {
+			for (var i = 0; i < parts.length; i++) {
+				var part = parts[i];
+				if (part === "") {
+					isValid = false;
+				} else {
+					var num = parseInt(part);
+					if (isNaN(num) || num < 0 || num > 255) {
+						isValid = false;
+					}
+				}
+			}
+		}
+
+		if (isValid === true) {
+			document.getElementById("ipError").style.display = "none";
+			retval = true;
+		} else {
+			document.getElementById("ipError").style.display = "block";
+			retval = false;
+		}
+
+		return retval;
+	}
+}
