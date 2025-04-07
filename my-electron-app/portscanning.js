@@ -56,7 +56,6 @@ function createPortCard(ip, port, protocol, status) {
 	}
 	statusclass += "portstatus";
 
-	console.log("looking for", "portcontainer"+ip)
 	const parent = document.getElementById("portcontainer"+ip);
 	const card = document.createElement("div");
 
@@ -73,12 +72,14 @@ function createPortCard(ip, port, protocol, status) {
 	parent.appendChild(card);
 }
 
-async function scanPort(ip, port) {
+async function scanPort(ip, port, percent) {
 	const psCommand = `if ((Test-NetConnection -ComputerName ${ip} -Port ${port} -WarningAction SilentlyContinue).TcpTestSucceeded) { Write-Host "Open" } else { Write-Host "Closed" }`;
 
 	const result = await execute(psCommand);
 
 	// console.log(`Scan ${ip}:${port} →`, result);
+
+	updateProgress(`Scanning ${ip}:${port}`, percent);
 
 	return {
 		port,
@@ -116,14 +117,19 @@ async function portScanSingleIP(ip) {
 
 	initContainer(ip);
 
-	for (let port of portsToScan) {
-		const portInfo = await scanPort(ip, port);
+	for (let i = 0; i < portsToScan.length; i++) {
+		const port = portsToScan[i];
+		const percent = Math.round((i / portsToScan.length) * 100);
+
+		const portInfo = await scanPort(ip, port, percent);
 		results.push(portInfo);
 
 		// console.log(`${portInfo.port} ${portInfo.protocol} ${portInfo.status}`);
 
 		createPortCard(ip, portInfo.port, portInfo.protocol, portInfo.status);
 	}
+
+	endProgress();
 
 	return {
 		ip,
@@ -132,9 +138,13 @@ async function portScanSingleIP(ip) {
 }
 
 async function portScanning() {
-	// const ip = document.getElementById("portipinput").value
 
-	const ip = "10.2.0.2"
+	if (validInputIP("Validate")) { 
 
-	portScanSingleIP(ip)
+		startProgress();
+		const ip = document.getElementById("ipInput").value;
+	
+		portScanSingleIP(ip);
+	}
+
 }

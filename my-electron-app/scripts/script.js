@@ -61,8 +61,8 @@ function hideLoading(){
 	}, 1000)
 }
 
-function checkIPEnter(event) {
-	if (event.key === "Enter") {
+function validInputIP(event) {
+	if (event.key === "Enter" || event == "Validate") {
 		var input = document.getElementById("ipInput").value;
 		var parts = input.trim().split(".");
 		var isValid = true;

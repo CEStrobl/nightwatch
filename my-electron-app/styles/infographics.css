@@ -126,6 +126,7 @@
 	input {
 		width: 160px;
 		margin: 5px;
+		font-size: 18px;
 		text-align: center;
 		color: white;
 		background: none;
