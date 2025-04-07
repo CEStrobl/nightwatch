@@ -47,7 +47,7 @@ ipcMain.handle('run-command', async (event, command) => {
 			// Reject the promise if an error occurs
 			if (error) {
 				reject(stderr);
-				console.log("Failed to execute: ", command)
+				// console.log("Failed to execute: ", command)
 			} else {
 				// Resolve the promise with the command output
 				resolve(stdout);
