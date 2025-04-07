@@ -324,11 +324,9 @@ async function initHostInfo() {
 	let ipList = await execute(`(Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -notlike '*Loopback*' }).IPAddress`);
 	ipList+="";
 	ipList = ipList.split("\r\n")
+	console.log(ipList)
 
-	let hostIP = ipList[0];
-
-	// sometimes the first result is 192.168.56.1. i think thats from vbox
-	if(hostIP == "192.168.56.1" && ipList[1] != null) {hostIP = ipList[1]} 
+	let hostIP = getMainIP(ipList);
 
 	hostInfo.innerHTML += `<div class="header-subtext">${hostIP}</div>`;
 

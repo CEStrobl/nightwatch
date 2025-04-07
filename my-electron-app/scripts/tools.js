@@ -451,4 +451,43 @@ function parseUptimeOutput(output) {
 	return uptime;
 }
 
+/**
+ * takes a list of ip addresses and returns the first valid one
+ * @param {array} ipList 
+ * @returns ip address as a string
+ */
+function getMainIP(ipList) {
+	let retVal = "";
+	
+	for (let i = 0; i < ipList.length; i++) {
+		const ip = ipList[i];
+
+		console.log(ip)
+
+		// filter out:
+		// 		169.x.x.x (APIPA)
+		//		127.0.0.1 (localhost)
+		//		192.168.56.1 (virtualbox)
+		//      172.28.x.x (VPN)
+		//	    172.17.x.x (Docker)
+
+		if(	   !ip.startsWith("169.") 
+			&& !ip.startsWith("127.") 
+			&& !ip.startsWith("192.168.56") 
+			&& !ip.startsWith("172.28.") 
+			&& !ip.startsWith("172.17.")) {
+			retVal = ip;
+			console.log(`Found valid IP: ${ip}`)
+			break;
+		}
+	}
+
+	// if there was no valid ip, return the first one
+	if(retVal == "") {
+		retVal = ipList[0];
+	}
+
+	return retVal
+}
+
 
