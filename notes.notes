@@ -1,7 +1,10 @@
 == DASHBOARD =================================================
 
+	[ ] home page content
+
+	[ ] logo
 	
-	[ ] devices detected on x subnet
+	[√] devices detected on x subnet
 	// arp table?
 
 	[√] store js in js
@@ -52,8 +55,6 @@
 
 	[√] Command History
 	// session only
-
-	[ ] Add logo
 	
 	!================================
 
