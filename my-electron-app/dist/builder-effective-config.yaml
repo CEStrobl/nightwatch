@@ -2,7 +2,7 @@ directories:
   output: dist
   buildResources: build
 productName: NightWatch
-artifactName: NightWatch-1.0.0-x64.exe
+artifactName: ${productName}-${version}-x64.exe
 asar: true
 asarUnpack: []
 win:

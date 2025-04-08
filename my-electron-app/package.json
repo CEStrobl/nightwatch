@@ -36,7 +36,7 @@
   },
   "build": {
   "productName": "NightWatch",
-  "artifactName": "NightWatch-${productName}-x64.exe",
+  "artifactName": "${productName}-${version}-x64.exe",
   "asar": true,
   "asarUnpack": [],
   "win": {
