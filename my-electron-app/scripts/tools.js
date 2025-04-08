@@ -521,6 +521,12 @@ function disableButton() {
 	startButton.style.color = "#ffffff65";
 }
 
+function loadingButton() {
+	startButton.innerText = "Loading...";
+	startButton.disabled = true;
+	startButton.style.color = "#ffffff65";
+}
+
 function enableButton(){
 	startButton.innerText = "Start";
 	startButton.disabled = false;
@@ -579,7 +585,5 @@ function parseInterfaceOutput(output) {
 		interfaces.push(iface);
 		loginterface(iface);
 	}
-
-	setinterfacerequest(true);
 	return interfaces;
 }

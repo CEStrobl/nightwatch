@@ -137,13 +137,50 @@ function clearIpCards() {
 	}
 }
 
+function fillNetworkOptions() {
+	const networkselect = document.getElementById("network");
+
+	const storedInterfaces = readinterface();
+	for (let i = 0; i < storedInterfaces.length; i++) {
+		const x = storedInterfaces[i];
+		
+		let ip = x.IPv4Address.split(".").slice(0, 3).join(".");
+
+		if (ip != "N/A" && ip != "0.0.0") {
+			networkselect.innerHTML += `
+			<option value="${ip}">${ip}.x</option>
+			`
+		}
+		
+	}
+
+	enableButton();
+
+}
+
+async function prediscover() {
+
+	loadingButton();
+
+	// if interface has not been requested, then get it + store it
+	if(readinterface().length == 0 || !readinterface()) {
+		const ipconfigresults = await execute(`Get-NetIPConfiguration | Select-Object InterfaceAlias, IPv4Address,interfaceindex, InterfaceDescription | Format-List`);
+		parseInterfaceOutput(ipconfigresults); // stores it also
+	}
+	
+	fillNetworkOptions();
+
+}
+
+prediscover();
+
 async function discover() {
 
 	startProgress();
 	
 	clearIpCards();
 
-	const selection = document.getElementById("subnet").value;
+	const selection = document.getElementById("network").value;
 	
 	pingSweep(selection);
 	

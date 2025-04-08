@@ -99,14 +99,3 @@ function readinterface() {
 
 let interfaceRequest = "interfacerequest";
 initSessionArray(interfaceRequest);
-
-function getinterfacerequest() {
-	const all = getSessionArray(interfaceRequest);
-	return all;
-}
-
-function setinterfacerequest(value) {
-	sessionStorage.setItem(interfaceRequest, JSON.stringify(value));
-}
-
-setinterfacerequest(false);
