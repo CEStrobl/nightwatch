@@ -155,7 +155,13 @@ body{
 	.errorlabel {
 		margin: 0px;
 		font-size: 16px;
-		color: var(--lightpurple);
+		color: var(--slateblue);
+	}
+	
+	#warninglabel {
+		font-size: 14px;
+		font-style: italic;
+		display: none;
 	}
 }
 

@@ -525,12 +525,16 @@ function enableButton(){
 	startButton.disabled = false;
 	startButton.style.color = "#ffffff";
 }
+const warning = document.getElementById("warninglabel");
 
 function startProgress() {
 
 	disableButton();
 
 	createProgressBar();
+
+	warning.style.display = 'block';
+	
 }
 
 function updateProgress(text, percent) {
@@ -543,4 +547,5 @@ function endProgress() {
 	progress.style.display = 'none';
 	bar.style.display = 'none';
 	enableButton();
+	warning.style.display = 'none';
 }

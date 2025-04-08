@@ -1,9 +1,9 @@
 const portProtocols = {
 	// 20: "FTP",
-	21: "FTP",
+	// 21: "FTP",
 	22: "SSH",
 	// 23: "Telnet",
-	25: "SMTP",
+	// 25: "SMTP",
 	// 43: "WHOIS",
 	// 49: "TACACS",
 	53: "DNS",
@@ -14,13 +14,13 @@ const portProtocols = {
 	// 79: "Finger",
 	80: "HTTP",
 	// 88: "Kerberos",
-	110: "POP3",
+	// 110: "POP3",
 	// 119: "NNTP",
 	// 123: "NTP",
 	135: "RPC",
-	143: "IMAP4",
-	161: "SNMP",
-	162: "SNMP",
+	// 143: "IMAP4",
+	// 161: "SNMP",
+	// 162: "SNMP",
 	// 264: "BGMP",
 	// 318: "TSP",
 	389: "LDAP",
@@ -79,8 +79,6 @@ async function scanPort(ip, port, percent) {
 
 	// console.log(`Scan ${ip}:${port} →`, result);
 
-	updateProgress(`Scanning ${ip}:${port}`, percent);
-
 	return {
 		port,
 		protocol: portProtocols[port] || "Unknown",
@@ -120,6 +118,8 @@ async function portScanSingleIP(ip) {
 	for (let i = 0; i < portsToScan.length; i++) {
 		const port = portsToScan[i];
 		const percent = Math.round((i / portsToScan.length) * 100);
+
+		updateProgress(`Scanning ${ip}:${port}`, percent);
 
 		const portInfo = await scanPort(ip, port, percent);
 		results.push(portInfo);

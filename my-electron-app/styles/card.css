@@ -189,6 +189,7 @@ h4 {
 
 	padding: 15px;
 	border-radius: 15px;
+	margin: 10px 0px;
 
 	background-color: var(--portbg);
 	box-shadow: 0px 0px 10px var(--portbg), inset 0 0 20px var(--portbg);
