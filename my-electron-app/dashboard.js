@@ -243,6 +243,10 @@ function buildNetAdapter(adapter) {
 					</td>
 				</tr>
 				<tr>
+					<td>IP Address:</td>
+					<td>${adapter.ip}</td>
+				</tr>
+				<tr>
 					<td>LinkSpeed:</td>
 					<td>${adapter.LinkSpeed}</td>
 				</tr>
@@ -275,6 +279,17 @@ async function getNetAdapterInfo() {
 		adapters[i].vendor = cleanVendor(x.MacAddress);
 
 		adapters[i].icon = findAdapterImg(x.InterfaceDescription);
+
+		// match ip address to adapters
+		const storedInterface = readinterface();
+		for (let o = 0; o < storedInterface.length; o++) {
+			const y = storedInterface[o];
+
+			if (x.ifIndex == y.InterfaceIndex) {
+				adapters[i].ip = y.IPv4Address;
+			}
+			
+		}
 		
 		buildNetAdapter(x)
 	}
@@ -319,16 +334,6 @@ async function initHostInfo() {
 	// Host name
 	const hostname = await execute(`(Get-CimInstance Win32_ComputerSystem).Name`);
 	hostInfo.innerHTML += `<div class="header-title">${hostname}</div>`;
-	
-	// Host IP address
-	let ipList = await execute(`(Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -notlike '*Loopback*' }).IPAddress`);
-	ipList+="";
-	ipList = ipList.split("\r\n")
-	console.log(ipList)
-
-	let hostIP = getMainIP(ipList);
-
-	hostInfo.innerHTML += `<div class="header-subtext">${hostIP}</div>`;
 
 	// Host OS
 	const hostOS = await execute(`(Get-CimInstance Win32_OperatingSystem).Caption`);
@@ -338,6 +343,12 @@ async function initHostInfo() {
 const uptimedisplay = document.getElementById("uptimedisplay");
 
 async function dashboard() {
+
+	// if interface has not been requested, then get it + store it
+	if(!getinterfacerequest()) {
+		const ipconfigresults = await execute(`Get-NetIPConfiguration | Select-Object InterfaceAlias, IPv4Address,interfaceindex, InterfaceDescription | Format-List`);
+		parseInterfaceOutput(ipconfigresults); // stores it also
+	}
 
 	initOui();
 

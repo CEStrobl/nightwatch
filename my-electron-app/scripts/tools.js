@@ -387,7 +387,8 @@ function parseNetAdapterOutput(netAdapterOutput) {
 			ifIndex: "N/A",
 			Status: "N/A",
 			MacAddress: "N/A",
-			LinkSpeed: "N/A"
+			LinkSpeed: "N/A",
+			ip: "0.0.0.0"
 		};
 
 		for (let line of lines) {
@@ -548,4 +549,37 @@ function endProgress() {
 	bar.style.display = 'none';
 	enableButton();
 	warning.style.display = 'none';
+}
+
+
+function parseInterfaceOutput(output) {
+	output += "";
+	const interfaces = [];
+
+	const blocks = output.split(/\n(?=InterfaceAlias\s+:)/);
+
+	for (let block of blocks) {
+		const iface = {
+			InterfaceAlias: "N/A",
+			IPv4Address: "N/A",
+			InterfaceIndex: "N/A",
+			InterfaceDescription: "N/A"
+		};
+
+		block.trim().split("\n").forEach(line => {
+			const parts = line.split(":");
+			const key = parts[0].replace(/\s+/g, "");
+			const value = parts.slice(1).join(":").trim().replace(/[{}]/g, ""); // remove braces
+
+			if (iface.hasOwnProperty(key)) {
+				iface[key] = value;
+			}
+		});
+
+		interfaces.push(iface);
+		loginterface(iface);
+	}
+
+	setinterfacerequest(true);
+	return interfaces;
 }

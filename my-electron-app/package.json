@@ -1,8 +1,8 @@
 {
   "name": "my-electron-app",
   "productName": "NightWatch",
-  "version": "1.0.0",
-  "description": "Charlotte's network analysis tool for the CSU senior project",
+  "version": "1.0.1",
+  "description": "NightWatch",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -36,7 +36,7 @@
   },
   "build": {
   "productName": "NightWatch",
-  "artifactName": "NightWatch-1.0.0-x64.exe",
+  "artifactName": "NightWatch-${productName}-x64.exe",
   "asar": true,
   "asarUnpack": [],
   "win": {

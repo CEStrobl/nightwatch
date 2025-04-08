@@ -80,3 +80,33 @@ function updateComDisplay() {
 }
 
 updateComDisplay()
+
+
+
+
+const ipconfigkey = "ipconfiginfo";
+
+initSessionArray(ipconfigkey);
+
+function loginterface(record) {
+	addToSessionArray(record,ipconfigkey);
+}
+
+function readinterface() {
+	const all = getSessionArray(ipconfigkey);
+	return all;
+}
+
+let interfaceRequest = "interfacerequest";
+initSessionArray(interfaceRequest);
+
+function getinterfacerequest() {
+	const all = getSessionArray(interfaceRequest);
+	return all;
+}
+
+function setinterfacerequest(value) {
+	sessionStorage.setItem(interfaceRequest, JSON.stringify(value));
+}
+
+setinterfacerequest(false);
