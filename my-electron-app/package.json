@@ -35,13 +35,14 @@
     "electron-squirrel-startup": "^1.0.1"
   },
   "build": {
-  "productName": "NightWatch",
-  "artifactName": "${productName}-${version}-x64.exe",
-  "asar": true,
-  "asarUnpack": [],
-  "win": {
-    "target": ["nsis"],
-    "forceCodeSigning": false
+    "productName": "NightWatch",
+    "artifactName": "${productName}-${version}-x64.exe",
+    "asar": true,
+    "asarUnpack": [],
+    "win": {
+      "target": ["nsis"],
+      "forceCodeSigning": false,
+      "icon": "img/logo2a.ico"
+    }
   }
-}
 }

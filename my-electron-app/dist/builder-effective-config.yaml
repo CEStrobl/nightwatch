@@ -9,5 +9,6 @@ win:
   target:
     - nsis
   forceCodeSigning: false
+  icon: img/logo2a.ico
 files: []
 electronVersion: 32.1.2
