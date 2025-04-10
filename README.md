@@ -1,34 +1,66 @@
 # 🌙 NightWatch
 
-**NightWatch** is a lightweight network analysis desktop application built with JavaScript and PowerShell, designed for local diagnostics and discovery without requiring elevated permissions or heavy system access.
+A streamlined, security-focused desktop application for network diagnostics and system awareness. Built to help system administrators and cybersecurity learners, it provides **system information**, **network discovery**, and **port scanning**—wrapped in a clean, visual interface.
+
+Designed using safe scripting and built for usability, Night Watch makes essential insights easy to access, understand, and act on—without requiring advanced expertise.
 
 ---
+
+## 🌟 How to get started
+
+1. 📄Download the exe file (e.g. NightWatch-1.0.0-x64.exe)
+2. 🖥️Double click and follow the setup menu
+3. 🌙Once complete, the program will load automatically
+4. ✨Enjoy! :D 
+
+---
+
+# 💫 About the Product
 
 ## ✨ Features
 
 - **🖥️ System Info**
-  - Uptime, hostname, OS version, drive and network adapter information
+  - **System Name & IP**: Identify the host clearly
+  - **Disk Usage**: View total and available space plus disk health
+  - **Network Adapters**: See what networks you're connected to
+  - **OS Version**: Know what environment you're running
 - **🔭 Network Discovery**
-  - Scan local network via ping sweep
-  - Identify devices by hostname, IP, ping time, and MAC address
+  - **Active Devices**: Discover IPs active in the local network
+  - **Hostnames**: Match device names with their IPs (when available)
+  - **MAC Address**: Identify a device even without a hostname
+  - **Ping Times**: See the latency between your device and the target
 - **🪐 Port Scanner**
-  - Check open or closed ports on local or remote devices
+  - **Port Status**: Quickly assess which ports are open or closed
+  - **Common Ports**: Targets common ports like SSH, RDP, HTTP, and more
+  - **Visual Grid**: Interact with results through an intuitive visual layout
+
+---
+
+## 🌠 Motivation
+
+NightWatch was created to bridge the gap between novice users and professional-grade tools. With a fun space-themed interface and a focus on visual learning, it empowers users to:
+- Understand their systems better
+- Detect and avoid issues early
+- Build confidence in diagnostics and networking
 
 ---
 
 ## 🛠️ Technologies Used
 
-- **JavaScript** (frontend logic and UI)
-- **PowerShell** (system data and network commands)
-- **Electron with Node.js integration** (desktop application)
-- **HTML/CSS** (with a space-themed UI)
+| Tech           | Purpose                                   |
+|----------------|-------------------------------------------|
+| **Electron**   | Cross-platform desktop app framework      |
+| **Node.js**    | Backend logic and PowerShell integration  |
+| **Jvascript**  | Back end Powershell output processing     |
+| **PowerShell** | Executes diagnostic commands              |
+| **HTML/CSS**   | Front-end layout and interactivity        |
 
 ---
 
-## ✅ Requirements
+## 🔐 Security & Privacy
 
-- Windows OS
-- PowerShell 5.1 or later
-- Local network access
+- **No elevated privilege** required
+- **No personal or sensitive data** is collected
+- Commands are tracked by session for **auditability**
 
 ---
