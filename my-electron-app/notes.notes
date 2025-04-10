@@ -1,8 +1,8 @@
 == DASHBOARD =================================================
 
-	[ ] home page content
+	[√] home page content
 
-	[ ] logo
+	[√] logo
 	
 	[√] devices detected on x subnet
 	// arp table?
