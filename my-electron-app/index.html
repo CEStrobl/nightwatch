@@ -70,9 +70,79 @@
 	<div class="container">
 		<h1>HOME</h1>
 
-		<p>Welcome to NightWatch</p>
-		<p>Get instant insights into your system status, running services, and local network activity — all in one place. View connected drives, discover nearby devices, monitor open ports, and check uptime at a glance. No installations, no elevated permissions — just powerful tools, built for visibility.</p>
-		<p>Select a feature to get started.</p>
+		<p>
+			Welcome to Night Watch - Your command center for system and network diagnostics. Get instant visibility, stay ahead of problems, and keep your digital space secure.
+			<br>
+			<br>
+			Use the side panel to switch between tools. Each section provides real-time feedback and visual insights. 
+		</p>
+
+		<div id="featureContainer">
+
+			<!-- System Info -->
+			<div class="feature-card feature-system">
+				<div class="feature-header">
+				<div>
+					<h1>System Info</h1>
+					<p class="tagline">Key details about your machine, all in one place.</p>
+				</div>
+				</div>
+				<div class="feature-body">
+				<ul>
+					<li> <strong>System Name & IP</strong>: Identify the host clearly</li>
+					<li> <strong>Disk Usage</strong>: View total and available space plus disk health</li>
+					<li> <strong>Network Adapters</strong>: See what networks you're connected to</li>
+					<li> <strong>OS Version</strong>: Know what environment you're running</li>
+				</ul>
+				<a href="sysinfo.html">
+					<button class="feature-button system-btn">View System Info</button>
+				</a>
+					
+				</div>
+			</div>
+			
+			<!-- Network Discovery -->
+			<div class="feature-card feature-network">
+				<div class="feature-header">
+				<div>
+					<h1>Network Discovery</h1>
+					<p class="tagline">Uncover active devices on your network.</p>
+				</div>
+				</div>
+				<div class="feature-body">
+				<ul>
+					<li><strong>Active Devices</strong>: Discover IPs active in the local network</li>
+					<li><strong>Hostnames</strong>: Match device names with their IPs (when available)</li>
+					<li><strong>MAC Address</strong>: Identify a device even without a hostname</li>
+					<li><strong>Ping Times</strong>: See the latency between your device and the target</li>
+				</ul>
+				<a href="networkdiscovery.html">
+					<button class="feature-button network-btn">Start Discovery</button>
+				</a>
+				</div>
+			</div>
+			
+			<!-- Port Scanning -->
+			<div class="feature-card feature-ports">
+				<div class="feature-header">
+				<div>
+					<h1>Port Scanning</h1>
+					<p class="tagline">Scan, visualize, and assess port activity</p>
+				</div>
+				</div>
+				<div class="feature-body">
+				<ul>
+					<li><strong>Port Status</strong>: Quickly assess which ports are open or closed</li>
+					<li><strong>Common Ports</strong>: Targets common ports like SSH, RDP, HTTP, and more</li>
+					<li><strong>Visual Grid</strong>: Interact with results through an intuitive visual layout</li>
+				</ul>
+				<a href="portscanning.html">
+					<button class="feature-button ports-btn">Start Scan</button>
+				</a>
+				</div>
+			</div>
+			
+		</div>
 
 	</div>
 

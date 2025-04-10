@@ -1,139 +1,328 @@
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link
-			rel="preconnect"
-			href="https://fonts.gstatic.com"
-			crossorigin=""
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&amp;display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;display=swap"
-			rel="stylesheet"
-		/>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link
+		rel="preconnect"
+		href="https://fonts.gstatic.com"
+		crossorigin=""
+	/>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&amp;display=swap"
+		rel="stylesheet"
+	/>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;display=swap"
+		rel="stylesheet"
+	/>
 
-		<link rel="stylesheet" href="styles/style.css" />
-		<link rel="stylesheet" href="styles/side-nav.css" />
-		<link rel="stylesheet" href="styles/card.css" />
-		<link rel="stylesheet" href="styles/stars.css" />
+	<link rel="stylesheet" href="styles/style.css" />
+	<link rel="stylesheet" href="styles/side-nav.css" />
+	<link rel="stylesheet" href="styles/card.css" />
+	<link rel="stylesheet" href="styles/stars.css" />
 
-		<title>NightWatch</title>
-	</head>
-	<body>
-		<div class="logcontainer" id="commandhistory">
-			<div class="popupcard">
-				<div class="loghead">
-					<h1>Command History</h1>
-					<div class="button" onclick="hidecommandhistory()">X</div>
+	<title>NightWatch</title>
+</head>
+<style>
+#featureContainer{
+	display:flex;
+	flex-wrap: wrap;
+    flex-direction: row;
+	width: 100%;
+}
+/* === FEATURE CARD BASE === */
+.feature-card {
+  background: var(--cardbg);
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  max-width: 460px;
+  width: 100%;
+  margin: 10px;
+  box-shadow: 0 0 20px rgba(126, 87, 190, 0.14), inset 0 0 40px rgba(126, 87, 190, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header section w/ color */
+.feature-header {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 24px;
+	color: white;
+}
+
+.feature-card h1 {
+	font-family: "Rajdhani", system-ui, sans-serif;
+	font-size: 26px;
+	font-weight: 700;
+  margin: 0;
+}
+
+.feature-card .tagline {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin: 4px 0 0;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  user-select: none;
+}
+
+.feature-body {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.feature-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.feature-body li {
+  font-size: 14px;
+  margin-bottom: 6px;
+  padding-left: 18px;
+  position: relative;
+}
+
+.feature-body li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--lightblue);
+}
+
+/* Call to Action Button */
+.feature-button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  background-color: var(--buttonfill);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.feature-button:hover {
+  background-color: var(--buttonhov);
+  transform: translateY(-2px);
+}
+
+/* === Feature-Specific Themes === */
+.feature-system .feature-header {
+  background: linear-gradient(135deg, var(--indigo), var(--slateblue));
+}
+.system-btn {
+  background-color: var(--slateblue);
+}
+.system-btn:hover {
+  background-color: #7ea3cc;
+}
+
+.feature-network .feature-header {
+  background: linear-gradient(135deg, var(--blue), var(--green));
+}
+.network-btn {
+  background-color: var(--green);
+}
+.network-btn:hover {
+  background-color: #70d3b0;
+}
+
+.feature-ports .feature-header {
+  background: linear-gradient(135deg, var(--purple), var(--lightpurple));
+}
+.ports-btn {
+  background-color: var(--lightpurple);
+}
+.ports-btn:hover {
+  background-color: #8b78b4;
+}
+
+
+</style>
+<body>
+	<div class="logcontainer" id="commandhistory">
+		<div class="popupcard">
+			<div class="loghead">
+				<h1>Command History</h1>
+				<div class="button" onclick="hidecommandhistory()">X</div>
+			</div>
+			<table class="commandlist">
+					<tr>
+						<td>09:56:02</td>
+						<td>
+							(Get-NetIPAddress -AddressFamily IPv4 |
+							Where-Object { $_.InterfaceAlias -notlike
+							'*Loopback*' }).IPAddress
+						</td>
+					</tr>
+
+					<tr>
+						<td>09:56:03</td>
+						<td>
+							(Get-CimInstance Win32_OperatingSystem).Caption
+						</td>
+					</tr>
+
+					<tr>
+						<td>09:56:24</td>
+						<td>Get-NetTCPConnection</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="twinkle-layer"></div>
+
+	<div class="side-nav">
+		<div class="top">
+			<h1 id="logo">
+				<span style="font-weight: 600">night</span>
+				<span>watch</span>
+			</h1>
+		</div>
+
+		<div class="mid">
+			<a href="index.html">
+				<img src="img/home1.png" alt="" />
+				Home</a
+			>
+			<a href="sysinfo.html">
+				<img src="img/monitor2.png" alt="" />
+				System Information</a
+			>
+			<a href="networkdiscovery.html">
+				<img src="img/telescope.png" alt="" />
+				Network Discovery</a
+			>
+			<a href="portscanning.html">
+				<img src="img/scan2.png" alt="" />
+				Port Scanning</a
+			>
+		</div>
+
+		<div class="bottom">
+			<a class="button" onclick="showcommandhistory()"
+				>View Command History</a
+			>
+		</div>
+	</div>
+
+	<div class="container">
+		<h1>PORT SCANNING</h1>
+
+		<div id="featureContainer">
+
+			<!-- System Info -->
+			<div class="feature-card feature-system">
+				<div class="feature-header">
+				<div>
+					<h1>System Info</h1>
+					<p class="tagline">Live snapshot of your machine and hardware.</p>
 				</div>
-				<table class="commandlist">
-						<tr>
-							<td>09:56:02</td>
-							<td>
-								(Get-NetIPAddress -AddressFamily IPv4 |
-								Where-Object { $_.InterfaceAlias -notlike
-								'*Loopback*' }).IPAddress
-							</td>
-						</tr>
-
-						<tr>
-							<td>09:56:03</td>
-							<td>
-								(Get-CimInstance Win32_OperatingSystem).Caption
-							</td>
-						</tr>
-
-						<tr>
-							<td>09:56:24</td>
-							<td>Get-NetTCPConnection</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="twinkle-layer"></div>
-
-		<div class="side-nav">
-			<div class="top">
-				<h1 id="logo">
-					<span style="font-weight: 600">night</span>
-					<span>watch</span>
-				</h1>
-			</div>
-
-			<div class="mid">
-				<a href="index.html">
-					<img src="img/home1.png" alt="" />
-					Home</a
-				>
-				<a href="sysinfo.html">
-					<img src="img/monitor2.png" alt="" />
-					System Information</a
-				>
-				<a href="networkdiscovery.html">
-					<img src="img/telescope.png" alt="" />
-					Network Discovery</a
-				>
-				<a href="portscanning.html">
-					<img src="img/scan2.png" alt="" />
-					Port Scanning</a
-				>
-			</div>
-
-			<div class="bottom">
-				<a class="button" onclick="showcommandhistory()"
-					>View Command History</a
-				>
-			</div>
-		</div>
-
-		<div class="container">
-			<h1>PORT SCANNING</h1>
-
-			<div class="deviceports">
-
-				<h2>10.0.0.53</h2>
-
-				<div class="divline"></div>
-	
-				<div class="netcontainer">
-					<div class="portblock openportstatus">
-						<h1>22/TCP</h1>
-						<h2>SSH</h2>
-						<div class="portstatus">OPEN</div>
-					</div>
-					<div class="portblock closedportstatus">
-						<h1>23/TCP</h1>
-						<h2>Telnet</h2>
-						<div class="portstatus">CLOSED</div>
-					</div>
-					<div class="portblock filteredportstatus">
-						<h1>80/TCP</h1>
-						<h2>HTTPS</h2>
-						<div class="portstatus">FILTERED</div>
-					</div>
-					<div class="portblock waitingportstatus">
-						<h1>54364/TCP</h1>
-						<h2>-</h2>
-						<div class="portstatus">WAITING</div>
-					</div>
 				</div>
-
+				<div class="feature-body">
+				<ul>
+					<li>Auto-detect host name & OS</li>
+					<li>Network adapters: IP, MAC, Link Speed, Status</li>
+					<li>Disks: Capacity, File System, Health, Letter</li>
+					<li>Uptime counter included</li>
+				</ul>
+				<button class="feature-button system-btn">View System Info</button>
+				</div>
 			</div>
+			
+			<!-- Network Discovery -->
+			<div class="feature-card feature-network">
+				<div class="feature-header">
+				<div>
+					<h1>Network Discovery</h1>
+					<p class="tagline">Find every device in your local subnet.</p>
+				</div>
+				</div>
+				<div class="feature-body">
+				<ul>
+					<li>Auto-selects adapter network</li>
+					<li>Ping sweep for live devices</li>
+					<li>Displays IP, MAC, ping time, and vendor</li>
+				</ul>
+				<button class="feature-button network-btn">Start Scanning</button>
+				</div>
+			</div>
+			
+			<!-- Port Scanning -->
+			<div class="feature-card feature-ports">
+				<div class="feature-header">
+				<div>
+					<h1>Port Scanning</h1>
+					<p class="tagline">Reveal open ports fast with no bloat.</p>
+				</div>
+				</div>
+				<div class="feature-body">
+				<ul>
+					<li>Target any IP address manually</li>
+					<li>Scans common port set</li>
+					<li>Returns open, closed, filtered status</li>
+				</ul>
+				<button class="feature-button ports-btn">Run Port Scan</button>
+				</div>
+			</div>
+			
+			</div>
+			
+			
+			
+
+		<div class="deviceports">
+
+			<h2>10.0.0.53</h2>
+
+			<div class="divline"></div>
+
+			<div class="netcontainer">
+				<div class="portblock openportstatus">
+					<h1>22/TCP</h1>
+					<h2>SSH</h2>
+					<div class="portstatus">OPEN</div>
+				</div>
+				<div class="portblock closedportstatus">
+					<h1>23/TCP</h1>
+					<h2>Telnet</h2>
+					<div class="portstatus">CLOSED</div>
+				</div>
+				<div class="portblock filteredportstatus">
+					<h1>80/TCP</h1>
+					<h2>HTTPS</h2>
+					<div class="portstatus">FILTERED</div>
+				</div>
+				<div class="portblock waitingportstatus">
+					<h1>54364/TCP</h1>
+					<h2>-</h2>
+					<div class="portstatus">WAITING</div>
+				</div>
+			</div>
+
 		</div>
+	</div>
 
-		<script src="scripts/tools.js"></script>
-		<script src="scripts/session.js"></script>
-		<script src="renderer.js"></script>
-		<script src="portscanning.js"></script>
+	<script src="scripts/tools.js"></script>
+	<script src="scripts/session.js"></script>
+	<script src="renderer.js"></script>
+	<script src="portscanning.js"></script>
 
-		<!-- HTML/CSS Scripts -->
-		<script src="scripts/script.js"></script>
-	</body>
+	<!-- HTML/CSS Scripts -->
+	<script src="scripts/script.js"></script>
+</body>
 </html>
