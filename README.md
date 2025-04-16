@@ -4,8 +4,6 @@ A streamlined, security-focused desktop application for network diagnostics and 
 
 Designed using safe scripting and built for usability, Night Watch makes essential insights easy to access, understand, and act on—without requiring advanced expertise.
 
----
-
 ## 🌟 How to get started
 
 1. 📄Download the exe file (e.g. NightWatch-1.0.0-x64.exe)
@@ -13,7 +11,6 @@ Designed using safe scripting and built for usability, Night Watch makes essenti
 3. 🌙Once complete, the program will load automatically
 4. ✨Enjoy! :D 
 
----
 
 ## ✨ Features
 
@@ -32,7 +29,6 @@ Designed using safe scripting and built for usability, Night Watch makes essenti
   - **Common Ports**: Targets common ports like SSH, RDP, HTTP, and more
   - **Visual Grid**: Interact with results through an intuitive visual layout
 
----
 
 ## 🌠 Motivation
 
@@ -41,7 +37,6 @@ NightWatch was created to bridge the gap between novice users and professional-g
 - Detect and avoid issues early
 - Build confidence in diagnostics and networking
 
----
 
 ## 🛠️ Technologies Used
 
@@ -53,7 +48,6 @@ NightWatch was created to bridge the gap between novice users and professional-g
 | **PowerShell** | Executes diagnostic commands              |
 | **HTML/CSS**   | Front-end layout and interactivity        |
 
----
 
 ## 🔐 Security & Privacy
 
@@ -61,4 +55,3 @@ NightWatch was created to bridge the gap between novice users and professional-g
 - **No personal or sensitive data** is collected
 - Commands are tracked by session for **auditability**
 
----
