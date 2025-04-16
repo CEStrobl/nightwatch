@@ -15,8 +15,6 @@ Designed using safe scripting and built for usability, Night Watch makes essenti
 
 ---
 
-# 💫 About the Product
-
 ## ✨ Features
 
 - **🖥️ System Info**
@@ -51,7 +49,7 @@ NightWatch was created to bridge the gap between novice users and professional-g
 |----------------|-------------------------------------------|
 | **Electron**   | Cross-platform desktop app framework      |
 | **Node.js**    | Backend logic and PowerShell integration  |
-| **Jvascript**  | Back end Powershell output processing     |
+| **JavaScript** | Back end Powershell output processing     |
 | **PowerShell** | Executes diagnostic commands              |
 | **HTML/CSS**   | Front-end layout and interactivity        |
 
