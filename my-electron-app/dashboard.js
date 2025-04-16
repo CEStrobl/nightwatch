@@ -345,7 +345,7 @@ const uptimedisplay = document.getElementById("uptimedisplay");
 async function dashboard() {
 
 	// if interface has not been requested, then get it + store it
-	if(!readinterface()) {
+	if(readinterface().length == 0 || !readinterface()) {
 		const ipconfigresults = await execute(`Get-NetIPConfiguration | Select-Object InterfaceAlias, IPv4Address,interfaceindex, InterfaceDescription | Format-List`);
 		parseInterfaceOutput(ipconfigresults); // stores it also
 	}

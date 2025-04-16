@@ -84,6 +84,8 @@ async function pingHost(ip) {
 
 let onlineDevices = [];
 
+let range = 50;
+
 async function pingSweep(network) {
 
 	onlineDevices = [];
@@ -91,7 +93,7 @@ async function pingSweep(network) {
 	
 	// Generate IP addresses in the subnet
 	let ips = [];
-	for (let i = 1; i <= 254; i++) {
+	for (let i = 1; i <= range; i++) {
 		const ip = `${network}.${i}`;
 		ips.push(ip);
 	}
